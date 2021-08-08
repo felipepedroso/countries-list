@@ -11,7 +11,7 @@ class CityViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(city: City) {
-        binding.titleTextView.text = "$(city.name) (${city.countryCode})"
+        binding.titleTextView.text = "${city.name} (${city.countryCode})"
         binding.coordinatesTextView.text =
             "${city.coordinates.latitude}, ${city.coordinates.longitude}"
     }
