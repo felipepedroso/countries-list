@@ -3,12 +3,13 @@ package br.pedroso.citieslist.features.citiessearch
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.pedroso.citieslist.domain.repository.CitiesRepository
+import br.pedroso.citieslist.features.citiessearch.CitiesSearchViewEvent.ClickedOnCity
+import br.pedroso.citieslist.features.citiessearch.CitiesSearchViewEvent.SearchQueryChanged
+import br.pedroso.citieslist.features.citiessearch.CitiesSearchViewModelEvent.NavigateToMapScreen
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchViewState.DisplayCitiesList
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchViewState.Empty
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchViewState.Error
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchViewState.Loading
-import br.pedroso.citieslist.features.citiessearch.CitiesSearchViewEvent.ClickedOnCity
-import br.pedroso.citieslist.features.citiessearch.CitiesSearchViewEvent.SearchQueryChanged
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -56,8 +57,10 @@ class CitiesSearchViewModel(
     }
 
     fun onViewEvent(viewEvent: CitiesSearchViewEvent) {
-        when(viewEvent) {
-            is ClickedOnCity -> TODO()
+        when (viewEvent) {
+            is ClickedOnCity -> viewModelScope.launch {
+                viewModelEventChannel.send(NavigateToMapScreen(viewEvent.city))
+            }
             is SearchQueryChanged -> queryStateFlow.value = viewEvent.newQuery
         }
     }
