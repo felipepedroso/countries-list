@@ -1,4 +1,4 @@
-package br.pedroso.countrieslist.domain.entities
+package br.pedroso.citieslist.domain.entities
 
 data class City(
     val name: String,

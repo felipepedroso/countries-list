@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/citiesSearchFragment"
-        android:name="br.pedroso.countrieslist.features.citiessearch.CitiesSearchFragment"
+        android:name="br.pedroso.citieslist.features.citiessearch.CitiesSearchFragment"
         android:label="CitiesSearchFragment"
         tools:layout="@layout/fragment_cities_search" />
 

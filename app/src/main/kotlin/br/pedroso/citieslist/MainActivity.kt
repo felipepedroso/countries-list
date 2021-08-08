@@ -1,4 +1,4 @@
-package br.pedroso.countrieslist
+package br.pedroso.citieslist
 
 import androidx.appcompat.app.AppCompatActivity
 
