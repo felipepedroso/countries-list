@@ -7,6 +7,8 @@ import br.pedroso.citieslist.features.citiessearch.CitiesSearchViewState.Display
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchViewState.Empty
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchViewState.Error
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchViewState.Loading
+import br.pedroso.citieslist.features.citiessearch.CitiesSearchViewEvent.ClickedOnCity
+import br.pedroso.citieslist.features.citiessearch.CitiesSearchViewEvent.SearchQueryChanged
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -54,6 +56,9 @@ class CitiesSearchViewModel(
     }
 
     fun onViewEvent(viewEvent: CitiesSearchViewEvent) {
-
+        when(viewEvent) {
+            is ClickedOnCity -> TODO()
+            is SearchQueryChanged -> queryStateFlow.value = viewEvent.newQuery
+        }
     }
 }
