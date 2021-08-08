@@ -75,7 +75,7 @@ class CitiesSearchViewModelTest {
     }
 
     @Test
-    fun `given repository returns when screen is created then view must display the cities list`() {
+    fun `given repository returns a list of cities when screen is created then view must display the same list`() {
         val viewModel = CitiesSearchViewModel(AlwaysSuccessfulFakeCitiesRepository())
 
         viewModel.onViewEvent(SearchQueryChanged(fixture()))
