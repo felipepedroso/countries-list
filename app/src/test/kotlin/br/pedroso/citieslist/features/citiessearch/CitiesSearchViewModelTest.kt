@@ -2,6 +2,7 @@ package br.pedroso.citieslist.features.citiessearch
 
 import br.pedroso.citieslist.domain.entities.City
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchViewEvent.ClickedOnCity
+import br.pedroso.citieslist.features.citiessearch.CitiesSearchViewEvent.ClickedOnRetry
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchViewEvent.SearchQueryChanged
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchViewModelEvent.NavigateToMapScreen
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchViewState.DisplayCitiesList
@@ -139,4 +140,46 @@ class CitiesSearchViewModelTest {
 
             assertThat(event.cityToFocus).isEqualTo(city)
         }
+
+    @Test
+    fun `given repository call is hanging when user clicked on retry then view must display the loading state`() {
+        val viewModel = CitiesSearchViewModel(AlwaysSuccessfulFakeCitiesRepository())
+
+        testCoroutineDispatcher.pauseDispatcher()
+
+        viewModel.onViewEvent(ClickedOnRetry)
+
+        assertThat(viewModel.viewStateFlow.value).isEqualTo(Loading)
+    }
+
+    @Test
+    fun `given repository returns an empty list of cities when user clicked on retry then view must display the empty state`() {
+        val viewModel = CitiesSearchViewModel(AlwaysEmptyFakeCitiesRepository())
+
+        viewModel.onViewEvent(ClickedOnRetry)
+
+        assertThat(viewModel.viewStateFlow.value).isEqualTo(Empty)
+    }
+
+    @Test
+    fun `given repository throws an exception when user clicked on retry then view must display the error state`() {
+        val viewModel = CitiesSearchViewModel(AlwaysThrowingExceptionFakeCitiesRepository())
+
+        viewModel.onViewEvent(ClickedOnRetry)
+
+        val state = viewModel.viewStateFlow.value as Error
+
+        assertThat(state.error).isEqualTo(AlwaysThrowingExceptionFakeCitiesRepository.EXCEPTION)
+    }
+
+    @Test
+    fun `given repository returns a list of cities when user clicked on retry then view must display the same list`() {
+        val viewModel = CitiesSearchViewModel(AlwaysSuccessfulFakeCitiesRepository())
+
+        viewModel.onViewEvent(ClickedOnRetry)
+
+        val state = viewModel.viewStateFlow.value as DisplayCitiesList
+
+        assertThat(state.cities).isEqualTo(AlwaysSuccessfulFakeCitiesRepository.CITIES_LIST)
+    }
 }

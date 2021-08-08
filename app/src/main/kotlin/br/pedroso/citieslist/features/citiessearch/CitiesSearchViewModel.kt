@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.pedroso.citieslist.domain.repository.CitiesRepository
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchViewEvent.ClickedOnCity
+import br.pedroso.citieslist.features.citiessearch.CitiesSearchViewEvent.ClickedOnRetry
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchViewEvent.SearchQueryChanged
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchViewModelEvent.NavigateToMapScreen
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchViewState.DisplayCitiesList
@@ -65,6 +66,7 @@ class CitiesSearchViewModel @Inject constructor(
                 viewModelEventChannel.send(NavigateToMapScreen(viewEvent.city))
             }
             is SearchQueryChanged -> queryStateFlow.value = viewEvent.newQuery
+            ClickedOnRetry -> loadCitiesList(queryStateFlow.value)
         }
     }
 }

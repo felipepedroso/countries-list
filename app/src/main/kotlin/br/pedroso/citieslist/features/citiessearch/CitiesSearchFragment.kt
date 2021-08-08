@@ -13,6 +13,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import br.pedroso.citieslist.databinding.FragmentCitiesSearchBinding
+import br.pedroso.citieslist.features.citiessearch.CitiesSearchViewEvent.ClickedOnRetry
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchViewState.DisplayCitiesList
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchViewState.Empty
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchViewState.Error
@@ -42,7 +43,14 @@ class CitiesSearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupCitiesList()
+        setupRetryButton()
         observeViewState()
+    }
+
+    private fun setupRetryButton() {
+        binding.errorStateLayout.retryButton.setOnClickListener {
+            viewModel.onViewEvent(ClickedOnRetry)
+        }
     }
 
     private fun setupCitiesList() = with(binding.citiesRecyclerView) {
