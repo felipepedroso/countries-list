@@ -10,9 +10,11 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import br.pedroso.citieslist.databinding.FragmentCitiesSearchBinding
+import br.pedroso.citieslist.features.citiessearch.CitiesSearchViewModelEvent.NavigateToMapScreen
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchViewEvent.ClickedOnRetry
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchViewState.DisplayCitiesList
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchViewState.Empty
@@ -45,6 +47,23 @@ class CitiesSearchFragment : Fragment() {
         setupCitiesList()
         setupRetryButton()
         observeViewState()
+        observeViewModelEvents()
+    }
+
+    private fun observeViewModelEvents() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.viewModelEventFlow.collect { event -> handleViewModelEvent(event) }
+            }
+        }
+    }
+
+    private fun handleViewModelEvent(event: CitiesSearchViewModelEvent) {
+        when (event) {
+            is NavigateToMapScreen -> findNavController().navigate(
+                CitiesSearchFragmentDirections.openCityMapFragment(event.cityToFocus)
+            )
+        }
     }
 
     private fun setupRetryButton() {
@@ -54,7 +73,9 @@ class CitiesSearchFragment : Fragment() {
     }
 
     private fun setupCitiesList() = with(binding.citiesRecyclerView) {
-        adapter = CitiesAdapter()
+        adapter = CitiesAdapter(cityOnClickListener = { city ->
+            viewModel.onViewEvent(CitiesSearchViewEvent.ClickedOnCity(city))
+        })
         addItemDecoration(DividerItemDecoration(requireContext(), RecyclerView.VERTICAL))
     }
 

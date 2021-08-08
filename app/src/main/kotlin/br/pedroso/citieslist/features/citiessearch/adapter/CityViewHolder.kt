@@ -7,20 +7,25 @@ import br.pedroso.citieslist.databinding.ItemCityBinding
 import br.pedroso.citieslist.domain.entities.City
 
 class CityViewHolder(
-    private val binding: ItemCityBinding
+    private val binding: ItemCityBinding,
+    private val cityOnClickListener: CityOnClickListener
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(city: City) {
         binding.titleTextView.text = "${city.name} (${city.countryCode})"
         binding.coordinatesTextView.text =
             "${city.coordinates.latitude}, ${city.coordinates.longitude}"
+
+        binding.root.setOnClickListener {
+            cityOnClickListener.clickedOnCity(city)
+        }
     }
 
     companion object {
-        fun create(parent: ViewGroup): CityViewHolder {
+        fun create(parent: ViewGroup, cityOnClickListener: CityOnClickListener): CityViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
             val binding = ItemCityBinding.inflate(layoutInflater, parent, false)
-            return CityViewHolder(binding)
+            return CityViewHolder(binding, cityOnClickListener)
         }
     }
 }

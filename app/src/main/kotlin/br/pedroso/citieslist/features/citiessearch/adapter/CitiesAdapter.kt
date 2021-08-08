@@ -4,9 +4,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import br.pedroso.citieslist.domain.entities.City
 
-class CitiesAdapter : ListAdapter<City, CityViewHolder>(CityItemDiffCallback) {
+class CitiesAdapter(
+    private val cityOnClickListener: CityOnClickListener
+) : ListAdapter<City, CityViewHolder>(CityItemDiffCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CityViewHolder =
-        CityViewHolder.create(parent)
+        CityViewHolder.create(parent, cityOnClickListener)
 
     override fun onBindViewHolder(holder: CityViewHolder, position: Int) {
         val city = getItem(position)

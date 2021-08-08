@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.navigation.ui.setupWithNavController
 import br.pedroso.citieslist.R
 import br.pedroso.citieslist.databinding.FragmentCityMapBinding
 
@@ -27,6 +29,11 @@ class CityMapFragment : Fragment(R.layout.fragment_city_map) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupToolbar()
+    }
+
+    private fun setupToolbar() {
+        binding.toolbar.setupWithNavController(findNavController())
         binding.toolbar.title = navigationArguments.city.name
     }
 
