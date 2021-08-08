@@ -10,8 +10,12 @@ import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.setupWithNavController
 import br.pedroso.citieslist.R
 import br.pedroso.citieslist.databinding.FragmentCityMapBinding
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 
-class CityMapFragment : Fragment(R.layout.fragment_city_map) {
+class CityMapFragment : Fragment() {
 
     private val navigationArguments: CityMapFragmentArgs by navArgs()
 
@@ -30,6 +34,22 @@ class CityMapFragment : Fragment(R.layout.fragment_city_map) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupToolbar()
+        setupMap()
+    }
+
+    private fun setupMap() {
+        val mapFragment =
+            childFragmentManager.findFragmentById(R.id.mapFragment) as SupportMapFragment
+
+        mapFragment.getMapAsync { googleMap ->
+            val city = navigationArguments.city
+            val (latitude, longitude) = city.coordinates
+            val latLng = LatLng(latitude, longitude)
+            googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng))
+            googleMap.addMarker(
+                MarkerOptions().position(latLng).title(city.name)
+            )
+        }
     }
 
     private fun setupToolbar() {
