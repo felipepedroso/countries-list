@@ -27,7 +27,8 @@ object RepositoryModule {
                         name = "City $index",
                         countryCode = "XX",
                         coordinates = Coordinates(
-                            Random.nextDouble(), Random.nextDouble()
+                            latitude = Random.nextDouble(-90.0, 90.0),
+                            longitude = Random.nextDouble(-180.0, 180.0)
                         )
                     )
                 }
