@@ -44,9 +44,9 @@ class CitiesSearchViewModelTest {
 
     @Test
     fun `given repository call is hanging when screen is created then view must display the loading state`() {
-        val viewModel = CitiesSearchViewModel(AlwaysSuccessfulFakeCitiesRepository())
-
         testCoroutineDispatcher.pauseDispatcher()
+
+        val viewModel = CitiesSearchViewModel(AlwaysSuccessfulFakeCitiesRepository())
 
         viewModel.onViewEvent(SearchQueryChanged(fixture()))
 
@@ -86,9 +86,9 @@ class CitiesSearchViewModelTest {
 
     @Test
     fun `given repository call is hanging when the search query changes then view must display the loading state`() {
-        val viewModel = CitiesSearchViewModel(AlwaysSuccessfulFakeCitiesRepository())
-
         testCoroutineDispatcher.pauseDispatcher()
+
+        val viewModel = CitiesSearchViewModel(AlwaysSuccessfulFakeCitiesRepository())
 
         viewModel.onViewEvent(SearchQueryChanged(fixture()))
 
