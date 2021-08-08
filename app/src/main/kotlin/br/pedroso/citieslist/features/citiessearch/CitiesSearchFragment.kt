@@ -5,7 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.RecyclerView
 import br.pedroso.citieslist.databinding.FragmentCitiesSearchBinding
+import br.pedroso.citieslist.features.citiessearch.adapter.CitiesAdapter
 
 class CitiesSearchFragment : Fragment() {
 
@@ -19,6 +22,16 @@ class CitiesSearchFragment : Fragment() {
     ): View {
         _binding = FragmentCitiesSearchBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupCitiesList()
+    }
+
+    private fun setupCitiesList() = with(binding.citiesRecyclerView) {
+        adapter = CitiesAdapter()
+        addItemDecoration(DividerItemDecoration(requireContext(), RecyclerView.VERTICAL))
     }
 
     override fun onDestroyView() {
