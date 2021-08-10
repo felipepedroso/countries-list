@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -38,7 +39,9 @@ class CitiesSearchViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            queryStateFlow.collect { searchQuery -> loadCitiesList(searchQuery) }
+            queryStateFlow
+                .distinctUntilChanged { old, new -> old.compareTo(new, ignoreCase = true) == 0 }
+                .collect { searchQuery -> loadCitiesList(searchQuery) }
         }
     }
 
