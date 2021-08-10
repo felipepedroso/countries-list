@@ -4,4 +4,5 @@
     <string name="empty_list">No cities were found with this query.</string>
     <string name="generic_error">Failed to load the cities list. Please try again later.</string>
     <string name="retry">Retry</string>
+    <string name="search">Search</string>
 </resources>
