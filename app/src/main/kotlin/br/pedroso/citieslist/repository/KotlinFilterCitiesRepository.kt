@@ -30,6 +30,6 @@ class KotlinFilterCitiesRepository(
     override suspend fun getCities(searchQuery: String): List<City> {
         val citiesList = sortedCitiesListDeferred.await()
 
-        return citiesList.filter { city -> city.name.contains(searchQuery, ignoreCase = true) }
+        return citiesList.filter { city -> city.name.startsWith(searchQuery, ignoreCase = true) }
     }
 }
