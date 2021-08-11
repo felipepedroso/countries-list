@@ -138,8 +138,11 @@ class CitiesSearchFragment : Fragment() {
                 elementsCounterTextView.text =
                     resources.getQuantityString(R.plurals.query_result, 0, 0)
             }
-            is Error -> Unit
-            Loading -> Unit
+            is Error -> citiesRecyclerView.adapter = null
+            Loading -> {
+                citiesRecyclerView.adapter = null
+                elementsCounterTextView.text = getString(R.string.loading_quantity)
+            }
         }
     }
 

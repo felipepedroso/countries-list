@@ -1,9 +1,9 @@
 package br.pedroso.citieslist.features.citiessearch.adapter
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import br.pedroso.citieslist.R
 import br.pedroso.citieslist.databinding.ItemCityBinding
 import br.pedroso.citieslist.domain.entities.City
 
@@ -12,15 +12,17 @@ class CityViewHolder(
     private val cityOnClickListener: CityOnClickListener
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    // Since this is a prototype, I'm suppressing this warning as we don't need to care about using
-    // string resources for now.
-    @SuppressLint("SetTextI18n")
-    fun bind(city: City) {
-        binding.titleTextView.text = "${city.name} ${getCountryFlagEmoji(city.countryCode)}"
-        binding.coordinatesTextView.text =
-            "${city.coordinates.latitude}, ${city.coordinates.longitude}"
+    fun bind(city: City) = with(binding) {
+        titleTextView.text = city.name
+        flagTextView.text = getCountryFlagEmoji(city.countryCode)
+        countryTextView.text = city.countryCode
 
-        binding.root.setOnClickListener {
+        val context = binding.root.context
+        val (latitude, longitude) = city.coordinates
+        coordinatesTextView.text =
+            context.getString(R.string.coordinates_values, latitude, longitude)
+
+        root.setOnClickListener {
             cityOnClickListener.clickedOnCity(city)
         }
     }

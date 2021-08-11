@@ -11,24 +11,66 @@
         android:id="@+id/titleTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:textAppearance="?attr/textAppearanceSubtitle1"
+        app:layout_constraintBottom_toBottomOf="@id/flagTextView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/flagTextView"
+        app:layout_constraintTop_toTopOf="@id/flagTextView"
+        tools:text="@tools:sample/cities" />
+
+    <TextView
+        android:id="@+id/flagTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?attr/textAppearanceSubtitle1"
+        app:layout_constrainedWidth="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="@tools:sample/cities" />
+        tools:text="XX" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/labelsBarrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="end"
+        app:constraint_referenced_ids="coordinatesLabelTextView,countryLabelTextView" />
+
+    <TextView
+        android:id="@+id/countryLabelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/country_code"
+        android:textAppearance="?attr/textAppearanceCaption"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintBottom_toTopOf="@id/coordinatesLabelTextView"
+        app:layout_constraintStart_toStartOf="@id/titleTextView"
+        app:layout_constraintTop_toBottomOf="@id/titleTextView" />
+
+    <TextView
+        android:id="@+id/countryTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textAppearance="?attr/textAppearanceCaption"
+        app:layout_constraintBottom_toBottomOf="@id/countryLabelTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/labelsBarrier"
+        app:layout_constraintTop_toTopOf="@id/countryLabelTextView"
+        tools:text="XX" />
 
     <TextView
         android:id="@+id/coordinatesLabelTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Coordinates:"
+        android:text="@string/coordinates"
         android:textAppearance="?attr/textAppearanceCaption"
         app:layout_constrainedWidth="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/coordinatesTextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/titleTextView" />
+        app:layout_constraintStart_toStartOf="@id/titleTextView"
+        app:layout_constraintTop_toBottomOf="@id/countryLabelTextView" />
 
     <TextView
         android:id="@+id/coordinatesTextView"
@@ -38,7 +80,7 @@
         android:textAppearance="?attr/textAppearanceCaption"
         app:layout_constraintBottom_toBottomOf="@id/coordinatesLabelTextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/coordinatesLabelTextView"
+        app:layout_constraintStart_toEndOf="@id/labelsBarrier"
         app:layout_constraintTop_toTopOf="@id/coordinatesLabelTextView"
         tools:text="51.454514, -2.587910" />
 
