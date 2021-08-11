@@ -123,13 +123,11 @@ class CitiesSearchFragment : Fragment() {
             is DisplayCitiesList -> {
                 // Recreating the adapter is a subpar solution but ListAdapter was not being
                 // able to execute the diff properly for 200k elements.
-                // While I tried to fix by changing some parameters of Adapter and RecyclerView,
+                // While I tried to fix by changing some parameters of ListAdapter and RecyclerView,
                 // I decided to leave the solution out of the scope of this project.
                 // Two possible solutions would be introducing some sort of pagination or fixing
                 // the thread used by ListAdapter to process the diffs.
-                val adapter = CitiesAdapter(::handleClickOnCity)
-                adapter.submitList(state.cities)
-                citiesRecyclerView.adapter = adapter
+                citiesRecyclerView.adapter = CitiesAdapter(::handleClickOnCity, state.cities)
 
                 val itemsCount = state.cities.size
                 elementsCounterTextView.text =
