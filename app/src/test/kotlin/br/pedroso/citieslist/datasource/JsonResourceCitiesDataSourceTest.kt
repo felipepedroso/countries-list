@@ -61,7 +61,7 @@ class JsonResourceCitiesDataSourceTest {
             factory<CoordinatesDTO> { CoordinatesDTO(Random.nextDouble(), Random.nextDouble()) }
         }
 
-        private val TEST_DTOS = List<CityDTO>(size = 20) { kotlinFixture().invoke() }
+        private val TEST_DTOS = List<CityDTO>(size = 20) { fixture() }
         private val VALID_JSON = Json.encodeToString(TEST_DTOS)
         private const val INVALID_JSON = """[{"country":,"name":,"_id":,"coord":{}},"""
     }
