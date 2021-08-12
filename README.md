@@ -54,7 +54,7 @@ Additionally, it's necessary to create an API key for Maps SDK for Android and a
 
 ## Libraries used 
 
-| | |
+| Type | Libraries |
 |-----|-----|
 | Kotlin | -  Coroutines<br>- Serialization |
 | Jetpack | - Hilt (Dependency Injection)<br>- AppCompat<br>- Navigation<br>- core-ktx<br>- fragment-ktx<br>- Material<br>- Constraint Layout<br>- RecyclerView
