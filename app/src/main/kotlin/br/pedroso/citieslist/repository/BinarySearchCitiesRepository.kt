@@ -45,7 +45,8 @@ class BinarySearchCitiesRepository(
                 val rightmostIndex = rightmostDeferred.await()
 
                 when {
-                    leftmostIndex > rightmostIndex -> error("Something is wrong with the algorithm. Left index:$leftmostIndex. Right index: $rightmostIndex")
+                    leftmostIndex > rightmostIndex ->
+                        throw InvalidBoundariesIndexesException(leftmostIndex, rightmostIndex)
                     leftmostIndex == INVALID_INDEX || rightmostIndex == INVALID_INDEX -> emptyList()
                     leftmostIndex == rightmostIndex -> listOf(availableCities[leftmostIndex])
                     else -> availableCities.slice(leftmostIndex..rightmostIndex)
@@ -61,9 +62,9 @@ class BinarySearchCitiesRepository(
         var rightIndex = availableCities.size
 
         while (leftIndex < rightIndex) {
-            val middleIndex: Int = floor((leftIndex + rightIndex) / 2.0f).toInt()
+            val middleIndex: Int = calculateMiddleIndex(leftIndex, rightIndex)
             val city = availableCities[middleIndex]
-            val compareResult = city.name.take(prefix.length).compareTo(prefix, ignoreCase = true)
+            val compareResult = city.name.compareToPrefix(prefix)
 
             if (compareResult > 0) {
                 rightIndex = middleIndex
@@ -86,9 +87,9 @@ class BinarySearchCitiesRepository(
         var rightIndex = availableCities.size
 
         while (leftIndex < rightIndex) {
-            val middleIndex: Int = floor((leftIndex + rightIndex) / 2.0f).toInt()
+            val middleIndex: Int = calculateMiddleIndex(leftIndex, rightIndex)
             val city = availableCities[middleIndex]
-            val compareResult = city.name.take(prefix.length).compareTo(prefix, ignoreCase = true)
+            val compareResult = city.name.compareToPrefix(prefix)
 
             if (compareResult < 0) {
                 leftIndex = middleIndex + 1
@@ -104,6 +105,12 @@ class BinarySearchCitiesRepository(
         }
     }
 
+    private fun calculateMiddleIndex(leftIndex: Int, rightIndex: Int) =
+        floor((leftIndex + rightIndex) / 2.0f).toInt()
+
+    private fun String.compareToPrefix(prefix: String): Int =
+        take(prefix.length).compareTo(prefix, ignoreCase = true)
+
     private suspend fun prepareCitiesList(): List<City> {
         return citiesDataSource.getCities()
             .asSequence()
@@ -111,6 +118,11 @@ class BinarySearchCitiesRepository(
             .sortedWith(compareBy<City> { it.name }.thenBy { it.countryCode })
             .toList()
     }
+
+    class InvalidBoundariesIndexesException(leftIndex: Int, rightIndex: Int) : Throwable(
+        "It seems something is wrong with the algorithm and indexes received an invalid value. " +
+                "Left index: $leftIndex - Right index: $rightIndex"
+    )
 
     companion object {
         private const val INVALID_INDEX = -1
