@@ -9,6 +9,10 @@ import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 
+/**
+ * This class was used only for testing the UI before BinarySearchCitiesRepository was created.
+ * I'll leave it here for future reference.
+ */
 class KotlinFilterCitiesRepository(
     private val citiesDataSource: CitiesDataSource,
     scope: CoroutineScope = GlobalScope,
