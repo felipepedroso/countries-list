@@ -33,7 +33,9 @@ Features available in the app:
 | ![](screenshots/screenshot_5.png) | ![](screenshots/screenshot_6.png) |
 
 
-![](screenshots/video.mp4)
+| Video |
+|-----|
+| <img src="screenshots/video.gif" alt="drawing" width="320" /> |
 
 ## Building and Running
 
