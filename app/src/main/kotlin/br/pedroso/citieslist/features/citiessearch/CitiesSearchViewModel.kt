@@ -3,9 +3,7 @@ package br.pedroso.citieslist.features.citiessearch
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.pedroso.citieslist.domain.repository.CitiesRepository
-import br.pedroso.citieslist.features.citiessearch.CitiesSearchUiEvent.ClickedOnCity
-import br.pedroso.citieslist.features.citiessearch.CitiesSearchUiEvent.ClickedOnRetry
-import br.pedroso.citieslist.features.citiessearch.CitiesSearchUiEvent.SearchQueryChanged
+import br.pedroso.citieslist.features.citiessearch.CitiesSearchUiEvent.*
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchViewModelEvent.NavigateToMapScreen
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchUiState.DisplayCitiesList
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchUiState.Empty
@@ -73,6 +71,7 @@ class CitiesSearchViewModel @Inject constructor(
             }
             is SearchQueryChanged -> queryStateFlow.value = viewEvent.newQuery
             ClickedOnRetry -> loadCitiesList(queryStateFlow.value)
+            ClickedOnClearQuery -> queryStateFlow.value = ""
         }
     }
 }
