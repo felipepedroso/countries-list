@@ -7,6 +7,7 @@ import br.pedroso.citieslist.domain.datasource.dtos.CityDTO
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 
@@ -15,6 +16,7 @@ class JsonResourceCitiesDataSource(
     private val dispatcher: CoroutineDispatcher = Dispatchers.Default
 ) : CitiesDataSource {
 
+    @OptIn(ExperimentalSerializationApi::class)
     override suspend fun getCities(): List<CityDTO> {
         val resourceContent = rawResourceReader.readResourceAsString(R.raw.cities)
 

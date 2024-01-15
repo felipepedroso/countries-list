@@ -2,13 +2,13 @@ package br.pedroso.citieslist.features.citiessearch
 
 import br.pedroso.citieslist.domain.entities.City
 
-sealed interface CitiesSearchViewState {
+sealed interface CitiesSearchUiState {
     val query: String
 
-    data class Loading(override val query: String) : CitiesSearchViewState
-    data class Error(override val query: String, val error: Throwable) : CitiesSearchViewState
+    data class Loading(override val query: String) : CitiesSearchUiState
+    data class Error(override val query: String, val error: Throwable) : CitiesSearchUiState
     data class DisplayCitiesList(override val query: String, val cities: List<City>) :
-        CitiesSearchViewState
+        CitiesSearchUiState
 
-    data class Empty(override val query: String) : CitiesSearchViewState
+    data class Empty(override val query: String) : CitiesSearchUiState
 }
