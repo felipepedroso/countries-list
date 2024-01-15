@@ -29,6 +29,10 @@ class BinarySearchCitiesRepository(
         }
     }
 
+    override suspend fun getCityById(cityId: Int): City {
+        return sortedCitiesListDeferred.await().first { it.id == cityId }
+    }
+
     private suspend fun getCitiesWithPrefix(prefix: String): List<City> {
         val availableCities = sortedCitiesListDeferred.await()
 

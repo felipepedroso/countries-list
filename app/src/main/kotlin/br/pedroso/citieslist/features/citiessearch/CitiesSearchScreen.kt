@@ -1,40 +1,33 @@
 package br.pedroso.citieslist.features.citiessearch
 
 import androidx.compose.animation.AnimatedContent
-import androidx.compose.foundation.layout.Arrangement.Absolute.spacedBy
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SearchBar
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import androidx.compose.ui.unit.dp
 import br.pedroso.citieslist.R
 import br.pedroso.citieslist.domain.entities.City
 import br.pedroso.citieslist.domain.entities.Coordinates
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchUiEvent.ClickedOnCity
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchUiEvent.ClickedOnRetry
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchUiEvent.SearchQueryChanged
-import br.pedroso.citieslist.features.citiessearch.CitiesSearchViewModelEvent.NavigateToMapScreen
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchUiState.DisplayCitiesList
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchUiState.Empty
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchUiState.Error
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchUiState.Loading
+import br.pedroso.citieslist.features.citiessearch.CitiesSearchViewModelEvent.NavigateToMapScreen
 import br.pedroso.citieslist.ui.components.CitiesList
+import br.pedroso.citieslist.ui.components.ErrorState
+import br.pedroso.citieslist.ui.components.LoadingState
 import br.pedroso.citieslist.ui.theme.CitiesListTheme
 import kotlinx.coroutines.flow.collectLatest
 
@@ -111,42 +104,17 @@ fun CitiesSearchScreenUi(
 }
 
 @Composable
-private fun LoadingState(modifier: Modifier = Modifier) {
-    Column(
-        modifier.padding(16.dp),
-        verticalArrangement = spacedBy(8.dp, Alignment.CenterVertically),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        CircularProgressIndicator()
-
-        Text(
-            text = stringResource(id = R.string.loading),
-            style = MaterialTheme.typography.bodyLarge
-        )
-    }
-}
-
-@Composable
 private fun RetryState(
     message: String,
     modifier: Modifier = Modifier,
     onRetryClick: () -> Unit,
 ) {
-    Column(
-        modifier.padding(16.dp),
-        verticalArrangement = spacedBy(8.dp, Alignment.CenterVertically),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(
-            text = message,
-            style = MaterialTheme.typography.bodyLarge,
-            textAlign = TextAlign.Center
-        )
-
-        Button(onClick = onRetryClick) {
-            Text(text = stringResource(id = R.string.retry))
-        }
-    }
+    ErrorState(
+        modifier = modifier,
+        message = message,
+        buttonText = stringResource(id = R.string.retry),
+        onButtonClick = onRetryClick
+    )
 }
 
 @Preview(showBackground = true)

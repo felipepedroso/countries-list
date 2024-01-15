@@ -36,4 +36,8 @@ class KotlinFilterCitiesRepository(
 
         return citiesList.filter { city -> city.name.startsWith(searchQuery, ignoreCase = true) }
     }
+
+    override suspend fun getCityById(cityId: Int): City {
+        return sortedCitiesListDeferred.await().first { it.id == cityId }
+    }
 }

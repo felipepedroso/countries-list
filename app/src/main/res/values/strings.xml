@@ -12,6 +12,8 @@
     <string name="country_code_label">Country code: %s</string>
     <string name="coordinates_label">Coordinates: %1$.4f, %2$.4f</string>
     <string name="search_placeholder">Type the city name here.</string>
+    <string name="error_title">Error</string>
+    <string name="go_back">Go back</string>
     <plurals name="query_result">
         <item quantity="one">%d city found.</item>
         <item quantity="other">%d cities found.</item>

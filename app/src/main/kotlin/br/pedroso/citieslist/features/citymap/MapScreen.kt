@@ -1,19 +1,31 @@
 package br.pedroso.citieslist.features.citymap
 
-import androidx.compose.foundation.layout.Column
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import br.pedroso.citieslist.R
 import br.pedroso.citieslist.domain.entities.City
 import br.pedroso.citieslist.domain.entities.Coordinates
+import br.pedroso.citieslist.features.citymap.MapScreenUiState.DisplayCity
+import br.pedroso.citieslist.features.citymap.MapScreenUiState.Error
+import br.pedroso.citieslist.features.citymap.MapScreenUiState.Loading
+import br.pedroso.citieslist.ui.components.ErrorState
+import br.pedroso.citieslist.ui.components.LoadingState
 import br.pedroso.citieslist.ui.theme.CitiesListTheme
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
@@ -22,12 +34,72 @@ import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MapScreen(
-    city: City,
+    viewModel: MapScreenViewModel,
     modifier: Modifier = Modifier,
-    onNavigateBack: () -> Unit = {}
+    onNavigateUp: () -> Unit = {}
+) {
+    val uiState by viewModel.uiState.collectAsState()
+
+    MapScreenUi(uiState = uiState, modifier = modifier, onNavigateUp = onNavigateUp)
+}
+
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun MapScreenUi(
+    uiState: MapScreenUiState,
+    modifier: Modifier = Modifier,
+    onNavigateUp: () -> Unit = {}
+) {
+    val title: String = when (uiState) {
+        is DisplayCity -> with(uiState.city) { "${name}, $countryCode" }
+        is Error -> stringResource(id = R.string.error_title)
+        Loading -> ""
+    }
+
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text(text = title) },
+                navigationIcon = {
+                    IconButton(onClick = onNavigateUp) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_arrow_back),
+                            contentDescription = null
+                        )
+                    }
+                }
+            )
+        }
+    ) { paddingValues ->
+        AnimatedContent(
+            modifier = modifier.padding(paddingValues),
+            targetState = uiState,
+            label = "ui-state-animation"
+        ) { state ->
+            val stateModifier = Modifier.fillMaxSize()
+
+            when (state) {
+                is DisplayCity -> DisplayCityOnMap(modifier = stateModifier, city = state.city)
+                is Error -> ErrorState(
+                    message = stringResource(id = R.string.generic_error),
+                    buttonText = stringResource(id = R.string.go_back),
+                    onButtonClick = onNavigateUp
+
+                )
+
+                Loading -> LoadingState(modifier = stateModifier)
+            }
+        }
+    }
+}
+
+@Composable
+fun DisplayCityOnMap(
+    city: City,
+    modifier: Modifier = Modifier
 ) {
     val cityLatLng = LatLng(city.coordinates.latitude, city.coordinates.longitude)
 
@@ -35,42 +107,38 @@ fun MapScreen(
         position = CameraPosition.fromLatLngZoom(cityLatLng, 10f)
     }
 
-    Column(modifier) {
-        TopAppBar(
-            title = { Text(text = "${city.name}, ${city.countryCode}") },
-            navigationIcon = {
-                IconButton(onClick = onNavigateBack) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_arrow_back),
-                        contentDescription = null
-                    )
-                }
-            }
+    GoogleMap(modifier = modifier, cameraPositionState = cameraPositionState) {
+        Marker(
+            state = MarkerState(position = cityLatLng),
+            title = city.name,
+            snippet = "Marker in ${city.name}"
         )
-
-        GoogleMap(modifier = Modifier.weight(1f), cameraPositionState = cameraPositionState) {
-            Marker(
-                state = MarkerState(position = cityLatLng),
-                title = city.name,
-                snippet = "Marker in ${city.name}"
-            )
-        }
     }
 }
 
 
 @Preview(showBackground = true)
 @Composable
-private fun MapScreenPreview() {
+private fun MapScreenPreview(@PreviewParameter(MapScreenCityPreviewParameterProvider::class) uiState: MapScreenUiState) {
     CitiesListTheme {
-        MapScreen(
+        MapScreenUi(
             modifier = Modifier.fillMaxSize(),
+            uiState = uiState
+        )
+    }
+}
+
+private class MapScreenCityPreviewParameterProvider : PreviewParameterProvider<MapScreenUiState> {
+    override val values: Sequence<MapScreenUiState> = sequenceOf(
+        DisplayCity(
             city = City(
                 name = "Bristol",
                 countryCode = "GB",
                 coordinates = Coordinates(51.4552, -2.5967),
                 id = 1
             )
-        )
-    }
+        ),
+        Loading,
+        Error(Throwable())
+    )
 }
