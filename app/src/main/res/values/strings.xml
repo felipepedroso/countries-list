@@ -15,7 +15,7 @@
     <string name="error_title">Error</string>
     <string name="go_back">Go back</string>
     <plurals name="query_result">
-        <item quantity="one">%d city found.</item>
-        <item quantity="other">%d cities found.</item>
+        <item quantity="one">%d city found:</item>
+        <item quantity="other">%d cities found:</item>
     </plurals>
 </resources>
