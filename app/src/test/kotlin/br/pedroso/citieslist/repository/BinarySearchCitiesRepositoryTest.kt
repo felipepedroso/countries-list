@@ -10,7 +10,7 @@ import com.appmattus.kotlinfixture.kotlinFixture
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineScope
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import org.junit.Test
@@ -30,13 +30,13 @@ class BinarySearchCitiesRepositoryTest {
 
     @Test(expected = RuntimeException::class)
     fun `given data source throws an error when getting the cities from repository then same error must be thrown`() =
-        runBlockingTest {
+        runTest {
             createRepository(AlwaysThrowingExceptionCitiesDataSource()).getCities(fixture())
         }
 
     @Test
     fun `given data source is empty when getting the cities then result must be empty`() =
-        runBlockingTest {
+        runTest {
             val cities = createRepository(AlwaysEmptyCitiesDataSource()).getCities(fixture())
 
             assertThat(cities).isEmpty()
@@ -44,7 +44,7 @@ class BinarySearchCitiesRepositoryTest {
 
     @Test
     fun `given the data source is not empty when getting the cities with an empty query then result must be a sorted list with all the cities available`() =
-        runBlockingTest {
+        runTest {
             val dataSource = AlwaysSuccessfulCitiesDataSource(availableCities)
 
             val citiesFromRepository = createRepository(dataSource).getCities("")
@@ -57,7 +57,7 @@ class BinarySearchCitiesRepositoryTest {
 
     @Test
     fun `given the data source is not empty when getting the cities with an invalid query then result must be empty`() =
-        runBlockingTest {
+        runTest {
             val dataSource = AlwaysSuccessfulCitiesDataSource(availableCities)
 
             val citiesFromRepository = createRepository(dataSource).getCities("qwertyuiopasdfghjkl")
@@ -67,7 +67,7 @@ class BinarySearchCitiesRepositoryTest {
 
     @Test
     fun `given the data source is not empty when getting the cities with a valid query then result must be a sorted list with the cities`() =
-        runBlockingTest {
+        runTest {
             val dataSource = AlwaysSuccessfulCitiesDataSource(availableCities)
 
             val query = "san fran"
@@ -84,7 +84,7 @@ class BinarySearchCitiesRepositoryTest {
 
     @Test
     fun `given the data source is not empty when getting the cities with queries with different letter cases then results must be the same`() =
-        runBlockingTest {
+        runTest {
             val dataSource = AlwaysSuccessfulCitiesDataSource(availableCities)
 
             val repository = createRepository(dataSource)
@@ -98,7 +98,7 @@ class BinarySearchCitiesRepositoryTest {
 
     @Test
     fun `given the data source has one element when getting the cities with valid query then results must be a list with the same element`() =
-        runBlockingTest {
+        runTest {
             val city: City = fixture()
 
             val dataSource = AlwaysSuccessfulCitiesDataSource(listOf(city))
@@ -110,7 +110,7 @@ class BinarySearchCitiesRepositoryTest {
 
     @Test
     fun `given the data source is not empty when getting the last element then result must be a sorted list with the cities`() =
-        runBlockingTest {
+        runTest {
             val dataSource = AlwaysSuccessfulCitiesDataSource(availableCities)
 
             val lastCity = availableCities.last()
@@ -122,7 +122,7 @@ class BinarySearchCitiesRepositoryTest {
 
     @Test
     fun `given the data source is not empty when getting the first element then result must be a sorted list with the cities`() =
-        runBlockingTest {
+        runTest {
             val dataSource = AlwaysSuccessfulCitiesDataSource(availableCities)
 
             val firstCity = availableCities.first()

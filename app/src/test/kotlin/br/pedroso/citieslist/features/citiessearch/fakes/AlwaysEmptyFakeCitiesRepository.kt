@@ -5,4 +5,5 @@ import br.pedroso.citieslist.domain.repository.CitiesRepository
 
 class AlwaysEmptyFakeCitiesRepository : CitiesRepository {
     override suspend fun getCities(searchQuery: String): List<City> = emptyList()
+    override suspend fun getCityById(cityId: Int): City = error("This method should not be used.")
 }
