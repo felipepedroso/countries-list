@@ -1,8 +1,8 @@
 package br.pedroso.citieslist.di
 
-import br.pedroso.citieslist.domain.datasource.CitiesDataSource
+import br.pedroso.citieslist.database.CitiesDao
 import br.pedroso.citieslist.domain.repository.CitiesRepository
-import br.pedroso.citieslist.repository.BinarySearchCitiesRepository
+import br.pedroso.citieslist.repository.CitiesRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,7 +13,7 @@ import dagger.hilt.android.components.ViewModelComponent
 object RepositoryModule {
 
     @Provides
-    fun provideCitiesRepository(citiesDataSource: CitiesDataSource): CitiesRepository {
-        return BinarySearchCitiesRepository(citiesDataSource)
+    fun provideCitiesRepository(citiesDao: CitiesDao): CitiesRepository {
+        return CitiesRepositoryImpl(citiesDao)
     }
 }
