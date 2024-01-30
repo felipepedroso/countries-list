@@ -1,6 +1,6 @@
 package br.pedroso.citieslist.features.citiessearch
 
-import br.pedroso.citieslist.domain.entities.City
+import br.pedroso.citieslist.entities.City
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchUiEvent.ClickedOnCity
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchUiEvent.ClickedOnRetry
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchUiEvent.SearchQueryChanged

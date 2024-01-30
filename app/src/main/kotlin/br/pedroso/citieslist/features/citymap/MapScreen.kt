@@ -19,8 +19,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import br.pedroso.citieslist.R
-import br.pedroso.citieslist.domain.entities.City
-import br.pedroso.citieslist.domain.entities.Coordinates
+import br.pedroso.citieslist.entities.City
+import br.pedroso.citieslist.entities.Coordinates
 import br.pedroso.citieslist.features.citymap.MapScreenUiState.DisplayCity
 import br.pedroso.citieslist.features.citymap.MapScreenUiState.Error
 import br.pedroso.citieslist.features.citymap.MapScreenUiState.Loading

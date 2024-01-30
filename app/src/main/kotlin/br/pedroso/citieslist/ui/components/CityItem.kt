@@ -14,8 +14,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import br.pedroso.citieslist.R
-import br.pedroso.citieslist.domain.entities.City
-import br.pedroso.citieslist.domain.entities.Coordinates
+import br.pedroso.citieslist.entities.City
+import br.pedroso.citieslist.entities.Coordinates
 import br.pedroso.citieslist.ui.theme.CitiesListTheme
 import br.pedroso.citieslist.utils.getCountryFlagEmoji
 

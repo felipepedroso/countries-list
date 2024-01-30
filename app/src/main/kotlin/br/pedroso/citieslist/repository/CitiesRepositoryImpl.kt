@@ -2,9 +2,8 @@ package br.pedroso.citieslist.repository
 
 import br.pedroso.citieslist.database.CitiesDao
 import br.pedroso.citieslist.database.DatabaseCity
-import br.pedroso.citieslist.domain.entities.City
-import br.pedroso.citieslist.domain.entities.Coordinates
-import br.pedroso.citieslist.domain.repository.CitiesRepository
+import br.pedroso.citieslist.entities.City
+import br.pedroso.citieslist.entities.Coordinates
 
 class CitiesRepositoryImpl(
     private val citiesDao: CitiesDao,

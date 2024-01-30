@@ -2,7 +2,7 @@ package br.pedroso.citieslist.features.citiessearch
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import br.pedroso.citieslist.domain.repository.CitiesRepository
+import br.pedroso.citieslist.repository.CitiesRepository
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchUiEvent.*
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchViewModelEvent.NavigateToMapScreen
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchUiState.DisplayCitiesList

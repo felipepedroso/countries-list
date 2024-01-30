@@ -3,7 +3,7 @@ package br.pedroso.citieslist.features.citymap
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import br.pedroso.citieslist.domain.repository.CitiesRepository
+import br.pedroso.citieslist.repository.CitiesRepository
 import br.pedroso.citieslist.features.citymap.MapScreenUiState.*
 import br.pedroso.citieslist.utils.CityIdArgKey
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -1,6 +1,6 @@
 package br.pedroso.citieslist.features.citiessearch
 
-import br.pedroso.citieslist.domain.entities.City
+import br.pedroso.citieslist.entities.City
 
 sealed interface CitiesSearchUiState {
     val query: String

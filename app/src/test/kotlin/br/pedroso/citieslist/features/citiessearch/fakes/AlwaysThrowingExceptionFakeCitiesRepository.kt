@@ -1,7 +1,7 @@
 package br.pedroso.citieslist.features.citiessearch.fakes
 
-import br.pedroso.citieslist.domain.entities.City
-import br.pedroso.citieslist.domain.repository.CitiesRepository
+import br.pedroso.citieslist.entities.City
+import br.pedroso.citieslist.repository.CitiesRepository
 
 class AlwaysThrowingExceptionFakeCitiesRepository : CitiesRepository {
 

@@ -1,4 +1,4 @@
-package br.pedroso.citieslist.domain.entities
+package br.pedroso.citieslist.entities
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

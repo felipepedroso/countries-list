@@ -1,6 +1,6 @@
-package br.pedroso.citieslist.domain.repository
+package br.pedroso.citieslist.repository
 
-import br.pedroso.citieslist.domain.entities.City
+import br.pedroso.citieslist.entities.City
 
 interface CitiesRepository {
     suspend fun getCities(searchQuery: String): List<City>

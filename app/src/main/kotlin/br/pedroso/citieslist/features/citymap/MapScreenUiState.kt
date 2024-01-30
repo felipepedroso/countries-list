@@ -1,6 +1,6 @@
 package br.pedroso.citieslist.features.citymap
 
-import br.pedroso.citieslist.domain.entities.City
+import br.pedroso.citieslist.entities.City
 
 sealed class MapScreenUiState {
     data object Loading : MapScreenUiState()
