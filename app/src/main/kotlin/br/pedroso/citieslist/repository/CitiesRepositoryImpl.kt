@@ -4,6 +4,8 @@ import br.pedroso.citieslist.database.CitiesDao
 import br.pedroso.citieslist.database.DatabaseCity
 import br.pedroso.citieslist.entities.City
 import br.pedroso.citieslist.entities.Coordinates
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 class CitiesRepositoryImpl(
     private val citiesDao: CitiesDao,
@@ -25,7 +27,7 @@ class CitiesRepositoryImpl(
         )
     }
 
-    override suspend fun getCityById(cityId: Int): City {
-        return citiesDao.getCityById(cityId).toEntity()
+    override fun getCityById(cityId: Int): Flow<City> {
+        return citiesDao.getCityById(cityId).map { it.toEntity() }
     }
 }

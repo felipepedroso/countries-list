@@ -3,6 +3,7 @@ package br.pedroso.citieslist.database
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Upsert
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CitiesDao {
@@ -14,7 +15,7 @@ interface CitiesDao {
     suspend fun getCitiesByName(query: String): List<DatabaseCity>
 
     @Query("SELECT * FROM cities WHERE id = :id")
-    suspend fun getCityById(id: Int): DatabaseCity
+    fun getCityById(id: Int): Flow<DatabaseCity>
 
     @Upsert
     suspend fun upsertAll(cities: List<DatabaseCity>)
