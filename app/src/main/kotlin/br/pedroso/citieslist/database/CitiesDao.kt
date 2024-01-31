@@ -9,10 +9,10 @@ import kotlinx.coroutines.flow.Flow
 interface CitiesDao {
 
     @Query("SELECT * FROM cities ORDER BY name ASC")
-    suspend fun getAllCities(): List<DatabaseCity>
+    fun getAllCities(): Flow<List<DatabaseCity>>
 
     @Query("SELECT * FROM cities WHERE name LIKE :query || '%' ORDER BY name ASC")
-    suspend fun getCitiesByName(query: String): List<DatabaseCity>
+    fun getCitiesByName(query: String): Flow<List<DatabaseCity>>
 
     @Query("SELECT * FROM cities WHERE id = :id")
     fun getCityById(id: Int): Flow<DatabaseCity>

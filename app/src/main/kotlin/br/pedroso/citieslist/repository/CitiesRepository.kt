@@ -4,6 +4,6 @@ import br.pedroso.citieslist.entities.City
 import kotlinx.coroutines.flow.Flow
 
 interface CitiesRepository {
-    suspend fun getCities(searchQuery: String): List<City>
+    fun getCities(searchQuery: String): Flow<List<City>>
     fun getCityById(cityId: Int): Flow<City>
 }

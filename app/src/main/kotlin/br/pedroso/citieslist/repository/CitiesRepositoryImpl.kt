@@ -10,12 +10,12 @@ import kotlinx.coroutines.flow.map
 class CitiesRepositoryImpl(
     private val citiesDao: CitiesDao,
 ) : CitiesRepository {
-    override suspend fun getCities(searchQuery: String): List<City> {
+    override fun getCities(searchQuery: String): Flow<List<City>> {
         return if (searchQuery.isNotEmpty()) {
             citiesDao.getCitiesByName(searchQuery)
         } else {
             citiesDao.getAllCities()
-        }.map { it.toEntity() }
+        }.map { it.map { city -> city.toEntity() } }
     }
 
     private fun DatabaseCity.toEntity(): City {
