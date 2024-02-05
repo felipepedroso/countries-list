@@ -61,7 +61,8 @@ private val previewCities = (1..10).map {
         name = "City $it",
         countryCode = "BR",
         coordinates = Coordinates(0.0, 0.0),
-        id = it
+        id = it,
+        isBookmarked = true
     )
 }
 

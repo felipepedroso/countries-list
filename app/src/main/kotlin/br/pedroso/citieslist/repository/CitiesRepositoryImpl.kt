@@ -18,16 +18,28 @@ class CitiesRepositoryImpl(
         }.map { it.map { city -> city.toEntity() } }
     }
 
-    private fun DatabaseCity.toEntity(): City {
-        return City(
-            name = name,
-            countryCode = countryCode,
-            coordinates = Coordinates(latitude, longitude),
-            id = id
-        )
-    }
+    private fun DatabaseCity.toEntity(): City = City(
+        name = name,
+        countryCode = countryCode,
+        coordinates = Coordinates(latitude, longitude),
+        id = id,
+        isBookmarked = isBookmarked
+    )
 
     override fun getCityById(cityId: Int): Flow<City> {
         return citiesDao.getCityById(cityId).map { it.toEntity() }
     }
+
+    override suspend fun updateCity(city: City, newStarredState: Boolean) {
+        citiesDao.updateCity(city.toDatabaseCity().copy(isBookmarked = newStarredState))
+    }
+
+    private fun City.toDatabaseCity() = DatabaseCity(
+        id,
+        name,
+        countryCode,
+        coordinates.latitude,
+        coordinates.longitude,
+        isBookmarked
+    )
 }

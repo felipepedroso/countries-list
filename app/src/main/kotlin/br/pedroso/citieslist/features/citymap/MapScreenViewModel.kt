@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,13 +24,19 @@ class MapScreenViewModel @Inject constructor(
     private val citiesRepository: CitiesRepository
 ) : ViewModel() {
 
-    val uiState: StateFlow<MapScreenUiState> by lazy {
-        val cityId: Int = checkNotNull(savedStateHandle[CityIdArgKey])
+    private val cityId: Int = checkNotNull(savedStateHandle[CityIdArgKey])
 
+    val uiState: StateFlow<MapScreenUiState> by lazy {
         citiesRepository
             .getCityById(cityId)
             .map<City, MapScreenUiState> { city -> DisplayCity(city) }
             .catch { error -> emit(Error(error)) }
             .stateIn(viewModelScope, SharingStarted.Eagerly, Loading)
+    }
+
+    fun updateStarredState(city: City, newStarredState: Boolean) {
+        viewModelScope.launch {
+            citiesRepository.updateCity(city, newStarredState)
+        }
     }
 }

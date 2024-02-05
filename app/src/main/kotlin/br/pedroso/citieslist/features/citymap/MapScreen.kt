@@ -12,6 +12,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -42,7 +43,12 @@ fun MapScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
-    MapScreenUi(uiState = uiState, modifier = modifier, onNavigateUp = onNavigateUp)
+    MapScreenUi(
+        uiState = uiState,
+        modifier = modifier,
+        onNavigateUp = onNavigateUp,
+        updateBookmarkState = viewModel::updateStarredState
+    )
 }
 
 
@@ -51,7 +57,8 @@ fun MapScreen(
 fun MapScreenUi(
     uiState: MapScreenUiState,
     modifier: Modifier = Modifier,
-    onNavigateUp: () -> Unit = {}
+    onNavigateUp: () -> Unit = {},
+    updateBookmarkState: (city: City, newBookmarkState: Boolean) -> Unit = { _, _ -> },
 ) {
     val title: String = when (uiState) {
         is DisplayCity -> with(uiState.city) { "${name}, $countryCode" }
@@ -70,6 +77,27 @@ fun MapScreenUi(
                             contentDescription = null
                         )
                     }
+                },
+                actions = {
+                    if (uiState is DisplayCity) {
+                        val city = uiState.city
+                        val isBookmarked = city.isBookmarked
+                        IconButton(
+                            modifier = Modifier.align(Alignment.CenterVertically),
+                            onClick = { updateBookmarkState(city, !isBookmarked) }
+                        ) {
+                            Icon(
+                                painter = painterResource(
+                                    if (isBookmarked) {
+                                        R.drawable.ic_star_filled
+                                    } else {
+                                        R.drawable.ic_star_outlined
+                                    }
+                                ),
+                                contentDescription = null
+                            )
+                        }
+                    }
                 }
             )
         }
@@ -77,7 +105,8 @@ fun MapScreenUi(
         AnimatedContent(
             modifier = modifier.padding(paddingValues),
             targetState = uiState,
-            label = "ui-state-animation"
+            label = "ui-state-animation",
+            contentKey = { (it as? DisplayCity)?.city?.id }
         ) { state ->
             val stateModifier = Modifier.fillMaxSize()
 
@@ -135,7 +164,8 @@ private class MapScreenCityPreviewParameterProvider : PreviewParameterProvider<M
                 name = "Bristol",
                 countryCode = "GB",
                 coordinates = Coordinates(51.4552, -2.5967),
-                id = 1
+                id = 1,
+                isBookmarked = true,
             )
         ),
         Loading,

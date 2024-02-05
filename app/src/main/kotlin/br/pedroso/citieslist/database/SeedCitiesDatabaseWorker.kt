@@ -33,7 +33,8 @@ class SeedCitiesDatabaseWorker(
             countryCode = country,
             latitude = coordinates.latitude,
             longitude = coordinates.longitude,
-            id = id
+            id = id,
+            isBookmarked = false
         )
     }
 

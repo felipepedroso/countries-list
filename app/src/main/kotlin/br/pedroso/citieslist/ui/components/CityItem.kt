@@ -5,11 +5,15 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -20,7 +24,12 @@ import br.pedroso.citieslist.ui.theme.CitiesListTheme
 import br.pedroso.citieslist.utils.getCountryFlagEmoji
 
 @Composable
-fun CityItem(city: City, modifier: Modifier = Modifier, onClick: () -> Unit = {}) {
+fun CityItem(
+    city: City,
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit = {},
+    onBookmarkClick: () -> Unit = {}
+) {
     Surface(modifier = modifier, onClick = onClick) {
         Row(
             modifier = Modifier.padding(16.dp),
@@ -31,7 +40,7 @@ fun CityItem(city: City, modifier: Modifier = Modifier, onClick: () -> Unit = {}
                 style = MaterialTheme.typography.titleMedium
             )
 
-            Column(verticalArrangement = spacedBy(4.dp)) {
+            Column(modifier = Modifier.weight(1f), verticalArrangement = spacedBy(4.dp)) {
                 Text(text = city.name, style = MaterialTheme.typography.titleMedium)
                 Text(
                     text = stringResource(id = R.string.country_code_label, city.countryCode),
@@ -46,6 +55,18 @@ fun CityItem(city: City, modifier: Modifier = Modifier, onClick: () -> Unit = {}
                     style = MaterialTheme.typography.bodyMedium,
                 )
             }
+
+            if(city.isBookmarked) {
+                IconButton(
+                    modifier = Modifier.align(Alignment.CenterVertically),
+                    onClick = onBookmarkClick
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_star_filled),
+                        contentDescription = null
+                    )
+                }
+            }
         }
     }
 }
@@ -59,7 +80,8 @@ private fun CityItemPreview() {
                 name = "Test",
                 countryCode = "BR",
                 coordinates = Coordinates(0.0, 0.0),
-                id = 1
+                id = 1,
+                isBookmarked = true
             ),
             modifier = Modifier.fillMaxWidth()
         )
