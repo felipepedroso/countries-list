@@ -5,6 +5,7 @@
     <string name="generic_error">Failed to load the cities list. Please try again later.</string>
     <string name="retry">Retry</string>
     <string name="search">Search</string>
+    <string name="cities">Cities</string>
     <string name="country_code">Country code:</string>
     <string name="coordinates">Coordinates:</string>
     <string name="loading_quantity">-</string>
@@ -14,6 +15,7 @@
     <string name="search_placeholder">Type the city name here.</string>
     <string name="error_title">Error</string>
     <string name="go_back">Go back</string>
+    <string name="starred">Starred</string>
     <plurals name="query_result">
         <item quantity="one">%d city found:</item>
         <item quantity="other">%d cities found:</item>
