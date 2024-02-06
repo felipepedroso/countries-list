@@ -1,13 +1,11 @@
 package br.pedroso.citieslist.features.citiessearch
 
+import androidx.paging.testing.asSnapshot
 import br.pedroso.citieslist.entities.City
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchUiEvent.ClickedOnCity
+import br.pedroso.citieslist.features.citiessearch.CitiesSearchUiEvent.ClickedOnClearQuery
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchUiEvent.ClickedOnRetry
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchUiEvent.SearchQueryChanged
-import br.pedroso.citieslist.features.citiessearch.CitiesSearchUiState.DisplayCitiesList
-import br.pedroso.citieslist.features.citiessearch.CitiesSearchUiState.Empty
-import br.pedroso.citieslist.features.citiessearch.CitiesSearchUiState.Error
-import br.pedroso.citieslist.features.citiessearch.CitiesSearchUiState.Loading
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchViewModelEvent.NavigateToMapScreen
 import br.pedroso.citieslist.features.citiessearch.fakes.AlwaysEmptyFakeCitiesRepository
 import br.pedroso.citieslist.features.citiessearch.fakes.AlwaysSuccessfulFakeCitiesRepository
@@ -19,7 +17,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.runBlockingTest
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import org.junit.After
@@ -45,96 +42,80 @@ class CitiesSearchViewModelTest {
     }
 
     @Test
-    fun `given repository call is hanging when screen is created then view must display the loading state`() {
-        val viewModel = CitiesSearchViewModel(AlwaysSuccessfulFakeCitiesRepository())
+    fun `given repository returns an empty list of cities when screen is created then view must display the empty state`() =
+        runTest {
+            val viewModel = CitiesSearchViewModel(AlwaysEmptyFakeCitiesRepository())
 
-        viewModel.onViewEvent(SearchQueryChanged(fixture()))
+            viewModel.onViewEvent(SearchQueryChanged(fixture()))
 
-        assertThat(viewModel.viewStateFlow.value).isInstanceOf(Loading::class.java)
-    }
+            val cities = viewModel.paginatedCities.asSnapshot()
 
-    @Test
-    fun `given repository returns an empty list of cities when screen is created then view must display the empty state`() {
-        val viewModel = CitiesSearchViewModel(AlwaysEmptyFakeCitiesRepository())
-
-        viewModel.onViewEvent(SearchQueryChanged(fixture()))
-
-        testCoroutineDispatcher.scheduler.advanceUntilIdle()
-
-        assertThat(viewModel.viewStateFlow.value).isInstanceOf(Empty::class.java)
-    }
+            assertThat(cities).isEmpty()
+        }
 
     @Test
-    fun `given repository throws an exception when screen is created then view must display the error state`() {
-        val viewModel = CitiesSearchViewModel(AlwaysThrowingExceptionFakeCitiesRepository())
+    fun `given repository throws an exception when screen is created then view must display the error state`() =
+        runTest {
+            val viewModel = CitiesSearchViewModel(AlwaysThrowingExceptionFakeCitiesRepository())
 
-        viewModel.onViewEvent(SearchQueryChanged(fixture()))
+            viewModel.onViewEvent(SearchQueryChanged(fixture()))
 
-        testCoroutineDispatcher.scheduler.advanceUntilIdle()
+            val error = runCatching { viewModel.paginatedCities.asSnapshot() }.exceptionOrNull()
 
-        val state = viewModel.viewStateFlow.value as Error
+            assertThat(error).isInstanceOf(AlwaysThrowingExceptionFakeCitiesRepository.EXCEPTION.javaClass)
 
-        assertThat(state.error).isEqualTo(AlwaysThrowingExceptionFakeCitiesRepository.EXCEPTION)
-    }
-
-    @Test
-    fun `given repository returns a list of cities when screen is created then view must display the same list`() {
-        val viewModel = CitiesSearchViewModel(AlwaysSuccessfulFakeCitiesRepository())
-
-        viewModel.onViewEvent(SearchQueryChanged(fixture()))
-
-        testCoroutineDispatcher.scheduler.advanceUntilIdle()
-
-        val state = viewModel.viewStateFlow.value as DisplayCitiesList
-
-        assertThat(state.cities).isEqualTo(AlwaysSuccessfulFakeCitiesRepository.CITIES_LIST)
-    }
+            assertThat(error?.message).isEqualTo(AlwaysThrowingExceptionFakeCitiesRepository.EXCEPTION.message)
+        }
 
     @Test
-    fun `given repository call is hanging when the search query changes then view must display the loading state`() {
-        val viewModel = CitiesSearchViewModel(AlwaysSuccessfulFakeCitiesRepository())
+    fun `given repository returns a list of cities when screen is created then view must display the same list`() =
+        runTest {
+            val viewModel = CitiesSearchViewModel(AlwaysSuccessfulFakeCitiesRepository())
 
-        viewModel.onViewEvent(SearchQueryChanged(fixture()))
+            viewModel.onViewEvent(SearchQueryChanged(fixture()))
 
-        assertThat(viewModel.viewStateFlow.value).isInstanceOf(Loading::class.java)
-    }
+            val cities = viewModel.paginatedCities.asSnapshot()
 
-    @Test
-    fun `given repository returns an empty list of cities when the search query changes then view must display the empty state`() {
-        val viewModel = CitiesSearchViewModel(AlwaysEmptyFakeCitiesRepository())
-
-        viewModel.onViewEvent(SearchQueryChanged(fixture()))
-
-        testCoroutineDispatcher.scheduler.advanceUntilIdle()
-
-        assertThat(viewModel.viewStateFlow.value).isInstanceOf(Empty::class.java)
-    }
+            assertThat(cities).isEqualTo(AlwaysSuccessfulFakeCitiesRepository.CITIES_LIST)
+        }
 
     @Test
-    fun `given repository throws an exception when the search query changes then view must display the error state`() {
-        val viewModel = CitiesSearchViewModel(AlwaysThrowingExceptionFakeCitiesRepository())
+    fun `given repository returns an empty list of cities when the search query changes then view must display the empty state`() =
+        runTest {
+            val viewModel = CitiesSearchViewModel(AlwaysEmptyFakeCitiesRepository())
 
-        viewModel.onViewEvent(SearchQueryChanged(fixture()))
+            viewModel.onViewEvent(SearchQueryChanged(fixture()))
 
-        testCoroutineDispatcher.scheduler.advanceUntilIdle()
+            val cities = viewModel.paginatedCities.asSnapshot()
 
-        val state = viewModel.viewStateFlow.value as Error
-
-        assertThat(state.error).isEqualTo(AlwaysThrowingExceptionFakeCitiesRepository.EXCEPTION)
-    }
+            assertThat(cities).isEmpty()
+        }
 
     @Test
-    fun `given repository returns a list of cities when the search query changes then view must display the same list`() {
-        val viewModel = CitiesSearchViewModel(AlwaysSuccessfulFakeCitiesRepository())
+    fun `given repository throws an exception when the search query changes then view must display the error state`() =
+        runTest {
+            val viewModel = CitiesSearchViewModel(AlwaysThrowingExceptionFakeCitiesRepository())
 
-        viewModel.onViewEvent(SearchQueryChanged(fixture()))
+            viewModel.onViewEvent(SearchQueryChanged(fixture()))
 
-        testCoroutineDispatcher.scheduler.advanceUntilIdle()
+            val error = runCatching { viewModel.paginatedCities.asSnapshot() }.exceptionOrNull()
 
-        val state = viewModel.viewStateFlow.value as DisplayCitiesList
+            assertThat(error).isInstanceOf(AlwaysThrowingExceptionFakeCitiesRepository.EXCEPTION.javaClass)
 
-        assertThat(state.cities).isEqualTo(AlwaysSuccessfulFakeCitiesRepository.CITIES_LIST)
-    }
+            assertThat(error?.message).isEqualTo(AlwaysThrowingExceptionFakeCitiesRepository.EXCEPTION.message)
+        }
+
+    @Test
+    fun `given repository returns a list of cities when the search query changes then view must display the same list`() =
+        runTest {
+            val viewModel = CitiesSearchViewModel(AlwaysSuccessfulFakeCitiesRepository())
+
+            viewModel.onViewEvent(SearchQueryChanged(fixture()))
+
+            val cities = viewModel.paginatedCities.asSnapshot()
+
+            assertThat(cities).isEqualTo(AlwaysSuccessfulFakeCitiesRepository.CITIES_LIST)
+        }
 
     @Test
     fun `when user clicks on city then view must navigate to maps screen`() = runTest {
@@ -150,48 +131,89 @@ class CitiesSearchViewModelTest {
     }
 
     @Test
-    fun `given repository call is hanging when user clicked on retry then view must display the loading state`() {
+    fun `given repository returns an empty list of cities when user clicked on retry then view must display the empty state`() =
+        runTest {
+            val viewModel = CitiesSearchViewModel(AlwaysEmptyFakeCitiesRepository())
+
+            viewModel.onViewEvent(ClickedOnRetry)
+
+            val cities = viewModel.paginatedCities.asSnapshot()
+
+            assertThat(cities).isEmpty()
+        }
+
+    @Test
+    fun `given repository throws an exception when user clicked on retry then view must display the error state`() =
+        runTest {
+            val viewModel = CitiesSearchViewModel(AlwaysThrowingExceptionFakeCitiesRepository())
+
+            viewModel.onViewEvent(ClickedOnRetry)
+
+            val error = runCatching { viewModel.paginatedCities.asSnapshot() }.exceptionOrNull()
+
+            assertThat(error).isInstanceOf(AlwaysThrowingExceptionFakeCitiesRepository.EXCEPTION.javaClass)
+
+            assertThat(error?.message).isEqualTo(AlwaysThrowingExceptionFakeCitiesRepository.EXCEPTION.message)
+        }
+
+    @Test
+    fun `given repository returns a list of cities when user clicked on retry then view must display the same list`() =
+        runTest {
+            val viewModel = CitiesSearchViewModel(AlwaysSuccessfulFakeCitiesRepository())
+
+            viewModel.onViewEvent(ClickedOnRetry)
+
+            val cities = viewModel.paginatedCities.asSnapshot()
+
+            assertThat(cities).isEqualTo(AlwaysSuccessfulFakeCitiesRepository.CITIES_LIST)
+        }
+
+    @Test
+    fun `given the query is empty when user clicks on retry then query state must also be empty`() =
+        runTest {
+            val viewModel = CitiesSearchViewModel(AlwaysSuccessfulFakeCitiesRepository())
+
+            viewModel.onViewEvent(ClickedOnRetry)
+
+            assertThat(viewModel.queryState.first()).isEmpty()
+        }
+
+    @Test
+    fun `given the query is not empty when user clicks on retry then query state must remain the same`() =
+        runTest {
+            val viewModel = CitiesSearchViewModel(AlwaysSuccessfulFakeCitiesRepository())
+
+            val query: String = fixture()
+
+            viewModel.onViewEvent(SearchQueryChanged(query))
+
+            viewModel.onViewEvent(ClickedOnRetry)
+
+            assertThat(viewModel.queryState.first()).isEqualTo(query)
+        }
+
+    @Test
+    fun `when user types a new query then query state must be updated`() = runTest {
         val viewModel = CitiesSearchViewModel(AlwaysSuccessfulFakeCitiesRepository())
 
-        viewModel.onViewEvent(ClickedOnRetry)
+        val newQuery: String = fixture()
 
-        assertThat(viewModel.viewStateFlow.value).isInstanceOf(Loading::class.java)
+        viewModel.onViewEvent(SearchQueryChanged(newQuery))
+
+        assertThat(viewModel.queryState.first()).isEqualTo(newQuery)
     }
 
     @Test
-    fun `given repository returns an empty list of cities when user clicked on retry then view must display the empty state`() {
-        val viewModel = CitiesSearchViewModel(AlwaysEmptyFakeCitiesRepository())
+    fun `given the query is not empty when user clicks on the clear query button then query state must be empty`() =
+        runTest {
+            val viewModel = CitiesSearchViewModel(AlwaysSuccessfulFakeCitiesRepository())
 
-        viewModel.onViewEvent(ClickedOnRetry)
+            val newQuery: String = fixture()
 
-        testCoroutineDispatcher.scheduler.advanceUntilIdle()
+            viewModel.onViewEvent(SearchQueryChanged(newQuery))
 
-        assertThat(viewModel.viewStateFlow.value).isInstanceOf(Empty::class.java)
-    }
+            viewModel.onViewEvent(ClickedOnClearQuery)
 
-    @Test
-    fun `given repository throws an exception when user clicked on retry then view must display the error state`() {
-        val viewModel = CitiesSearchViewModel(AlwaysThrowingExceptionFakeCitiesRepository())
-
-        viewModel.onViewEvent(ClickedOnRetry)
-
-        testCoroutineDispatcher.scheduler.advanceUntilIdle()
-
-        val state = viewModel.viewStateFlow.value as Error
-
-        assertThat(state.error).isEqualTo(AlwaysThrowingExceptionFakeCitiesRepository.EXCEPTION)
-    }
-
-    @Test
-    fun `given repository returns a list of cities when user clicked on retry then view must display the same list`() {
-        val viewModel = CitiesSearchViewModel(AlwaysSuccessfulFakeCitiesRepository())
-
-        viewModel.onViewEvent(ClickedOnRetry)
-
-        testCoroutineDispatcher.scheduler.advanceUntilIdle()
-
-        val state = viewModel.viewStateFlow.value as DisplayCitiesList
-
-        assertThat(state.cities).isEqualTo(AlwaysSuccessfulFakeCitiesRepository.CITIES_LIST)
-    }
+            assertThat(viewModel.queryState.first()).isEmpty()
+        }
 }

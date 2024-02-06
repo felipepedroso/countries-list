@@ -1,5 +1,6 @@
 package br.pedroso.citieslist.database
 
+import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Transaction
@@ -12,11 +13,11 @@ interface CitiesDao {
 
     @Transaction
     @Query("SELECT * FROM cities ORDER BY name ASC")
-    fun getAllCities(): Flow<List<DatabaseCity>>
+    fun getAllCities(): PagingSource<Int, DatabaseCity>
 
     @Transaction
     @Query("SELECT * FROM cities WHERE name LIKE :query || '%' ORDER BY name ASC")
-    fun getCitiesByName(query: String): Flow<List<DatabaseCity>>
+    fun getCitiesByName(query: String): PagingSource<Int, DatabaseCity>
 
     @Query("SELECT * FROM cities WHERE id = :id")
     fun getCityById(id: Int): Flow<DatabaseCity>

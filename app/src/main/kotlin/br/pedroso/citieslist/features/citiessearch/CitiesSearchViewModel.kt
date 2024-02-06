@@ -2,11 +2,13 @@ package br.pedroso.citieslist.features.citiessearch
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import br.pedroso.citieslist.features.citiessearch.CitiesSearchUiEvent.*
-import br.pedroso.citieslist.features.citiessearch.CitiesSearchUiState.DisplayCitiesList
-import br.pedroso.citieslist.features.citiessearch.CitiesSearchUiState.Empty
-import br.pedroso.citieslist.features.citiessearch.CitiesSearchUiState.Error
-import br.pedroso.citieslist.features.citiessearch.CitiesSearchUiState.Loading
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
+import br.pedroso.citieslist.entities.City
+import br.pedroso.citieslist.features.citiessearch.CitiesSearchUiEvent.ClickedOnCity
+import br.pedroso.citieslist.features.citiessearch.CitiesSearchUiEvent.ClickedOnClearQuery
+import br.pedroso.citieslist.features.citiessearch.CitiesSearchUiEvent.ClickedOnRetry
+import br.pedroso.citieslist.features.citiessearch.CitiesSearchUiEvent.SearchQueryChanged
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchViewModelEvent.NavigateToMapScreen
 import br.pedroso.citieslist.repository.CitiesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,14 +16,10 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.receiveAsFlow
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -32,21 +30,15 @@ class CitiesSearchViewModel @Inject constructor(
     private val citiesRepository: CitiesRepository
 ) : ViewModel() {
 
-    private val queryStateFlow: MutableStateFlow<String> = MutableStateFlow("")
+    private val _queryState: MutableStateFlow<String> = MutableStateFlow("")
 
-    val viewStateFlow: StateFlow<CitiesSearchUiState> =
-        queryStateFlow
+    val queryState: StateFlow<String> = _queryState
+
+    val paginatedCities: Flow<PagingData<City>> =
+        _queryState
             .distinctUntilChanged { old, new -> old.compareTo(new, ignoreCase = true) == 0 }
             .flatMapLatest { citiesRepository.getCities(it) }
-            .map { cities ->
-                if (cities.isNotEmpty()) {
-                    DisplayCitiesList(queryStateFlow.value, cities)
-                } else {
-                    Empty(queryStateFlow.value)
-                }
-            }
-            .catch { emit(Error(queryStateFlow.value, it)) }
-            .stateIn(viewModelScope, SharingStarted.Eagerly, Loading(queryStateFlow.value))
+            .cachedIn(viewModelScope)
 
     private val viewModelEventChannel = Channel<CitiesSearchViewModelEvent>(Channel.BUFFERED)
     val viewModelEventFlow: Flow<CitiesSearchViewModelEvent>
@@ -58,9 +50,9 @@ class CitiesSearchViewModel @Inject constructor(
                 viewModelEventChannel.send(NavigateToMapScreen(viewEvent.city))
             }
 
-            is SearchQueryChanged -> queryStateFlow.update { viewEvent.newQuery }
-            ClickedOnRetry -> queryStateFlow.update { it }
-            ClickedOnClearQuery -> queryStateFlow.update { "" }
+            is SearchQueryChanged -> _queryState.update { viewEvent.newQuery }
+            ClickedOnRetry -> _queryState.update { it }
+            ClickedOnClearQuery -> _queryState.update { "" }
         }
     }
 }
