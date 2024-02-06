@@ -36,7 +36,7 @@ class MapScreenViewModel @Inject constructor(
 
     fun updateStarredState(city: City, newStarredState: Boolean) {
         viewModelScope.launch {
-            citiesRepository.updateCity(city, newStarredState)
+            citiesRepository.updateCityStarredState(city, newStarredState)
         }
     }
 }

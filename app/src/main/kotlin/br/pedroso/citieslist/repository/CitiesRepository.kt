@@ -7,5 +7,5 @@ import kotlinx.coroutines.flow.Flow
 interface CitiesRepository {
     fun getCities(searchQuery: String): Flow<PagingData<City>>
     fun getCityById(cityId: Int): Flow<City>
-    suspend fun updateCity(city: City, newStarredState: Boolean)
+    suspend fun updateCityStarredState(city: City, newStarredState: Boolean)
 }

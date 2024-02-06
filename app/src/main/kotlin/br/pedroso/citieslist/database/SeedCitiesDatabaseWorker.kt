@@ -34,7 +34,7 @@ class SeedCitiesDatabaseWorker(
             latitude = coordinates.latitude,
             longitude = coordinates.longitude,
             id = id,
-            isBookmarked = false
+            isStarred = false
         )
     }
 

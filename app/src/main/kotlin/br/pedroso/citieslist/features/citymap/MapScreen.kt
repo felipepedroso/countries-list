@@ -81,7 +81,7 @@ fun MapScreenUi(
                 actions = {
                     if (uiState is DisplayCity) {
                         val city = uiState.city
-                        val isBookmarked = city.isBookmarked
+                        val isBookmarked = city.isStarred
                         IconButton(
                             modifier = Modifier.align(Alignment.CenterVertically),
                             onClick = { updateBookmarkState(city, !isBookmarked) }
@@ -165,7 +165,7 @@ private class MapScreenCityPreviewParameterProvider : PreviewParameterProvider<M
                 countryCode = "GB",
                 coordinates = Coordinates(51.4552, -2.5967),
                 id = 1,
-                isBookmarked = true,
+                isStarred = true,
             )
         ),
         Loading,

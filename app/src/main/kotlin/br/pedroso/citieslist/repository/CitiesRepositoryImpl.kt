@@ -35,15 +35,15 @@ class CitiesRepositoryImpl(
         countryCode = countryCode,
         coordinates = Coordinates(latitude, longitude),
         id = id,
-        isBookmarked = isBookmarked
+        isStarred = isStarred
     )
 
     override fun getCityById(cityId: Int): Flow<City> {
         return citiesDao.getCityById(cityId).map { it.toEntity() }
     }
 
-    override suspend fun updateCity(city: City, newStarredState: Boolean) {
-        citiesDao.updateCity(city.toDatabaseCity().copy(isBookmarked = newStarredState))
+    override suspend fun updateCityStarredState(city: City, newStarredState: Boolean) {
+        citiesDao.updateCity(city.toDatabaseCity().copy(isStarred = newStarredState))
     }
 
     private fun City.toDatabaseCity() = DatabaseCity(
@@ -52,6 +52,6 @@ class CitiesRepositoryImpl(
         countryCode,
         coordinates.latitude,
         coordinates.longitude,
-        isBookmarked
+        isStarred
     )
 }

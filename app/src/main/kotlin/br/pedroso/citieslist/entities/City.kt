@@ -11,5 +11,5 @@ data class City(
     val countryCode: String,
     val coordinates: Coordinates,
     val id: Int,
-    val isBookmarked: Boolean,
+    val isStarred: Boolean,
 ) : Parcelable

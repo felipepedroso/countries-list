@@ -24,7 +24,7 @@ class AlwaysThrowingExceptionFakeCitiesRepository : CitiesRepository {
 
     override fun getCityById(cityId: Int): Flow<City> = error("This method should not be used.")
 
-    override suspend fun updateCity(city: City, newStarredState: Boolean) =
+    override suspend fun updateCityStarredState(city: City, newStarredState: Boolean) =
         error("This method should not be used.")
 
     companion object {

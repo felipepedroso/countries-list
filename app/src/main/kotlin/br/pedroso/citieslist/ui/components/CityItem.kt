@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -28,7 +27,7 @@ fun CityItem(
     city: City,
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {},
-    onBookmarkClick: () -> Unit = {}
+    showStarredIndicator: Boolean = true,
 ) {
     Surface(modifier = modifier, onClick = onClick) {
         Row(
@@ -56,16 +55,12 @@ fun CityItem(
                 )
             }
 
-            if(city.isBookmarked) {
-                IconButton(
+            if (showStarredIndicator && city.isStarred) {
+                Icon(
                     modifier = Modifier.align(Alignment.CenterVertically),
-                    onClick = onBookmarkClick
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_star_filled),
-                        contentDescription = null
-                    )
-                }
+                    painter = painterResource(id = R.drawable.ic_star_filled),
+                    contentDescription = null
+                )
             }
         }
     }
@@ -81,7 +76,7 @@ private fun CityItemPreview() {
                 countryCode = "BR",
                 coordinates = Coordinates(0.0, 0.0),
                 id = 1,
-                isBookmarked = true
+                isStarred = true
             ),
             modifier = Modifier.fillMaxWidth()
         )
