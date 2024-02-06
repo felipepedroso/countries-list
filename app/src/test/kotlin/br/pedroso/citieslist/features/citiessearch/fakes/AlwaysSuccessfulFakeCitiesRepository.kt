@@ -22,6 +22,9 @@ class AlwaysSuccessfulFakeCitiesRepository : CitiesRepository {
             )
         )
 
+    override fun getStarredCities(): Flow<PagingData<City>> =
+        error("This method should not be used.")
+
     override fun getCityById(cityId: Int): Flow<City> = error("This method should not be used.")
 
     override suspend fun updateCityStarredState(city: City, newStarredState: Boolean) =

@@ -20,4 +20,9 @@
         <item quantity="one">%d city found:</item>
         <item quantity="other">%d cities found:</item>
     </plurals>
+
+    <plurals name="starred_cities">
+        <item quantity="one">%d starred city:</item>
+        <item quantity="other">%d starred cities:</item>
+    </plurals>
 </resources>

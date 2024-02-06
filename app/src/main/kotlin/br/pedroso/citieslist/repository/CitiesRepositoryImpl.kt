@@ -3,6 +3,7 @@ package br.pedroso.citieslist.repository
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import androidx.paging.PagingSource
 import androidx.paging.map
 import br.pedroso.citieslist.database.CitiesDao
 import br.pedroso.citieslist.database.DatabaseCity
@@ -14,20 +15,16 @@ import kotlinx.coroutines.flow.map
 class CitiesRepositoryImpl(
     private val citiesDao: CitiesDao,
 ) : CitiesRepository {
-    override fun getCities(searchQuery: String): Flow<PagingData<City>> {
-        return Pager(
-            config = PagingConfig(30),
-            initialKey = 0,
-            pagingSourceFactory = {
-                if (searchQuery.isNotEmpty()) {
-                    citiesDao.getCitiesByName(searchQuery)
-                } else {
-                    citiesDao.getAllCities()
-                }
-            }
-        ).flow.map { pagingData ->
-            pagingData.map { databaseCity -> databaseCity.toEntity() }
+    override fun getCities(searchQuery: String): Flow<PagingData<City>> = databasePagerFlowFactory {
+        if (searchQuery.isNotEmpty()) {
+            citiesDao.getCitiesByName(searchQuery)
+        } else {
+            citiesDao.getAllCities()
         }
+    }
+
+    override fun getStarredCities(): Flow<PagingData<City>> = databasePagerFlowFactory {
+        citiesDao.getStarredCities()
     }
 
     private fun DatabaseCity.toEntity(): City = City(
@@ -54,4 +51,18 @@ class CitiesRepositoryImpl(
         coordinates.longitude,
         isStarred
     )
+
+    private fun databasePagerFlowFactory(
+        pageSize: Int = 30,
+        initialKey: Int = 0,
+        pagingSourceFactory: () -> PagingSource<Int, DatabaseCity>
+    ): Flow<PagingData<City>> {
+        return Pager(
+            config = PagingConfig(pageSize),
+            initialKey = initialKey,
+            pagingSourceFactory = pagingSourceFactory
+        ).flow.map { pagingData ->
+            pagingData.map { databaseCity -> databaseCity.toEntity() }
+        }
+    }
 }

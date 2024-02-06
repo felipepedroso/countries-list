@@ -19,6 +19,10 @@ interface CitiesDao {
     @Query("SELECT * FROM cities WHERE name LIKE :query || '%' ORDER BY name ASC")
     fun getCitiesByName(query: String): PagingSource<Int, DatabaseCity>
 
+    @Transaction
+    @Query("SELECT * FROM cities WHERE is_starred = 1 ORDER BY name ASC")
+    fun getStarredCities(): PagingSource<Int, DatabaseCity>
+
     @Query("SELECT * FROM cities WHERE id = :id")
     fun getCityById(id: Int): Flow<DatabaseCity>
 

@@ -1,12 +1,9 @@
 package br.pedroso.citieslist
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
@@ -16,6 +13,7 @@ import br.pedroso.citieslist.AppScreen.BottomNavigationEntry.Starred
 import br.pedroso.citieslist.AppScreen.Map
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchScreen
 import br.pedroso.citieslist.features.citymap.MapScreen
+import br.pedroso.citieslist.features.starredcities.StarredCitiesScreen
 
 @Composable
 fun CitiesListApp(modifier: Modifier = Modifier) {
@@ -47,9 +45,12 @@ fun CitiesListApp(modifier: Modifier = Modifier) {
             }
 
             composable(Starred) {
-                Box(contentAlignment = Alignment.Center) {
-                    Text(text = "Starred")
-                }
+                StarredCitiesScreen(
+                    viewModel = hiltViewModel(),
+                    openCityOnMap = { city ->
+                        navController.navigate(Map.createNavigationRoute(city))
+                    }
+                )
             }
 
             composable(Map) {

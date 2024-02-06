@@ -7,7 +7,6 @@ import br.pedroso.citieslist.entities.City
 import br.pedroso.citieslist.repository.CitiesRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.flow
 
 class AlwaysThrowingExceptionFakeCitiesRepository : CitiesRepository {
 
@@ -21,6 +20,9 @@ class AlwaysThrowingExceptionFakeCitiesRepository : CitiesRepository {
                 )
             )
         )
+
+    override fun getStarredCities(): Flow<PagingData<City>> =
+        error("This method should not be used.")
 
     override fun getCityById(cityId: Int): Flow<City> = error("This method should not be used.")
 
