@@ -8,6 +8,6 @@ plugins {
     alias libs.plugins.maps.secrets apply false
 }
 
-tasks.register('clean', Delete) {
+tasks.register("clean", Delete) {
     delete rootProject.buildDir
 }
