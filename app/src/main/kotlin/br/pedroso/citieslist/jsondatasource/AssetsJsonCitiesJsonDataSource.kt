@@ -12,10 +12,14 @@ class AssetsJsonCitiesJsonDataSource(
 ) : CitiesJsonDataSource {
     override suspend fun getCities(): List<JsonCity> {
         return withContext(dispatcher) {
-            applicationContext.assets.open("cities.json").use { inputStream ->
-                inputStream.bufferedReader().use {
-                    Json.decodeFromString<List<JsonCity>>(it.readText())
+            try {
+                applicationContext.assets.open("cities.json").use { inputStream ->
+                    inputStream.bufferedReader().use {
+                        Json.decodeFromString<List<JsonCity>>(it.readText())
+                    }
                 }
+            } catch (error: Throwable) {
+                throw FailedToDecodeJsonException(error)
             }
         }
     }
