@@ -1,64 +1,100 @@
 package br.pedroso.citieslist
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawingPadding
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.windowsizeclass.WindowSizeClass
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import br.pedroso.citieslist.AppScreen.BottomNavigationEntry.CitiesSearch
-import br.pedroso.citieslist.AppScreen.BottomNavigationEntry.Starred
 import br.pedroso.citieslist.AppScreen.Map
+import br.pedroso.citieslist.AppScreen.TopLevelScreen.CitiesSearch
+import br.pedroso.citieslist.AppScreen.TopLevelScreen.Starred
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchScreen
 import br.pedroso.citieslist.features.citymap.MapScreen
 import br.pedroso.citieslist.features.starredcities.StarredCitiesScreen
 
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
-fun CitiesListApp(modifier: Modifier = Modifier) {
-    val navController = rememberNavController()
+fun CitiesListApp(
+    modifier: Modifier = Modifier,
+    navController: NavHostController = rememberNavController(),
+    windowSizeClass: WindowSizeClass,
+) {
+    val showBottomBar = windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact
+
+    val showNavigationRail = !showBottomBar
 
     Scaffold(
         modifier = modifier,
         bottomBar = {
-            BottomNavigationBar(
-                bottomNavigationItems = listOf(CitiesSearch, Starred),
-                navController = navController,
-            )
+            if (showBottomBar) {
+                CitiesBottomNavigationBar(
+                    bottomNavigationItems = AppScreen.TopLevelScreen.Screens,
+                    navController = navController,
+                )
+            }
         },
     ) { paddingValues ->
-        NavHost(
+        Row(
             modifier =
                 Modifier
                     .fillMaxSize()
-                    .padding(paddingValues),
-            navController = navController,
-            startDestination = CitiesSearch.route,
+                    .padding(paddingValues)
+                    .consumeWindowInsets(paddingValues),
         ) {
-            composable(CitiesSearch) {
-                CitiesSearchScreen(
-                    viewModel = hiltViewModel(),
-                    openCityOnMap = { city ->
-                        navController.navigate(Map.createNavigationRoute(city))
-                    },
+            if (showNavigationRail) {
+                CitiesNavigationRail(
+                    modifier = Modifier.safeDrawingPadding(),
+                    navController = navController,
                 )
             }
 
-            composable(Starred) {
-                StarredCitiesScreen(
-                    viewModel = hiltViewModel(),
-                    openCityOnMap = { city ->
-                        navController.navigate(Map.createNavigationRoute(city))
-                    },
-                )
-            }
+            Column(Modifier.fillMaxSize()) {
+//                TopAppBar(title = { Text(text = stringResource(id = R.string.app_name)) })
 
-            composable(Map) {
-                MapScreen(
-                    viewModel = hiltViewModel(),
-                    onNavigateUp = { navController.navigateUp() },
-                )
+                NavHost(
+                    modifier =
+                        Modifier
+                            .fillMaxSize(),
+                    navController = navController,
+                    startDestination = CitiesSearch.route,
+                ) {
+                    composable(CitiesSearch) {
+                        CitiesSearchScreen(
+                            viewModel = hiltViewModel(),
+                            openCityOnMap = { city ->
+                                navController.navigate(Map.createNavigationRoute(city))
+                            },
+                        )
+                    }
+
+                    composable(Starred) {
+                        StarredCitiesScreen(
+                            viewModel = hiltViewModel(),
+                            openCityOnMap = { city ->
+                                navController.navigate(Map.createNavigationRoute(city))
+                            },
+                        )
+                    }
+
+                    composable(Map) {
+                        MapScreen(
+                            viewModel = hiltViewModel(),
+                            onNavigateUp = { navController.navigateUp() },
+                        )
+                    }
+                }
             }
         }
     }

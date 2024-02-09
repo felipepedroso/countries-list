@@ -22,16 +22,20 @@ sealed class AppScreen(
     val arguments: List<NamedNavArgument> = emptyList(),
     val deepLinks: List<NavDeepLink> = emptyList(),
 ) {
-    sealed class BottomNavigationEntry(
+    sealed class TopLevelScreen(
         route: String,
         @DrawableRes val iconResource: Int,
         @StringRes val labelResource: Int,
     ) : AppScreen(route) {
         data object CitiesSearch :
-            BottomNavigationEntry("cities-search", R.drawable.ic_list_alt, R.string.cities)
+            TopLevelScreen("cities-search", R.drawable.ic_list_alt, R.string.cities)
 
         data object Starred :
-            BottomNavigationEntry("starred", R.drawable.ic_star_filled, R.string.starred)
+            TopLevelScreen("starred", R.drawable.ic_star_filled, R.string.starred)
+
+        companion object {
+            val Screens = listOf<TopLevelScreen>(CitiesSearch, Starred)
+        }
     }
 
     data object Map : AppScreen(

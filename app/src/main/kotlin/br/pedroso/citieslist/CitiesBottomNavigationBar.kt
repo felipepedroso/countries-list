@@ -16,8 +16,8 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun BottomNavigationBar(
-    bottomNavigationItems: List<AppScreen.BottomNavigationEntry>,
+fun CitiesBottomNavigationBar(
+    bottomNavigationItems: List<AppScreen.TopLevelScreen>,
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
 ) {
