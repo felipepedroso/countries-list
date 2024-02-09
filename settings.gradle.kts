@@ -14,4 +14,4 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "CitiesList"
-include( ":app")
+include(":app")

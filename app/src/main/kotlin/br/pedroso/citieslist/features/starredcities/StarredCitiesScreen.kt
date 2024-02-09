@@ -52,25 +52,25 @@ private fun StarredCitiesScreenUi(
         onCityClicked = { city -> onUiEvent(ClickedOnCity(city)) },
         headerContent = { itemsCount ->
             Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
             ) {
                 Text(
-                    text = pluralStringResource(
-                        id = R.plurals.starred_cities,
-                        count = itemsCount,
-                        itemsCount
-                    )
+                    text =
+                        pluralStringResource(
+                            id = R.plurals.starred_cities,
+                            count = itemsCount,
+                            itemsCount,
+                        ),
                 )
             }
         },
         errorStateContent = {
-
         },
         emptyStateContent = {
-
-        }
+        },
     )
 }
 

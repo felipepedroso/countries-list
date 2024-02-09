@@ -25,7 +25,6 @@ import org.junit.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class CitiesSearchViewModelTest {
-
     private val fixture = kotlinFixture()
 
     private var testCoroutineDispatcher = StandardTestDispatcher()
@@ -118,17 +117,18 @@ class CitiesSearchViewModelTest {
         }
 
     @Test
-    fun `when user clicks on city then view must navigate to maps screen`() = runTest {
-        val viewModel = CitiesSearchViewModel(AlwaysSuccessfulFakeCitiesRepository())
+    fun `when user clicks on city then view must navigate to maps screen`() =
+        runTest {
+            val viewModel = CitiesSearchViewModel(AlwaysSuccessfulFakeCitiesRepository())
 
-        val city: City = fixture()
+            val city: City = fixture()
 
-        viewModel.onViewEvent(ClickedOnCity(city))
+            viewModel.onViewEvent(ClickedOnCity(city))
 
-        val event = viewModel.viewModelEventFlow.first() as NavigateToMapScreen
+            val event = viewModel.viewModelEventFlow.first() as NavigateToMapScreen
 
-        assertThat(event.cityToFocus).isEqualTo(city)
-    }
+            assertThat(event.cityToFocus).isEqualTo(city)
+        }
 
     @Test
     fun `given repository returns an empty list of cities when user clicked on retry then view must display the empty state`() =
@@ -193,15 +193,16 @@ class CitiesSearchViewModelTest {
         }
 
     @Test
-    fun `when user types a new query then query state must be updated`() = runTest {
-        val viewModel = CitiesSearchViewModel(AlwaysSuccessfulFakeCitiesRepository())
+    fun `when user types a new query then query state must be updated`() =
+        runTest {
+            val viewModel = CitiesSearchViewModel(AlwaysSuccessfulFakeCitiesRepository())
 
-        val newQuery: String = fixture()
+            val newQuery: String = fixture()
 
-        viewModel.onViewEvent(SearchQueryChanged(newQuery))
+            viewModel.onViewEvent(SearchQueryChanged(newQuery))
 
-        assertThat(viewModel.queryState.first()).isEqualTo(newQuery)
-    }
+            assertThat(viewModel.queryState.first()).isEqualTo(newQuery)
+        }
 
     @Test
     fun `given the query is not empty when user clicks on the clear query button then query state must be empty`() =

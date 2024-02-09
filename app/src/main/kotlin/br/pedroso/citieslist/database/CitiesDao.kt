@@ -10,7 +10,6 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CitiesDao {
-
     @Transaction
     @Query("SELECT * FROM cities ORDER BY name ASC")
     fun getAllCities(): PagingSource<Int, DatabaseCity>

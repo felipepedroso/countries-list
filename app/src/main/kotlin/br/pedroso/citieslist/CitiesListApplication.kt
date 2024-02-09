@@ -8,7 +8,6 @@ import javax.inject.Inject
 
 @HiltAndroidApp
 class CitiesListApplication : Application() {
-
     @Inject
     lateinit var workerConfiguration: Configuration
 

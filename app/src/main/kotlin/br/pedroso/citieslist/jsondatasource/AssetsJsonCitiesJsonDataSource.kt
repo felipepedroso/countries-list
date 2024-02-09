@@ -8,9 +8,8 @@ import kotlinx.serialization.json.Json
 
 class AssetsJsonCitiesJsonDataSource(
     private val applicationContext: Context,
-    private val dispatcher: CoroutineDispatcher = Dispatchers.IO
+    private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
 ) : CitiesJsonDataSource {
-
     override suspend fun getCities(): List<JsonCity> {
         return withContext(dispatcher) {
             applicationContext.assets.open("cities.json").use { inputStream ->

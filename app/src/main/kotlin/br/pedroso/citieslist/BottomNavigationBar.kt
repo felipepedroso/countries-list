@@ -46,10 +46,10 @@ fun BottomNavigationBar(
                 icon = {
                     Icon(
                         painter = painterResource(id = screen.iconResource),
-                        contentDescription = null
+                        contentDescription = null,
                     )
                 },
-                label = { Text(text = stringResource(id = screen.labelResource)) }
+                label = { Text(text = stringResource(id = screen.labelResource)) },
             )
         }
     }

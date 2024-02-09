@@ -12,9 +12,10 @@ import dagger.hilt.components.SingletonComponent
 @Module
 @InstallIn(SingletonComponent::class)
 object DataSourceModule {
-
     @Provides
-    fun provideCitiesDataSource(@ApplicationContext applicationContext: Context): CitiesJsonDataSource {
+    fun provideCitiesDataSource(
+        @ApplicationContext applicationContext: Context,
+    ): CitiesJsonDataSource {
         return AssetsJsonCitiesJsonDataSource(applicationContext)
     }
 }

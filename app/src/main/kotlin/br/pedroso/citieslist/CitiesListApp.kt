@@ -24,23 +24,24 @@ fun CitiesListApp(modifier: Modifier = Modifier) {
         bottomBar = {
             BottomNavigationBar(
                 bottomNavigationItems = listOf(CitiesSearch, Starred),
-                navController = navController
+                navController = navController,
             )
-        }
+        },
     ) { paddingValues ->
         NavHost(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues),
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues),
             navController = navController,
-            startDestination = CitiesSearch.route
+            startDestination = CitiesSearch.route,
         ) {
             composable(CitiesSearch) {
                 CitiesSearchScreen(
                     viewModel = hiltViewModel(),
                     openCityOnMap = { city ->
                         navController.navigate(Map.createNavigationRoute(city))
-                    }
+                    },
                 )
             }
 
@@ -49,14 +50,14 @@ fun CitiesListApp(modifier: Modifier = Modifier) {
                     viewModel = hiltViewModel(),
                     openCityOnMap = { city ->
                         navController.navigate(Map.createNavigationRoute(city))
-                    }
+                    },
                 )
             }
 
             composable(Map) {
                 MapScreen(
                     viewModel = hiltViewModel(),
-                    onNavigateUp = { navController.navigateUp() }
+                    onNavigateUp = { navController.navigateUp() },
                 )
             }
         }

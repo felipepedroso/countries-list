@@ -26,33 +26,35 @@ import javax.inject.Inject
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
-class CitiesSearchViewModel @Inject constructor(
-    private val citiesRepository: CitiesRepository
-) : ViewModel() {
+class CitiesSearchViewModel
+    @Inject
+    constructor(
+        private val citiesRepository: CitiesRepository,
+    ) : ViewModel() {
+        private val _queryState: MutableStateFlow<String> = MutableStateFlow("")
 
-    private val _queryState: MutableStateFlow<String> = MutableStateFlow("")
+        val queryState: StateFlow<String> = _queryState
 
-    val queryState: StateFlow<String> = _queryState
+        val paginatedCities: Flow<PagingData<City>> =
+            _queryState
+                .distinctUntilChanged { old, new -> old.compareTo(new, ignoreCase = true) == 0 }
+                .flatMapLatest { citiesRepository.getCities(it) }
+                .cachedIn(viewModelScope)
 
-    val paginatedCities: Flow<PagingData<City>> =
-        _queryState
-            .distinctUntilChanged { old, new -> old.compareTo(new, ignoreCase = true) == 0 }
-            .flatMapLatest { citiesRepository.getCities(it) }
-            .cachedIn(viewModelScope)
+        private val viewModelEventChannel = Channel<CitiesSearchViewModelEvent>(Channel.BUFFERED)
+        val viewModelEventFlow: Flow<CitiesSearchViewModelEvent>
+            get() = viewModelEventChannel.receiveAsFlow()
 
-    private val viewModelEventChannel = Channel<CitiesSearchViewModelEvent>(Channel.BUFFERED)
-    val viewModelEventFlow: Flow<CitiesSearchViewModelEvent>
-        get() = viewModelEventChannel.receiveAsFlow()
+        fun onViewEvent(viewEvent: CitiesSearchUiEvent) {
+            when (viewEvent) {
+                is ClickedOnCity ->
+                    viewModelScope.launch {
+                        viewModelEventChannel.send(NavigateToMapScreen(viewEvent.city))
+                    }
 
-    fun onViewEvent(viewEvent: CitiesSearchUiEvent) {
-        when (viewEvent) {
-            is ClickedOnCity -> viewModelScope.launch {
-                viewModelEventChannel.send(NavigateToMapScreen(viewEvent.city))
+                is SearchQueryChanged -> _queryState.update { viewEvent.newQuery }
+                ClickedOnRetry -> _queryState.update { it }
+                ClickedOnClearQuery -> _queryState.update { "" }
             }
-
-            is SearchQueryChanged -> _queryState.update { viewEvent.newQuery }
-            ClickedOnRetry -> _queryState.update { it }
-            ClickedOnClearQuery -> _queryState.update { "" }
         }
     }
-}

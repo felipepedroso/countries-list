@@ -32,11 +32,11 @@ fun CityItem(
     Surface(modifier = modifier, onClick = onClick) {
         Row(
             modifier = Modifier.padding(16.dp),
-            horizontalArrangement = spacedBy(8.dp)
+            horizontalArrangement = spacedBy(8.dp),
         ) {
             Text(
                 text = getCountryFlagEmoji(city.countryCode),
-                style = MaterialTheme.typography.titleMedium
+                style = MaterialTheme.typography.titleMedium,
             )
 
             Column(modifier = Modifier.weight(1f), verticalArrangement = spacedBy(4.dp)) {
@@ -46,11 +46,12 @@ fun CityItem(
                     style = MaterialTheme.typography.bodyMedium,
                 )
                 Text(
-                    text = stringResource(
-                        id = R.string.coordinates_label,
-                        city.coordinates.latitude,
-                        city.coordinates.longitude
-                    ),
+                    text =
+                        stringResource(
+                            id = R.string.coordinates_label,
+                            city.coordinates.latitude,
+                            city.coordinates.longitude,
+                        ),
                     style = MaterialTheme.typography.bodyMedium,
                 )
             }
@@ -59,7 +60,7 @@ fun CityItem(
                 Icon(
                     modifier = Modifier.align(Alignment.CenterVertically),
                     painter = painterResource(id = R.drawable.ic_star_filled),
-                    contentDescription = null
+                    contentDescription = null,
                 )
             }
         }
@@ -71,14 +72,15 @@ fun CityItem(
 private fun CityItemPreview() {
     CitiesListTheme {
         CityItem(
-            city = City(
-                name = "Test",
-                countryCode = "BR",
-                coordinates = Coordinates(0.0, 0.0),
-                id = 1,
-                isStarred = true
-            ),
-            modifier = Modifier.fillMaxWidth()
+            city =
+                City(
+                    name = "Test",
+                    countryCode = "BR",
+                    coordinates = Coordinates(0.0, 0.0),
+                    id = 1,
+                    isStarred = true,
+                ),
+            modifier = Modifier.fillMaxWidth(),
         )
     }
 }

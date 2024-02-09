@@ -15,8 +15,9 @@ class SeedCitiesDatabaseWorker(
 ) : CoroutineWorker(context, workerParams) {
     override suspend fun doWork(): Result {
         return try {
-            val cities = citiesJsonDataSource.getCities()
-                .map { it.toDatabaseCity() }
+            val cities =
+                citiesJsonDataSource.getCities()
+                    .map { it.toDatabaseCity() }
 
             citiesDao.upsertAll(cities)
 
@@ -34,7 +35,7 @@ class SeedCitiesDatabaseWorker(
             latitude = coordinates.latitude,
             longitude = coordinates.longitude,
             id = id,
-            isStarred = false
+            isStarred = false,
         )
     }
 

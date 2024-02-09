@@ -1,13 +1,37 @@
 plugins {
-    alias libs.plugins.android.application apply false
-    alias libs.plugins.kotlin.android apply false
-    alias libs.plugins.kotlin.parcelize apply false
-    alias libs.plugins.kotlin.serialization apply false
-    alias libs.plugins.ksp apply false
-    alias libs.plugins.hilt apply false
-    alias libs.plugins.maps.secrets apply false
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.kotlin.android) apply false
+    alias(libs.plugins.kotlin.parcelize) apply false
+    alias(libs.plugins.kotlin.serialization) apply false
+    alias(libs.plugins.ksp) apply false
+    alias(libs.plugins.hilt) apply false
+    alias(libs.plugins.maps.secrets) apply false
+    alias(libs.plugins.spotless) apply false
 }
 
-tasks.register("clean", Delete) {
-    delete rootProject.buildDir
+subprojects {
+    apply(plugin = "com.diffplug.spotless")
+
+    configure<com.diffplug.gradle.spotless.SpotlessExtension> {
+        kotlin {
+            target("**/*.kt")
+            targetExclude("$buildDir/**/*.kt")
+
+            ktlint()
+        }
+
+        kotlinGradle {
+            target("*.gradle.kts")
+            ktlint()
+        }
+
+        format("xml") {
+            target("**/*.xml")
+            targetExclude("**/build/**/*.xml")
+        }
+    }
+}
+
+tasks.register("clean", Delete::class) {
+    delete(rootProject.buildDir)
 }

@@ -39,7 +39,7 @@ import com.google.maps.android.compose.rememberCameraPositionState
 fun MapScreen(
     viewModel: MapScreenViewModel,
     modifier: Modifier = Modifier,
-    onNavigateUp: () -> Unit = {}
+    onNavigateUp: () -> Unit = {},
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
@@ -47,10 +47,9 @@ fun MapScreen(
         uiState = uiState,
         modifier = modifier,
         onNavigateUp = onNavigateUp,
-        updateBookmarkState = viewModel::updateStarredState
+        updateBookmarkState = viewModel::updateStarredState,
     )
 }
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -60,11 +59,12 @@ fun MapScreenUi(
     onNavigateUp: () -> Unit = {},
     updateBookmarkState: (city: City, newBookmarkState: Boolean) -> Unit = { _, _ -> },
 ) {
-    val title: String = when (uiState) {
-        is DisplayCity -> with(uiState.city) { "${name}, $countryCode" }
-        is Error -> stringResource(id = R.string.error_title)
-        Loading -> ""
-    }
+    val title: String =
+        when (uiState) {
+            is DisplayCity -> with(uiState.city) { "$name, $countryCode" }
+            is Error -> stringResource(id = R.string.error_title)
+            Loading -> ""
+        }
 
     Scaffold(
         topBar = {
@@ -74,7 +74,7 @@ fun MapScreenUi(
                     IconButton(onClick = onNavigateUp) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_arrow_back),
-                            contentDescription = null
+                            contentDescription = null,
                         )
                     }
                 },
@@ -84,40 +84,41 @@ fun MapScreenUi(
                         val isBookmarked = city.isStarred
                         IconButton(
                             modifier = Modifier.align(Alignment.CenterVertically),
-                            onClick = { updateBookmarkState(city, !isBookmarked) }
+                            onClick = { updateBookmarkState(city, !isBookmarked) },
                         ) {
                             Icon(
-                                painter = painterResource(
-                                    if (isBookmarked) {
-                                        R.drawable.ic_star_filled
-                                    } else {
-                                        R.drawable.ic_star_outlined
-                                    }
-                                ),
-                                contentDescription = null
+                                painter =
+                                    painterResource(
+                                        if (isBookmarked) {
+                                            R.drawable.ic_star_filled
+                                        } else {
+                                            R.drawable.ic_star_outlined
+                                        },
+                                    ),
+                                contentDescription = null,
                             )
                         }
                     }
-                }
+                },
             )
-        }
+        },
     ) { paddingValues ->
         AnimatedContent(
             modifier = modifier.padding(paddingValues),
             targetState = uiState,
             label = "ui-state-animation",
-            contentKey = { (it as? DisplayCity)?.city?.id }
+            contentKey = { (it as? DisplayCity)?.city?.id },
         ) { state ->
             val stateModifier = Modifier.fillMaxSize()
 
             when (state) {
                 is DisplayCity -> DisplayCityOnMap(modifier = stateModifier, city = state.city)
-                is Error -> ErrorState(
-                    message = stringResource(id = R.string.generic_error),
-                    buttonText = stringResource(id = R.string.go_back),
-                    onButtonClick = onNavigateUp
-
-                )
+                is Error ->
+                    ErrorState(
+                        message = stringResource(id = R.string.generic_error),
+                        buttonText = stringResource(id = R.string.go_back),
+                        onButtonClick = onNavigateUp,
+                    )
 
                 Loading -> LoadingState(modifier = stateModifier)
             }
@@ -128,47 +129,51 @@ fun MapScreenUi(
 @Composable
 fun DisplayCityOnMap(
     city: City,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val cityLatLng = LatLng(city.coordinates.latitude, city.coordinates.longitude)
 
-    val cameraPositionState = rememberCameraPositionState {
-        position = CameraPosition.fromLatLngZoom(cityLatLng, 10f)
-    }
+    val cameraPositionState =
+        rememberCameraPositionState {
+            position = CameraPosition.fromLatLngZoom(cityLatLng, 10f)
+        }
 
     GoogleMap(modifier = modifier, cameraPositionState = cameraPositionState) {
         Marker(
             state = MarkerState(position = cityLatLng),
             title = city.name,
-            snippet = "Marker in ${city.name}"
+            snippet = "Marker in ${city.name}",
         )
     }
 }
 
-
 @Preview(showBackground = true)
 @Composable
-private fun MapScreenPreview(@PreviewParameter(MapScreenCityPreviewParameterProvider::class) uiState: MapScreenUiState) {
+private fun MapScreenPreview(
+    @PreviewParameter(MapScreenCityPreviewParameterProvider::class) uiState: MapScreenUiState,
+) {
     CitiesListTheme {
         MapScreenUi(
             modifier = Modifier.fillMaxSize(),
-            uiState = uiState
+            uiState = uiState,
         )
     }
 }
 
 private class MapScreenCityPreviewParameterProvider : PreviewParameterProvider<MapScreenUiState> {
-    override val values: Sequence<MapScreenUiState> = sequenceOf(
-        DisplayCity(
-            city = City(
-                name = "Bristol",
-                countryCode = "GB",
-                coordinates = Coordinates(51.4552, -2.5967),
-                id = 1,
-                isStarred = true,
-            )
-        ),
-        Loading,
-        Error(Throwable())
-    )
+    override val values: Sequence<MapScreenUiState> =
+        sequenceOf(
+            DisplayCity(
+                city =
+                    City(
+                        name = "Bristol",
+                        countryCode = "GB",
+                        coordinates = Coordinates(51.4552, -2.5967),
+                        id = 1,
+                        isStarred = true,
+                    ),
+            ),
+            Loading,
+            Error(Throwable()),
+        )
 }

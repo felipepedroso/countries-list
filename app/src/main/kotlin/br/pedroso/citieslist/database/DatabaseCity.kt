@@ -11,5 +11,5 @@ data class DatabaseCity(
     @ColumnInfo(name = "country_code") val countryCode: String,
     @ColumnInfo(name = "latitude") val latitude: Double,
     @ColumnInfo(name = "longitude") val longitude: Double,
-    @ColumnInfo(name= "is_starred") val isStarred: Boolean,
+    @ColumnInfo(name = "is_starred") val isStarred: Boolean,
 )

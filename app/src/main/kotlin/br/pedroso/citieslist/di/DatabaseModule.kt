@@ -1,7 +1,6 @@
 package br.pedroso.citieslist.di
 
 import android.content.Context
-import android.util.Log
 import androidx.room.Room
 import br.pedroso.citieslist.database.AppDatabase
 import br.pedroso.citieslist.database.CitiesDao
@@ -20,13 +19,14 @@ object DatabaseModule {
     @Provides
     fun provideAppDatabase(
         @ApplicationContext applicationContext: Context,
-        databaseInitializerCallback: DatabaseInitializerCallback
+        databaseInitializerCallback: DatabaseInitializerCallback,
     ): AppDatabase {
-        val databaseBuilder = Room.databaseBuilder(
-            context = applicationContext,
-            klass = AppDatabase::class.java,
-            name = "cities-database"
-        )
+        val databaseBuilder =
+            Room.databaseBuilder(
+                context = applicationContext,
+                klass = AppDatabase::class.java,
+                name = "cities-database",
+            )
 
         return databaseBuilder
             .addCallback(databaseInitializerCallback)
@@ -36,7 +36,7 @@ object DatabaseModule {
     @Singleton
     @Provides
     fun provideDatabaseInitializerCallback(
-        @ApplicationContext applicationContext: Context
+        @ApplicationContext applicationContext: Context,
     ): DatabaseInitializerCallback {
         return DatabaseInitializerCallback(applicationContext)
     }

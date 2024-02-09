@@ -61,7 +61,7 @@ fun CitiesSearchScreen(
         modifier = modifier,
         query = query,
         lazyPagingItems = lazyPagingItems,
-        onViewEvent = viewModel::onViewEvent
+        onViewEvent = viewModel::onViewEvent,
     )
 }
 
@@ -88,7 +88,7 @@ fun CitiesSearchScreenUi(
                 IconButton(onClick = { onViewEvent(ClickedOnClearQuery) }) {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_close),
-                        contentDescription = null
+                        contentDescription = null,
                     )
                 }
             }
@@ -96,7 +96,7 @@ fun CitiesSearchScreenUi(
         leadingIcon = {
             Icon(
                 painter = painterResource(id = R.drawable.ic_search),
-                contentDescription = null
+                contentDescription = null,
             )
         },
     ) {
@@ -105,16 +105,18 @@ fun CitiesSearchScreenUi(
             onCityClicked = { city -> onViewEvent(CitiesSearchUiEvent.ClickedOnCity(city)) },
             headerContent = { itemsCount ->
                 Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp)
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp),
                 ) {
                     Text(
-                        text = pluralStringResource(
-                            id = R.plurals.query_result,
-                            count = itemsCount,
-                            itemsCount
-                        )
+                        text =
+                            pluralStringResource(
+                                id = R.plurals.query_result,
+                                count = itemsCount,
+                                itemsCount,
+                            ),
                     )
                 }
             },
@@ -122,16 +124,16 @@ fun CitiesSearchScreenUi(
                 RetryState(
                     modifier = Modifier.fillMaxSize(),
                     message = stringResource(id = R.string.generic_error),
-                    onRetryClick = { onViewEvent(ClickedOnRetry) }
+                    onRetryClick = { onViewEvent(ClickedOnRetry) },
                 )
             },
             emptyStateContent = {
                 RetryState(
                     modifier = Modifier.fillMaxSize(),
                     message = stringResource(id = R.string.empty_list),
-                    onRetryClick = { onViewEvent(ClickedOnRetry) }
+                    onRetryClick = { onViewEvent(ClickedOnRetry) },
                 )
-            }
+            },
         )
     }
 }
@@ -146,14 +148,14 @@ private fun RetryState(
         modifier = modifier,
         message = message,
         buttonText = stringResource(id = R.string.retry),
-        onButtonClick = onRetryClick
+        onButtonClick = onRetryClick,
     )
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun CitiesSearchScreenPreview(
-    @PreviewParameter(CitiesSearchScreenPagingDataProvider::class) pagingData: PagingData<City>
+    @PreviewParameter(CitiesSearchScreenPagingDataProvider::class) pagingData: PagingData<City>,
 ) {
     val pagingDataFlow = MutableStateFlow(pagingData)
 
@@ -161,41 +163,42 @@ private fun CitiesSearchScreenPreview(
 
     CitiesListTheme {
         CitiesSearchScreenUi(
-            query = previewQuery,
+            query = PREVIEW_QUERY,
             lazyPagingItems = lazyPagingItems,
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize(),
         )
     }
 }
 
-private const val previewQuery = "City"
+private const val PREVIEW_QUERY = "City"
 
 private class CitiesSearchScreenPagingDataProvider : PreviewParameterProvider<PagingData<City>> {
-    override val values: Sequence<PagingData<City>> = sequenceOf(
-        PagingData.from(createPreviewCities()),
-        // Loading state
-        PagingData.empty(
-            LoadStates(
-                LoadState.Loading,
-                LoadState.NotLoading(true),
-                LoadState.NotLoading(true),
-            )
-        ),
-        // Empty state
-        PagingData.empty(
-            LoadStates(
-                LoadState.NotLoading(true),
-                LoadState.NotLoading(true),
-                LoadState.NotLoading(true),
-            )
-        ),
-        // Error state
-        PagingData.empty(
-            LoadStates(
-                LoadState.Error(Throwable()),
-                LoadState.NotLoading(true),
-                LoadState.NotLoading(true),
-            )
-        ),
-    )
+    override val values: Sequence<PagingData<City>> =
+        sequenceOf(
+            PagingData.from(createPreviewCities()),
+            // Loading state
+            PagingData.empty(
+                LoadStates(
+                    LoadState.Loading,
+                    LoadState.NotLoading(true),
+                    LoadState.NotLoading(true),
+                ),
+            ),
+            // Empty state
+            PagingData.empty(
+                LoadStates(
+                    LoadState.NotLoading(true),
+                    LoadState.NotLoading(true),
+                    LoadState.NotLoading(true),
+                ),
+            ),
+            // Error state
+            PagingData.empty(
+                LoadStates(
+                    LoadState.Error(Throwable()),
+                    LoadState.NotLoading(true),
+                    LoadState.NotLoading(true),
+                ),
+            ),
+        )
 }

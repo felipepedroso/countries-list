@@ -22,12 +22,12 @@ fun ErrorState(
     Column(
         modifier.padding(16.dp),
         verticalArrangement = Arrangement.Absolute.spacedBy(8.dp, Alignment.CenterVertically),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
             text = message,
             style = MaterialTheme.typography.bodyLarge,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
         )
 
         Button(onClick = onButtonClick) {

@@ -17,24 +17,26 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class StarredCitiesViewModel @Inject constructor(
-    citiesRepository: CitiesRepository
-) : ViewModel() {
+class StarredCitiesViewModel
+    @Inject
+    constructor(
+        citiesRepository: CitiesRepository,
+    ) : ViewModel() {
+        val paginatedCities: Flow<PagingData<City>> =
+            citiesRepository.getStarredCities().cachedIn(viewModelScope)
 
-    val paginatedCities: Flow<PagingData<City>> =
-        citiesRepository.getStarredCities().cachedIn(viewModelScope)
+        private val viewModelEventChannel = Channel<StarredCitiesViewModelEvent>(Channel.BUFFERED)
+        val viewModelEventFlow: Flow<StarredCitiesViewModelEvent>
+            get() = viewModelEventChannel.receiveAsFlow()
 
-    private val viewModelEventChannel = Channel<StarredCitiesViewModelEvent>(Channel.BUFFERED)
-    val viewModelEventFlow: Flow<StarredCitiesViewModelEvent>
-        get() = viewModelEventChannel.receiveAsFlow()
+        fun onUiEvent(viewEvent: StarredCitiesUiEvent) {
+            when (viewEvent) {
+                is ClickedOnCity ->
+                    viewModelScope.launch {
+                        viewModelEventChannel.send(NavigateToMapScreen(viewEvent.city))
+                    }
 
-    fun onUiEvent(viewEvent: StarredCitiesUiEvent) {
-        when (viewEvent) {
-            is ClickedOnCity -> viewModelScope.launch {
-                viewModelEventChannel.send(NavigateToMapScreen(viewEvent.city))
+                ClickedOnRetry -> TODO()
             }
-
-            ClickedOnRetry -> TODO()
         }
     }
-}

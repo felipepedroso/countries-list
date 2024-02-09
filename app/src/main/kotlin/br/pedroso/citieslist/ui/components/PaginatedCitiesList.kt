@@ -47,12 +47,13 @@ fun PaginatedCitiesList(
 
             lazyPagingItems.itemCount == 0 -> emptyStateContent?.invoke()
 
-            else -> CitiesList(
-                lazyPagingItems = lazyPagingItems,
-                onCityClicked = onCityClicked,
-                headerContent = headerContent,
-                showStarredIndicator = showStarredIndicator
-            )
+            else ->
+                CitiesList(
+                    lazyPagingItems = lazyPagingItems,
+                    onCityClicked = onCityClicked,
+                    headerContent = headerContent,
+                    showStarredIndicator = showStarredIndicator,
+                )
         }
     }
 }
@@ -93,7 +94,7 @@ private fun CitiesList(
 @Preview(showBackground = true)
 @Composable
 fun PaginatedCitiesListPreview(
-    @PreviewParameter(CitiesListPreviewParameterProvider::class) pagingData: PagingData<City>
+    @PreviewParameter(CitiesListPreviewParameterProvider::class) pagingData: PagingData<City>,
 ) {
     CitiesListTheme {
         val pagingDataFlow = MutableStateFlow(pagingData)
@@ -104,29 +105,32 @@ fun PaginatedCitiesListPreview(
             lazyPagingItems = lazyPagingItems,
             headerContent = {
                 Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp)
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp),
                 ) {
                     Text(text = "$it cities available:")
                 }
             },
             errorStateContent = {
                 Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(16.dp),
-                    contentAlignment = Alignment.Center
+                    modifier =
+                        Modifier
+                            .fillMaxSize()
+                            .padding(16.dp),
+                    contentAlignment = Alignment.Center,
                 ) {
                     Text(text = "This is an error state.")
                 }
             },
             emptyStateContent = {
                 Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(16.dp),
-                    contentAlignment = Alignment.Center
+                    modifier =
+                        Modifier
+                            .fillMaxSize()
+                            .padding(16.dp),
+                    contentAlignment = Alignment.Center,
                 ) {
                     Text(text = "This is an empty state.")
                 }
@@ -137,31 +141,32 @@ fun PaginatedCitiesListPreview(
 
 private class CitiesListPreviewParameterProvider :
     PreviewParameterProvider<PagingData<City>> {
-    override val values: Sequence<PagingData<City>> = sequenceOf(
-        PagingData.from(createPreviewCities()),
-        // Loading state
-        PagingData.empty(
-            LoadStates(
-                LoadState.Loading,
-                LoadState.NotLoading(true),
-                LoadState.NotLoading(true),
-            )
-        ),
-        // Empty state
-        PagingData.empty(
-            LoadStates(
-                LoadState.NotLoading(true),
-                LoadState.NotLoading(true),
-                LoadState.NotLoading(true),
-            )
-        ),
-        // Error state
-        PagingData.empty(
-            LoadStates(
-                LoadState.Error(Throwable()),
-                LoadState.NotLoading(true),
-                LoadState.NotLoading(true),
-            )
-        ),
-    )
+    override val values: Sequence<PagingData<City>> =
+        sequenceOf(
+            PagingData.from(createPreviewCities()),
+            // Loading state
+            PagingData.empty(
+                LoadStates(
+                    LoadState.Loading,
+                    LoadState.NotLoading(true),
+                    LoadState.NotLoading(true),
+                ),
+            ),
+            // Empty state
+            PagingData.empty(
+                LoadStates(
+                    LoadState.NotLoading(true),
+                    LoadState.NotLoading(true),
+                    LoadState.NotLoading(true),
+                ),
+            ),
+            // Error state
+            PagingData.empty(
+                LoadStates(
+                    LoadState.Error(Throwable()),
+                    LoadState.NotLoading(true),
+                    LoadState.NotLoading(true),
+                ),
+            ),
+        )
 }

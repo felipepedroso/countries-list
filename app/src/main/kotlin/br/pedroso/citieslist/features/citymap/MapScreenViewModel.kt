@@ -8,7 +8,7 @@ import br.pedroso.citieslist.features.citymap.MapScreenUiState.DisplayCity
 import br.pedroso.citieslist.features.citymap.MapScreenUiState.Error
 import br.pedroso.citieslist.features.citymap.MapScreenUiState.Loading
 import br.pedroso.citieslist.repository.CitiesRepository
-import br.pedroso.citieslist.utils.CityIdArgKey
+import br.pedroso.citieslist.utils.CITY_ID_ARG_KEY
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -19,24 +19,28 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MapScreenViewModel @Inject constructor(
-    savedStateHandle: SavedStateHandle,
-    private val citiesRepository: CitiesRepository
-) : ViewModel() {
+class MapScreenViewModel
+    @Inject
+    constructor(
+        savedStateHandle: SavedStateHandle,
+        private val citiesRepository: CitiesRepository,
+    ) : ViewModel() {
+        private val cityId: Int = checkNotNull(savedStateHandle[CITY_ID_ARG_KEY])
 
-    private val cityId: Int = checkNotNull(savedStateHandle[CityIdArgKey])
+        val uiState: StateFlow<MapScreenUiState> by lazy {
+            citiesRepository
+                .getCityById(cityId)
+                .map<City, MapScreenUiState> { city -> DisplayCity(city) }
+                .catch { error -> emit(Error(error)) }
+                .stateIn(viewModelScope, SharingStarted.Eagerly, Loading)
+        }
 
-    val uiState: StateFlow<MapScreenUiState> by lazy {
-        citiesRepository
-            .getCityById(cityId)
-            .map<City, MapScreenUiState> { city -> DisplayCity(city) }
-            .catch { error -> emit(Error(error)) }
-            .stateIn(viewModelScope, SharingStarted.Eagerly, Loading)
-    }
-
-    fun updateStarredState(city: City, newStarredState: Boolean) {
-        viewModelScope.launch {
-            citiesRepository.updateCityStarredState(city, newStarredState)
+        fun updateStarredState(
+            city: City,
+            newStarredState: Boolean,
+        ) {
+            viewModelScope.launch {
+                citiesRepository.updateCityStarredState(city, newStarredState)
+            }
         }
     }
-}
