@@ -28,8 +28,9 @@ fun CitiesNavigationRail(
         val currentDestination = navBackStackEntry?.destination
 
         topLevelScreens.forEach { screen ->
+            val selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true
             NavigationRailItem(
-                selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
+                selected = selected,
                 onClick = {
                     navController.navigate(screen.route) {
                         // Pop up to the start destination of the graph to
@@ -47,7 +48,13 @@ fun CitiesNavigationRail(
                 },
                 icon = {
                     Icon(
-                        painter = painterResource(id = screen.iconResource),
+                        painter = painterResource(
+                            id = if (selected) {
+                                screen.selectedIconResource
+                            } else {
+                                screen.unselectedIconResource
+                            },
+                        ),
                         contentDescription = null,
                     )
                 },

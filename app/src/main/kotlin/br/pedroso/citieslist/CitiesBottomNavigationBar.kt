@@ -26,8 +26,10 @@ fun CitiesBottomNavigationBar(
         val currentDestination = navBackStackEntry?.destination
 
         bottomNavigationItems.forEach { screen ->
+            val selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true
+
             NavigationBarItem(
-                selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
+                selected = selected,
                 onClick = {
                     navController.navigate(screen.route) {
                         // Pop up to the start destination of the graph to
@@ -45,7 +47,13 @@ fun CitiesBottomNavigationBar(
                 },
                 icon = {
                     Icon(
-                        painter = painterResource(id = screen.iconResource),
+                        painter = painterResource(
+                            id = if (selected) {
+                                screen.selectedIconResource
+                            } else {
+                                screen.unselectedIconResource
+                            },
+                        ),
                         contentDescription = null,
                     )
                 },

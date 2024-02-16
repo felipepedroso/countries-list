@@ -24,14 +24,24 @@ sealed class AppScreen(
 ) {
     sealed class TopLevelScreen(
         route: String,
-        @DrawableRes val iconResource: Int,
         @StringRes val labelResource: Int,
+        @DrawableRes val selectedIconResource: Int,
+        @DrawableRes val unselectedIconResource: Int = selectedIconResource,
     ) : AppScreen(route) {
         data object CitiesSearch :
-            TopLevelScreen("cities-search", R.drawable.ic_list_alt, R.string.cities)
+            TopLevelScreen(
+                route = "cities-search",
+                selectedIconResource = R.drawable.ic_list_alt,
+                labelResource = R.string.cities,
+            )
 
         data object Starred :
-            TopLevelScreen("starred", R.drawable.ic_star_filled, R.string.starred)
+            TopLevelScreen(
+                route = "starred",
+                selectedIconResource = R.drawable.ic_star_filled,
+                unselectedIconResource = R.drawable.ic_star_outlined,
+                labelResource = R.string.starred,
+            )
 
         companion object {
             val Screens = listOf<TopLevelScreen>(CitiesSearch, Starred)
@@ -49,21 +59,21 @@ sealed class AppScreen(
 fun NavGraphBuilder.composable(
     screen: AppScreen,
     enterTransition: (
-        @JvmSuppressWildcards
-        AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition?
+    @JvmSuppressWildcards
+    AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition?
     )? = null,
     exitTransition: (
-        @JvmSuppressWildcards
-        AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition?
+    @JvmSuppressWildcards
+    AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition?
     )? = null,
     popEnterTransition: (
-        @JvmSuppressWildcards
-        AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition?
+    @JvmSuppressWildcards
+    AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition?
     )? =
         enterTransition,
     popExitTransition: (
-        @JvmSuppressWildcards
-        AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition?
+    @JvmSuppressWildcards
+    AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition?
     )? =
         exitTransition,
     content: @Composable AnimatedContentScope.(NavBackStackEntry) -> Unit,
