@@ -1,3 +1,5 @@
+import br.pedroso.citieslist.AndroidConfiguration
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -8,14 +10,14 @@ plugins {
 }
 
 android {
-    compileSdk = 34
+    compileSdk = AndroidConfiguration.compileSdk
 
     defaultConfig {
-        applicationId = "br.pedroso.citieslist"
-        minSdk = 21
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        applicationId = AndroidConfiguration.applicationId
+        minSdk = AndroidConfiguration.minSdk
+        targetSdk = AndroidConfiguration.targetSdk
+        versionCode = AndroidConfiguration.versionCode
+        versionName = AndroidConfiguration.versionName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -41,9 +43,9 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.8"
+        kotlinCompilerExtensionVersion = libs.versions.compose.kotlin.compiler.extension.get()
     }
-    namespace = "br.pedroso.citieslist"
+    namespace = AndroidConfiguration.applicationId
 }
 
 dependencies {
