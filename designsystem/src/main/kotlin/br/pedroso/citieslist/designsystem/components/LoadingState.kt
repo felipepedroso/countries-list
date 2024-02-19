@@ -1,4 +1,4 @@
-package br.pedroso.citieslist.ui.components
+package br.pedroso.citieslist.designsystem.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

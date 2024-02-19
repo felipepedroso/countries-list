@@ -27,15 +27,14 @@ import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import br.pedroso.citieslist.R
-import br.pedroso.citieslist.domain.City
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchUiEvent.ClickedOnClearQuery
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchUiEvent.ClickedOnRetry
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchUiEvent.SearchQueryChanged
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchViewModelEvent.NavigateToMapScreen
-import br.pedroso.citieslist.ui.components.ErrorState
-import br.pedroso.citieslist.ui.components.PaginatedCitiesList
-import br.pedroso.citieslist.ui.theme.CitiesListTheme
-import br.pedroso.citieslist.utils.createPreviewCities
+import br.pedroso.citieslist.designsystem.components.ErrorState
+import br.pedroso.citieslist.designsystem.components.PaginatedCitiesList
+import br.pedroso.citieslist.designsystem.theme.CitiesListTheme
+import br.pedroso.citieslist.designsystem.utils.createPreviewCities
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collectLatest
 
@@ -106,17 +105,17 @@ fun CitiesSearchScreenUi(
             headerContent = { itemsCount ->
                 Box(
                     modifier =
-                        Modifier
-                            .fillMaxWidth()
-                            .padding(16.dp),
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
                 ) {
                     Text(
                         text =
-                            pluralStringResource(
-                                id = R.plurals.query_result,
-                                count = itemsCount,
-                                itemsCount,
-                            ),
+                        pluralStringResource(
+                            id = R.plurals.query_result,
+                            count = itemsCount,
+                            itemsCount,
+                        ),
                     )
                 }
             },

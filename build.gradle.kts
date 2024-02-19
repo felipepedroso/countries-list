@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.maps.secrets) apply false
     alias(libs.plugins.spotless) apply false
     alias(libs.plugins.org.jetbrains.kotlin.jvm) apply false
+    alias(libs.plugins.androidLibrary) apply false
 }
 
 subprojects {

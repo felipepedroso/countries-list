@@ -1,7 +1,4 @@
-package br.pedroso.citieslist.utils
-
-import br.pedroso.citieslist.domain.City
-import br.pedroso.citieslist.domain.Coordinates
+package br.pedroso.citieslist.designsystem.utils
 
 fun createPreviewCities(count: Int = 10) =
     (1..count).map {

@@ -1,4 +1,4 @@
-package br.pedroso.citieslist.ui.components
+package br.pedroso.citieslist.designsystem.components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,9 +19,8 @@ import androidx.paging.LoadStates
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import br.pedroso.citieslist.domain.City
-import br.pedroso.citieslist.ui.theme.CitiesListTheme
-import br.pedroso.citieslist.utils.createPreviewCities
+import br.pedroso.citieslist.designsystem.theme.CitiesListTheme
+import br.pedroso.citieslist.designsystem.utils.createPreviewCities
 import kotlinx.coroutines.flow.MutableStateFlow
 
 @Composable
@@ -106,9 +105,9 @@ fun PaginatedCitiesListPreview(
             headerContent = {
                 Box(
                     modifier =
-                        Modifier
-                            .fillMaxWidth()
-                            .padding(16.dp),
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
                 ) {
                     Text(text = "$it cities available:")
                 }
@@ -116,9 +115,9 @@ fun PaginatedCitiesListPreview(
             errorStateContent = {
                 Box(
                     modifier =
-                        Modifier
-                            .fillMaxSize()
-                            .padding(16.dp),
+                    Modifier
+                        .fillMaxSize()
+                        .padding(16.dp),
                     contentAlignment = Alignment.Center,
                 ) {
                     Text(text = "This is an error state.")
@@ -127,9 +126,9 @@ fun PaginatedCitiesListPreview(
             emptyStateContent = {
                 Box(
                     modifier =
-                        Modifier
-                            .fillMaxSize()
-                            .padding(16.dp),
+                    Modifier
+                        .fillMaxSize()
+                        .padding(16.dp),
                     contentAlignment = Alignment.Center,
                 ) {
                     Text(text = "This is an empty state.")

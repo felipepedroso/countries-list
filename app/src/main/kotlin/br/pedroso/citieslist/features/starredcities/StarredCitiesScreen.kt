@@ -13,11 +13,10 @@ import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import br.pedroso.citieslist.R
-import br.pedroso.citieslist.domain.City
 import br.pedroso.citieslist.features.starredcities.StarredCitiesUiEvent.ClickedOnCity
 import br.pedroso.citieslist.features.starredcities.StarredCitiesViewModelEvent.NavigateToMapScreen
-import br.pedroso.citieslist.ui.components.PaginatedCitiesList
-import br.pedroso.citieslist.ui.theme.CitiesListTheme
+import br.pedroso.citieslist.designsystem.components.PaginatedCitiesList
+import br.pedroso.citieslist.designsystem.theme.CitiesListTheme
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable
@@ -45,7 +44,7 @@ private fun StarredCitiesScreenUi(
     modifier: Modifier = Modifier,
     onUiEvent: (uiEvent: StarredCitiesUiEvent) -> Unit = {},
 ) {
-    PaginatedCitiesList(
+    br.pedroso.citieslist.designsystem.components.PaginatedCitiesList(
         modifier = modifier,
         lazyPagingItems = lazyPagingItems,
         showStarredIndicator = false,
@@ -53,17 +52,17 @@ private fun StarredCitiesScreenUi(
         headerContent = { itemsCount ->
             Box(
                 modifier =
-                    Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp),
+                Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
             ) {
                 Text(
                     text =
-                        pluralStringResource(
-                            id = R.plurals.starred_cities,
-                            count = itemsCount,
-                            itemsCount,
-                        ),
+                    pluralStringResource(
+                        id = R.plurals.starred_cities,
+                        count = itemsCount,
+                        itemsCount,
+                    ),
                 )
             }
         },
@@ -77,7 +76,7 @@ private fun StarredCitiesScreenUi(
 @Preview(showBackground = true)
 @Composable
 fun StarredCitiesScreenPreview() {
-    CitiesListTheme {
+    br.pedroso.citieslist.designsystem.theme.CitiesListTheme {
 //        StarredCitiesScreenUi()
     }
 }

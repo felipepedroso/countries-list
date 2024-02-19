@@ -1,4 +1,4 @@
-package br.pedroso.citieslist.utils
+package br.pedroso.citieslist.designsystem.utils
 
 private val emojiCache = mutableMapOf<String, String>()
 private const val ASCII_OFFSET = 0x41

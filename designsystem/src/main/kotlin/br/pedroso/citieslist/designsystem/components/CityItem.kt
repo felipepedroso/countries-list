@@ -1,4 +1,4 @@
-package br.pedroso.citieslist.ui.components
+package br.pedroso.citieslist.designsystem.components
 
 import androidx.compose.foundation.layout.Arrangement.Absolute.spacedBy
 import androidx.compose.foundation.layout.Column
@@ -17,14 +17,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import br.pedroso.citieslist.R
+import br.pedroso.citieslist.designsystem.theme.CitiesListTheme
+import br.pedroso.citieslist.designsystem.utils.getCountryFlagEmoji
 import br.pedroso.citieslist.domain.City
 import br.pedroso.citieslist.domain.Coordinates
-import br.pedroso.citieslist.ui.theme.CitiesListTheme
-import br.pedroso.citieslist.utils.getCountryFlagEmoji
 
 @Composable
 fun CityItem(
-    city: br.pedroso.citieslist.domain.City,
+    city: City,
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {},
     showStarredIndicator: Boolean = true,
@@ -47,11 +47,11 @@ fun CityItem(
                 )
                 Text(
                     text =
-                        stringResource(
-                            id = R.string.coordinates_label,
-                            city.coordinates.latitude,
-                            city.coordinates.longitude,
-                        ),
+                    stringResource(
+                        id = R.string.coordinates_label,
+                        city.coordinates.latitude,
+                        city.coordinates.longitude,
+                    ),
                     style = MaterialTheme.typography.bodyMedium,
                 )
             }
@@ -73,13 +73,13 @@ private fun CityItemPreview() {
     CitiesListTheme {
         CityItem(
             city =
-                br.pedroso.citieslist.domain.City(
-                    name = "Test",
-                    countryCode = "BR",
-                    coordinates = br.pedroso.citieslist.domain.Coordinates(0.0, 0.0),
-                    id = 1,
-                    isStarred = true,
-                ),
+            City(
+                name = "Test",
+                countryCode = "BR",
+                coordinates = Coordinates(0.0, 0.0),
+                id = 1,
+                isStarred = true,
+            ),
             modifier = Modifier.fillMaxWidth(),
         )
     }

@@ -20,14 +20,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import br.pedroso.citieslist.R
-import br.pedroso.citieslist.domain.City
-import br.pedroso.citieslist.domain.Coordinates
 import br.pedroso.citieslist.features.citymap.MapScreenUiState.DisplayCity
 import br.pedroso.citieslist.features.citymap.MapScreenUiState.Error
 import br.pedroso.citieslist.features.citymap.MapScreenUiState.Loading
-import br.pedroso.citieslist.ui.components.ErrorState
-import br.pedroso.citieslist.ui.components.LoadingState
-import br.pedroso.citieslist.ui.theme.CitiesListTheme
+import br.pedroso.citieslist.designsystem.components.ErrorState
+import br.pedroso.citieslist.designsystem.components.LoadingState
+import br.pedroso.citieslist.designsystem.theme.CitiesListTheme
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.GoogleMap
@@ -114,13 +112,13 @@ fun MapScreenUi(
             when (state) {
                 is DisplayCity -> DisplayCityOnMap(modifier = stateModifier, city = state.city)
                 is Error ->
-                    ErrorState(
+                    br.pedroso.citieslist.designsystem.components.ErrorState(
                         message = stringResource(id = R.string.generic_error),
                         buttonText = stringResource(id = R.string.go_back),
                         onButtonClick = onNavigateUp,
                     )
 
-                Loading -> LoadingState(modifier = stateModifier)
+                Loading -> br.pedroso.citieslist.designsystem.components.LoadingState(modifier = stateModifier)
             }
         }
     }
@@ -152,7 +150,7 @@ fun DisplayCityOnMap(
 private fun MapScreenPreview(
     @PreviewParameter(MapScreenCityPreviewParameterProvider::class) uiState: MapScreenUiState,
 ) {
-    CitiesListTheme {
+    br.pedroso.citieslist.designsystem.theme.CitiesListTheme {
         MapScreenUi(
             modifier = Modifier.fillMaxSize(),
             uiState = uiState,

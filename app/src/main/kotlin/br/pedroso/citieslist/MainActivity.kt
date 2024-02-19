@@ -12,7 +12,7 @@ import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSiz
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Modifier
-import br.pedroso.citieslist.ui.theme.CitiesListTheme
+import br.pedroso.citieslist.designsystem.theme.CitiesListTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -42,7 +42,7 @@ class MainActivity : ComponentActivity() {
                 onDispose {}
             }
 
-            CitiesListTheme {
+            br.pedroso.citieslist.designsystem.theme.CitiesListTheme {
                 CitiesListApp(
                     modifier = Modifier.fillMaxSize(),
                     windowSizeClass = calculateWindowSizeClass(activity = this),

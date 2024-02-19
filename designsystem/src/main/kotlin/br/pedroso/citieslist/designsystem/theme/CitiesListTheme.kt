@@ -1,4 +1,4 @@
-package br.pedroso.citieslist.ui.theme
+package br.pedroso.citieslist.designsystem.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme

@@ -1,12 +1,12 @@
 <resources>
     <string name="app_name">Cities List</string>
-    <string name="loading">Loading…</string>
+
     <string name="empty_list">No cities were found with this query.</string>
     <string name="generic_error">Failed to load the cities list. Please try again later.</string>
     <string name="retry">Retry</string>
     <string name="cities">Cities</string>
-    <string name="country_code_label">Country code: %s</string>
-    <string name="coordinates_label">Coordinates: %1$.4f, %2$.4f</string>
+
+
     <string name="search_placeholder">Type the city name here.</string>
     <string name="error_title">Error</string>
     <string name="go_back">Go back</string>

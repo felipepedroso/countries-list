@@ -15,7 +15,7 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import br.pedroso.citieslist.ui.theme.CitiesListTheme
+import br.pedroso.citieslist.designsystem.theme.CitiesListTheme
 
 @Composable
 fun CitiesNavigationRail(
@@ -69,7 +69,7 @@ fun CitiesNavigationRail(
 @Preview(showBackground = true)
 @Composable
 fun CitiesNavigationRailPreview() {
-    CitiesListTheme {
+    br.pedroso.citieslist.designsystem.theme.CitiesListTheme {
         CitiesNavigationRail()
     }
 }
