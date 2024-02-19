@@ -19,16 +19,16 @@ import androidx.paging.LoadStates
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import br.pedroso.citieslist.entities.City
+import br.pedroso.citieslist.domain.City
 import br.pedroso.citieslist.ui.theme.CitiesListTheme
 import br.pedroso.citieslist.utils.createPreviewCities
 import kotlinx.coroutines.flow.MutableStateFlow
 
 @Composable
 fun PaginatedCitiesList(
-    lazyPagingItems: LazyPagingItems<City>,
+    lazyPagingItems: LazyPagingItems<br.pedroso.citieslist.domain.City>,
     modifier: Modifier = Modifier,
-    onCityClicked: (city: City) -> Unit = {},
+    onCityClicked: (city: br.pedroso.citieslist.domain.City) -> Unit = {},
     headerContent: (@Composable (itemsCount: Int) -> Unit)? = null,
     emptyStateContent: (@Composable () -> Unit)? = null,
     errorStateContent: (@Composable () -> Unit)? = null,
@@ -60,9 +60,9 @@ fun PaginatedCitiesList(
 
 @Composable
 private fun CitiesList(
-    lazyPagingItems: LazyPagingItems<City>,
+    lazyPagingItems: LazyPagingItems<br.pedroso.citieslist.domain.City>,
     modifier: Modifier = Modifier,
-    onCityClicked: (city: City) -> Unit = {},
+    onCityClicked: (city: br.pedroso.citieslist.domain.City) -> Unit = {},
     headerContent: (@Composable (itemsCount: Int) -> Unit)? = null,
     showStarredIndicator: Boolean = true,
 ) {
@@ -94,7 +94,7 @@ private fun CitiesList(
 @Preview(showBackground = true)
 @Composable
 fun PaginatedCitiesListPreview(
-    @PreviewParameter(CitiesListPreviewParameterProvider::class) pagingData: PagingData<City>,
+    @PreviewParameter(CitiesListPreviewParameterProvider::class) pagingData: PagingData<br.pedroso.citieslist.domain.City>,
 ) {
     CitiesListTheme {
         val pagingDataFlow = MutableStateFlow(pagingData)
@@ -140,8 +140,8 @@ fun PaginatedCitiesListPreview(
 }
 
 private class CitiesListPreviewParameterProvider :
-    PreviewParameterProvider<PagingData<City>> {
-    override val values: Sequence<PagingData<City>> =
+    PreviewParameterProvider<PagingData<br.pedroso.citieslist.domain.City>> {
+    override val values: Sequence<PagingData<br.pedroso.citieslist.domain.City>> =
         sequenceOf(
             PagingData.from(createPreviewCities()),
             // Loading state

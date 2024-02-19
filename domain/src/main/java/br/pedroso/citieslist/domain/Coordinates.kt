@@ -1,4 +1,4 @@
-package br.pedroso.citieslist.entities
+package br.pedroso.citieslist.domain
 
 data class Coordinates(
     val latitude: Double,

@@ -14,7 +14,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import br.pedroso.citieslist.entities.City
+import br.pedroso.citieslist.domain.City
 import br.pedroso.citieslist.utils.CITY_ID_ARG_KEY
 
 sealed class AppScreen(
@@ -52,28 +52,28 @@ sealed class AppScreen(
         route = "map/{$CITY_ID_ARG_KEY}",
         arguments = listOf(navArgument(CITY_ID_ARG_KEY) { type = NavType.IntType }),
     ) {
-        fun createNavigationRoute(city: City) = "map/${city.id}"
+        fun createNavigationRoute(city: br.pedroso.citieslist.domain.City) = "map/${city.id}"
     }
 }
 
 fun NavGraphBuilder.composable(
     screen: AppScreen,
     enterTransition: (
-    @JvmSuppressWildcards
-    AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition?
+        @JvmSuppressWildcards
+        AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition?
     )? = null,
     exitTransition: (
-    @JvmSuppressWildcards
-    AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition?
+        @JvmSuppressWildcards
+        AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition?
     )? = null,
     popEnterTransition: (
-    @JvmSuppressWildcards
-    AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition?
+        @JvmSuppressWildcards
+        AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition?
     )? =
         enterTransition,
     popExitTransition: (
-    @JvmSuppressWildcards
-    AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition?
+        @JvmSuppressWildcards
+        AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition?
     )? =
         exitTransition,
     content: @Composable AnimatedContentScope.(NavBackStackEntry) -> Unit,

@@ -1,7 +1,7 @@
 package br.pedroso.citieslist.features.citiessearch
 
 import androidx.paging.testing.asSnapshot
-import br.pedroso.citieslist.entities.City
+import br.pedroso.citieslist.domain.City
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchUiEvent.ClickedOnCity
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchUiEvent.ClickedOnClearQuery
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchUiEvent.ClickedOnRetry
@@ -121,7 +121,7 @@ class CitiesSearchViewModelTest {
         runTest {
             val viewModel = CitiesSearchViewModel(AlwaysSuccessfulFakeCitiesRepository())
 
-            val city: City = fixture()
+            val city: br.pedroso.citieslist.domain.City = fixture()
 
             viewModel.onViewEvent(ClickedOnCity(city))
 

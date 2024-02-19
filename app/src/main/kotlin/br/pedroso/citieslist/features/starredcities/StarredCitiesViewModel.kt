@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import br.pedroso.citieslist.entities.City
+import br.pedroso.citieslist.domain.City
 import br.pedroso.citieslist.features.starredcities.StarredCitiesUiEvent.ClickedOnCity
 import br.pedroso.citieslist.features.starredcities.StarredCitiesUiEvent.ClickedOnRetry
 import br.pedroso.citieslist.features.starredcities.StarredCitiesViewModelEvent.NavigateToMapScreen
@@ -22,7 +22,7 @@ class StarredCitiesViewModel
     constructor(
         citiesRepository: CitiesRepository,
     ) : ViewModel() {
-        val paginatedCities: Flow<PagingData<City>> =
+        val paginatedCities: Flow<PagingData<br.pedroso.citieslist.domain.City>> =
             citiesRepository.getStarredCities().cachedIn(viewModelScope)
 
         private val viewModelEventChannel = Channel<StarredCitiesViewModelEvent>(Channel.BUFFERED)

@@ -7,15 +7,15 @@ import androidx.paging.PagingSource
 import androidx.paging.map
 import br.pedroso.citieslist.database.CitiesDao
 import br.pedroso.citieslist.database.DatabaseCity
-import br.pedroso.citieslist.entities.City
-import br.pedroso.citieslist.entities.Coordinates
+import br.pedroso.citieslist.domain.City
+import br.pedroso.citieslist.domain.Coordinates
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class CitiesRepositoryImpl(
     private val citiesDao: CitiesDao,
 ) : CitiesRepository {
-    override fun getCities(searchQuery: String): Flow<PagingData<City>> =
+    override fun getCities(searchQuery: String): Flow<PagingData<br.pedroso.citieslist.domain.City>> =
         databasePagerFlowFactory {
             if (searchQuery.isNotEmpty()) {
                 citiesDao.getCitiesByName(searchQuery)
@@ -24,32 +24,32 @@ class CitiesRepositoryImpl(
             }
         }
 
-    override fun getStarredCities(): Flow<PagingData<City>> =
+    override fun getStarredCities(): Flow<PagingData<br.pedroso.citieslist.domain.City>> =
         databasePagerFlowFactory {
             citiesDao.getStarredCities()
         }
 
-    private fun DatabaseCity.toEntity(): City =
-        City(
+    private fun DatabaseCity.toEntity(): br.pedroso.citieslist.domain.City =
+        br.pedroso.citieslist.domain.City(
             name = name,
             countryCode = countryCode,
-            coordinates = Coordinates(latitude, longitude),
+            coordinates = br.pedroso.citieslist.domain.Coordinates(latitude, longitude),
             id = id,
             isStarred = isStarred,
         )
 
-    override fun getCityById(cityId: Int): Flow<City> {
+    override fun getCityById(cityId: Int): Flow<br.pedroso.citieslist.domain.City> {
         return citiesDao.getCityById(cityId).map { it.toEntity() }
     }
 
     override suspend fun updateCityStarredState(
-        city: City,
+        city: br.pedroso.citieslist.domain.City,
         newStarredState: Boolean,
     ) {
         citiesDao.updateCity(city.toDatabaseCity().copy(isStarred = newStarredState))
     }
 
-    private fun City.toDatabaseCity() =
+    private fun br.pedroso.citieslist.domain.City.toDatabaseCity() =
         DatabaseCity(
             id,
             name,
@@ -63,7 +63,7 @@ class CitiesRepositoryImpl(
         pageSize: Int = 30,
         initialKey: Int = 0,
         pagingSourceFactory: () -> PagingSource<Int, DatabaseCity>,
-    ): Flow<PagingData<City>> {
+    ): Flow<PagingData<br.pedroso.citieslist.domain.City>> {
         return Pager(
             config = PagingConfig(pageSize),
             initialKey = initialKey,

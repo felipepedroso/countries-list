@@ -3,7 +3,7 @@ package br.pedroso.citieslist.features.citymap
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import br.pedroso.citieslist.entities.City
+import br.pedroso.citieslist.domain.City
 import br.pedroso.citieslist.features.citymap.MapScreenUiState.DisplayCity
 import br.pedroso.citieslist.features.citymap.MapScreenUiState.Error
 import br.pedroso.citieslist.features.citymap.MapScreenUiState.Loading
@@ -30,13 +30,13 @@ class MapScreenViewModel
         val uiState: StateFlow<MapScreenUiState> by lazy {
             citiesRepository
                 .getCityById(cityId)
-                .map<City, MapScreenUiState> { city -> DisplayCity(city) }
+                .map<br.pedroso.citieslist.domain.City, MapScreenUiState> { city -> DisplayCity(city) }
                 .catch { error -> emit(Error(error)) }
                 .stateIn(viewModelScope, SharingStarted.Eagerly, Loading)
         }
 
         fun updateStarredState(
-            city: City,
+            city: br.pedroso.citieslist.domain.City,
             newStarredState: Boolean,
         ) {
             viewModelScope.launch {

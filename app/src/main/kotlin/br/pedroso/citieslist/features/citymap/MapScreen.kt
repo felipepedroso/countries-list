@@ -20,8 +20,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import br.pedroso.citieslist.R
-import br.pedroso.citieslist.entities.City
-import br.pedroso.citieslist.entities.Coordinates
+import br.pedroso.citieslist.domain.City
+import br.pedroso.citieslist.domain.Coordinates
 import br.pedroso.citieslist.features.citymap.MapScreenUiState.DisplayCity
 import br.pedroso.citieslist.features.citymap.MapScreenUiState.Error
 import br.pedroso.citieslist.features.citymap.MapScreenUiState.Loading
@@ -57,7 +57,7 @@ fun MapScreenUi(
     uiState: MapScreenUiState,
     modifier: Modifier = Modifier,
     onNavigateUp: () -> Unit = {},
-    updateBookmarkState: (city: City, newBookmarkState: Boolean) -> Unit = { _, _ -> },
+    updateBookmarkState: (city: br.pedroso.citieslist.domain.City, newBookmarkState: Boolean) -> Unit = { _, _ -> },
 ) {
     val title: String =
         when (uiState) {
@@ -128,7 +128,7 @@ fun MapScreenUi(
 
 @Composable
 fun DisplayCityOnMap(
-    city: City,
+    city: br.pedroso.citieslist.domain.City,
     modifier: Modifier = Modifier,
 ) {
     val cityLatLng = LatLng(city.coordinates.latitude, city.coordinates.longitude)
@@ -165,10 +165,10 @@ private class MapScreenCityPreviewParameterProvider : PreviewParameterProvider<M
         sequenceOf(
             DisplayCity(
                 city =
-                    City(
+                    br.pedroso.citieslist.domain.City(
                         name = "Bristol",
                         countryCode = "GB",
-                        coordinates = Coordinates(51.4552, -2.5967),
+                        coordinates = br.pedroso.citieslist.domain.Coordinates(51.4552, -2.5967),
                         id = 1,
                         isStarred = true,
                     ),

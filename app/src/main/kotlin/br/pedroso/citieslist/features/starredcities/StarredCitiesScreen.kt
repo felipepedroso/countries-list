@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import br.pedroso.citieslist.R
-import br.pedroso.citieslist.entities.City
+import br.pedroso.citieslist.domain.City
 import br.pedroso.citieslist.features.starredcities.StarredCitiesUiEvent.ClickedOnCity
 import br.pedroso.citieslist.features.starredcities.StarredCitiesViewModelEvent.NavigateToMapScreen
 import br.pedroso.citieslist.ui.components.PaginatedCitiesList
@@ -24,7 +24,7 @@ import kotlinx.coroutines.flow.collectLatest
 fun StarredCitiesScreen(
     viewModel: StarredCitiesViewModel,
     modifier: Modifier = Modifier,
-    openCityOnMap: (city: City) -> Unit = {},
+    openCityOnMap: (city: br.pedroso.citieslist.domain.City) -> Unit = {},
 ) {
     val lazyPagingItems = viewModel.paginatedCities.collectAsLazyPagingItems()
 
@@ -41,7 +41,7 @@ fun StarredCitiesScreen(
 
 @Composable
 private fun StarredCitiesScreenUi(
-    lazyPagingItems: LazyPagingItems<City>,
+    lazyPagingItems: LazyPagingItems<br.pedroso.citieslist.domain.City>,
     modifier: Modifier = Modifier,
     onUiEvent: (uiEvent: StarredCitiesUiEvent) -> Unit = {},
 ) {

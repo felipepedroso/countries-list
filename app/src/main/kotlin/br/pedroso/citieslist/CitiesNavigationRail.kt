@@ -48,13 +48,15 @@ fun CitiesNavigationRail(
                 },
                 icon = {
                     Icon(
-                        painter = painterResource(
-                            id = if (selected) {
-                                screen.selectedIconResource
-                            } else {
-                                screen.unselectedIconResource
-                            },
-                        ),
+                        painter =
+                            painterResource(
+                                id =
+                                    if (selected) {
+                                        screen.selectedIconResource
+                                    } else {
+                                        screen.unselectedIconResource
+                                    },
+                            ),
                         contentDescription = null,
                     )
                 },

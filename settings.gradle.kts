@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "CitiesList"
 include(":app")
+include(":domain")

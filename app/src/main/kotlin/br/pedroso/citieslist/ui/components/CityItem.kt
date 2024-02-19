@@ -17,14 +17,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import br.pedroso.citieslist.R
-import br.pedroso.citieslist.entities.City
-import br.pedroso.citieslist.entities.Coordinates
+import br.pedroso.citieslist.domain.City
+import br.pedroso.citieslist.domain.Coordinates
 import br.pedroso.citieslist.ui.theme.CitiesListTheme
 import br.pedroso.citieslist.utils.getCountryFlagEmoji
 
 @Composable
 fun CityItem(
-    city: City,
+    city: br.pedroso.citieslist.domain.City,
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {},
     showStarredIndicator: Boolean = true,
@@ -73,10 +73,10 @@ private fun CityItemPreview() {
     CitiesListTheme {
         CityItem(
             city =
-                City(
+                br.pedroso.citieslist.domain.City(
                     name = "Test",
                     countryCode = "BR",
-                    coordinates = Coordinates(0.0, 0.0),
+                    coordinates = br.pedroso.citieslist.domain.Coordinates(0.0, 0.0),
                     id = 1,
                     isStarred = true,
                 ),

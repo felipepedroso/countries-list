@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import br.pedroso.citieslist.entities.City
+import br.pedroso.citieslist.domain.City
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchUiEvent.ClickedOnCity
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchUiEvent.ClickedOnClearQuery
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchUiEvent.ClickedOnRetry
@@ -35,7 +35,7 @@ class CitiesSearchViewModel
 
         val queryState: StateFlow<String> = _queryState
 
-        val paginatedCities: Flow<PagingData<City>> =
+        val paginatedCities: Flow<PagingData<br.pedroso.citieslist.domain.City>> =
             _queryState
                 .distinctUntilChanged { old, new -> old.compareTo(new, ignoreCase = true) == 0 }
                 .flatMapLatest { citiesRepository.getCities(it) }

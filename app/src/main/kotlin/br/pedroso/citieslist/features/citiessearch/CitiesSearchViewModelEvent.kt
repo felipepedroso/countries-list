@@ -1,7 +1,7 @@
 package br.pedroso.citieslist.features.citiessearch
 
-import br.pedroso.citieslist.entities.City
+import br.pedroso.citieslist.domain.City
 
 sealed class CitiesSearchViewModelEvent {
-    data class NavigateToMapScreen(val cityToFocus: City) : CitiesSearchViewModelEvent()
+    data class NavigateToMapScreen(val cityToFocus: br.pedroso.citieslist.domain.City) : CitiesSearchViewModelEvent()
 }

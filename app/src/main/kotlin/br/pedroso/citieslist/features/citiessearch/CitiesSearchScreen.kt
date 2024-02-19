@@ -27,7 +27,7 @@ import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import br.pedroso.citieslist.R
-import br.pedroso.citieslist.entities.City
+import br.pedroso.citieslist.domain.City
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchUiEvent.ClickedOnClearQuery
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchUiEvent.ClickedOnRetry
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchUiEvent.SearchQueryChanged
@@ -43,7 +43,7 @@ import kotlinx.coroutines.flow.collectLatest
 fun CitiesSearchScreen(
     viewModel: CitiesSearchViewModel,
     modifier: Modifier = Modifier,
-    openCityOnMap: (city: City) -> Unit = {},
+    openCityOnMap: (city: br.pedroso.citieslist.domain.City) -> Unit = {},
 ) {
     val lazyPagingItems = viewModel.paginatedCities.collectAsLazyPagingItems()
 
@@ -69,7 +69,7 @@ fun CitiesSearchScreen(
 @Composable
 fun CitiesSearchScreenUi(
     query: String,
-    lazyPagingItems: LazyPagingItems<City>,
+    lazyPagingItems: LazyPagingItems<br.pedroso.citieslist.domain.City>,
     modifier: Modifier = Modifier,
     onViewEvent: (viewEvent: CitiesSearchUiEvent) -> Unit = {},
 ) {
@@ -155,7 +155,7 @@ private fun RetryState(
 @Preview(showBackground = true)
 @Composable
 private fun CitiesSearchScreenPreview(
-    @PreviewParameter(CitiesSearchScreenPagingDataProvider::class) pagingData: PagingData<City>,
+    @PreviewParameter(CitiesSearchScreenPagingDataProvider::class) pagingData: PagingData<br.pedroso.citieslist.domain.City>,
 ) {
     val pagingDataFlow = MutableStateFlow(pagingData)
 
@@ -172,8 +172,8 @@ private fun CitiesSearchScreenPreview(
 
 private const val PREVIEW_QUERY = "City"
 
-private class CitiesSearchScreenPagingDataProvider : PreviewParameterProvider<PagingData<City>> {
-    override val values: Sequence<PagingData<City>> =
+private class CitiesSearchScreenPagingDataProvider : PreviewParameterProvider<PagingData<br.pedroso.citieslist.domain.City>> {
+    override val values: Sequence<PagingData<br.pedroso.citieslist.domain.City>> =
         sequenceOf(
             PagingData.from(createPreviewCities()),
             // Loading state

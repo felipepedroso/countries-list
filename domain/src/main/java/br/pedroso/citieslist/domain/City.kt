@@ -1,8 +1,5 @@
-package br.pedroso.citieslist.entities
+package br.pedroso.citieslist.domain
 
-import androidx.compose.runtime.Stable
-
-@Stable
 data class City(
     val name: String,
     val countryCode: String,

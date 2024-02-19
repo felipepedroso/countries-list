@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.hilt) apply false
     alias(libs.plugins.maps.secrets) apply false
     alias(libs.plugins.spotless) apply false
+    alias(libs.plugins.org.jetbrains.kotlin.jvm) apply false
 }
 
 subprojects {

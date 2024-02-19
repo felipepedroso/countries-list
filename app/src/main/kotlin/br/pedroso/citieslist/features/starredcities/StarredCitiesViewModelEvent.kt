@@ -1,7 +1,7 @@
 package br.pedroso.citieslist.features.starredcities
 
-import br.pedroso.citieslist.entities.City
+import br.pedroso.citieslist.domain.City
 
 sealed class StarredCitiesViewModelEvent {
-    data class NavigateToMapScreen(val cityToFocus: City) : StarredCitiesViewModelEvent()
+    data class NavigateToMapScreen(val cityToFocus: br.pedroso.citieslist.domain.City) : StarredCitiesViewModelEvent()
 }
