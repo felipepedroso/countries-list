@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import br.pedroso.citieslist.domain.City
 import br.pedroso.citieslist.features.starredcities.StarredCitiesUiEvent.ClickedOnCity
 import br.pedroso.citieslist.features.starredcities.StarredCitiesUiEvent.ClickedOnRetry
 import br.pedroso.citieslist.features.starredcities.StarredCitiesViewModelEvent.NavigateToMapScreen
@@ -20,7 +19,7 @@ import javax.inject.Inject
 class StarredCitiesViewModel
     @Inject
     constructor(
-        citiesRepository: CitiesRepository,
+        citiesRepository: br.pedroso.citieslist.repository.CitiesRepository,
     ) : ViewModel() {
         val paginatedCities: Flow<PagingData<br.pedroso.citieslist.domain.City>> =
             citiesRepository.getStarredCities().cachedIn(viewModelScope)

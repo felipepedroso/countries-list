@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import br.pedroso.citieslist.domain.City
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchUiEvent.ClickedOnCity
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchUiEvent.ClickedOnClearQuery
 import br.pedroso.citieslist.features.citiessearch.CitiesSearchUiEvent.ClickedOnRetry
@@ -29,7 +28,7 @@ import javax.inject.Inject
 class CitiesSearchViewModel
     @Inject
     constructor(
-        private val citiesRepository: CitiesRepository,
+        private val citiesRepository: br.pedroso.citieslist.repository.CitiesRepository,
     ) : ViewModel() {
         private val _queryState: MutableStateFlow<String> = MutableStateFlow("")
 

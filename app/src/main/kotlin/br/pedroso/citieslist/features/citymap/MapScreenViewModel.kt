@@ -22,7 +22,7 @@ class MapScreenViewModel
     @Inject
     constructor(
         savedStateHandle: SavedStateHandle,
-        private val citiesRepository: CitiesRepository,
+        private val citiesRepository: br.pedroso.citieslist.repository.CitiesRepository,
     ) : ViewModel() {
         private val cityId: Int = checkNotNull(savedStateHandle[CITY_ID_ARG_KEY])
 

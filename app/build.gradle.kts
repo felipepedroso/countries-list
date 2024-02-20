@@ -49,10 +49,9 @@ android {
 }
 
 dependencies {
-    implementation(project(":database"))
-    implementation(project(":datasource"))
     implementation(project(":domain"))
     implementation(project(":designsystem"))
+    implementation(project(":repository"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.appcompat)
