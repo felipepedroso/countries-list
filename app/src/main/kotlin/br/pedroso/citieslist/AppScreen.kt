@@ -14,8 +14,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import br.pedroso.citieslist.domain.City
-import br.pedroso.citieslist.utils.CITY_ID_ARG_KEY
+import br.pedroso.citieslist.domain.CITY_ID_ARG_KEY
 
 sealed class AppScreen(
     val route: String,

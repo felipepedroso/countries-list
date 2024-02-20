@@ -3,12 +3,11 @@ package br.pedroso.citieslist.features.citymap
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import br.pedroso.citieslist.domain.City
 import br.pedroso.citieslist.features.citymap.MapScreenUiState.DisplayCity
 import br.pedroso.citieslist.features.citymap.MapScreenUiState.Error
 import br.pedroso.citieslist.features.citymap.MapScreenUiState.Loading
 import br.pedroso.citieslist.repository.CitiesRepository
-import br.pedroso.citieslist.utils.CITY_ID_ARG_KEY
+import br.pedroso.citieslist.domain.CITY_ID_ARG_KEY
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
