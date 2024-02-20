@@ -31,7 +31,7 @@ android {
         kotlinCompilerExtensionVersion = libs.versions.compose.kotlin.compiler.extension.get()
     }
 
-    namespace = AndroidConfiguration.applicationId
+    namespace = "${AndroidConfiguration.applicationId}.designsystem"
 }
 
 dependencies {

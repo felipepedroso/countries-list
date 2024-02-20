@@ -2,7 +2,6 @@ package br.pedroso.citieslist.features.citymap
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
-import br.pedroso.citieslist.domain.City
 
 sealed class MapScreenUiState {
     data object Loading : MapScreenUiState()

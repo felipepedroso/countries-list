@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
@@ -24,7 +23,7 @@ import br.pedroso.citieslist.features.citiessearch.CitiesSearchScreen
 import br.pedroso.citieslist.features.citymap.MapScreen
 import br.pedroso.citieslist.features.starredcities.StarredCitiesScreen
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun CitiesListApp(
     modifier: Modifier = Modifier,
@@ -48,10 +47,10 @@ fun CitiesListApp(
     ) { paddingValues ->
         Row(
             modifier =
-                Modifier
-                    .fillMaxSize()
-                    .padding(paddingValues)
-                    .consumeWindowInsets(paddingValues),
+            Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+                .consumeWindowInsets(paddingValues),
         ) {
             if (showNavigationRail) {
                 CitiesNavigationRail(
@@ -65,8 +64,8 @@ fun CitiesListApp(
 
                 NavHost(
                     modifier =
-                        Modifier
-                            .fillMaxSize(),
+                    Modifier
+                        .fillMaxSize(),
                     navController = navController,
                     startDestination = CitiesSearch.route,
                 ) {

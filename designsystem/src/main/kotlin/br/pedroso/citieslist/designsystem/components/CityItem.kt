@@ -16,7 +16,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import br.pedroso.citieslist.R
+import br.pedroso.citieslist.designsystem.R
 import br.pedroso.citieslist.designsystem.theme.CitiesListTheme
 import br.pedroso.citieslist.designsystem.utils.getCountryFlagEmoji
 import br.pedroso.citieslist.domain.City

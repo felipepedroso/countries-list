@@ -19,19 +19,20 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import br.pedroso.citieslist.R
-import br.pedroso.citieslist.features.citymap.MapScreenUiState.DisplayCity
-import br.pedroso.citieslist.features.citymap.MapScreenUiState.Error
-import br.pedroso.citieslist.features.citymap.MapScreenUiState.Loading
 import br.pedroso.citieslist.designsystem.components.ErrorState
 import br.pedroso.citieslist.designsystem.components.LoadingState
 import br.pedroso.citieslist.designsystem.theme.CitiesListTheme
+import br.pedroso.citieslist.features.citymap.MapScreenUiState.DisplayCity
+import br.pedroso.citieslist.features.citymap.MapScreenUiState.Error
+import br.pedroso.citieslist.features.citymap.MapScreenUiState.Loading
+import br.pedroso.citieslist.features.citymap.R
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
+import br.pedroso.citieslist.designsystem.R as DesignSystemR
 
 @Composable
 fun MapScreen(
@@ -71,7 +72,7 @@ fun MapScreenUi(
                 navigationIcon = {
                     IconButton(onClick = onNavigateUp) {
                         Icon(
-                            painter = painterResource(id = R.drawable.ic_arrow_back),
+                            painter = painterResource(id = DesignSystemR.drawable.ic_arrow_back),
                             contentDescription = null,
                         )
                     }
@@ -86,13 +87,13 @@ fun MapScreenUi(
                         ) {
                             Icon(
                                 painter =
-                                    painterResource(
-                                        if (isBookmarked) {
-                                            R.drawable.ic_star_filled
-                                        } else {
-                                            R.drawable.ic_star_outlined
-                                        },
-                                    ),
+                                painterResource(
+                                    if (isBookmarked) {
+                                        R.drawable.ic_star_filled
+                                    } else {
+                                        R.drawable.ic_star_outlined
+                                    },
+                                ),
                                 contentDescription = null,
                             )
                         }
@@ -112,13 +113,13 @@ fun MapScreenUi(
             when (state) {
                 is DisplayCity -> DisplayCityOnMap(modifier = stateModifier, city = state.city)
                 is Error ->
-                    br.pedroso.citieslist.designsystem.components.ErrorState(
+                    ErrorState(
                         message = stringResource(id = R.string.generic_error),
                         buttonText = stringResource(id = R.string.go_back),
                         onButtonClick = onNavigateUp,
                     )
 
-                Loading -> br.pedroso.citieslist.designsystem.components.LoadingState(modifier = stateModifier)
+                Loading -> LoadingState(modifier = stateModifier)
             }
         }
     }
@@ -150,7 +151,7 @@ fun DisplayCityOnMap(
 private fun MapScreenPreview(
     @PreviewParameter(MapScreenCityPreviewParameterProvider::class) uiState: MapScreenUiState,
 ) {
-    br.pedroso.citieslist.designsystem.theme.CitiesListTheme {
+    CitiesListTheme {
         MapScreenUi(
             modifier = Modifier.fillMaxSize(),
             uiState = uiState,
@@ -163,13 +164,13 @@ private class MapScreenCityPreviewParameterProvider : PreviewParameterProvider<M
         sequenceOf(
             DisplayCity(
                 city =
-                    br.pedroso.citieslist.domain.City(
-                        name = "Bristol",
-                        countryCode = "GB",
-                        coordinates = br.pedroso.citieslist.domain.Coordinates(51.4552, -2.5967),
-                        id = 1,
-                        isStarred = true,
-                    ),
+                br.pedroso.citieslist.domain.City(
+                    name = "Bristol",
+                    countryCode = "GB",
+                    coordinates = br.pedroso.citieslist.domain.Coordinates(51.4552, -2.5967),
+                    id = 1,
+                    isStarred = true,
+                ),
             ),
             Loading,
             Error(Throwable()),

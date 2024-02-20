@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_title">Error</string>
+    <string name="go_back">Go back</string>
+    <string name="generic_error">Failed to load the cities list. Please try again later.</string>
+</resources>
