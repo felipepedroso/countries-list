@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class CitiesRepositoryImpl(
-    private val citiesDao: CitiesDao,
+    private val citiesDao: br.pedroso.citieslist.database.CitiesDao,
 ) : CitiesRepository {
     override fun getCities(searchQuery: String): Flow<PagingData<br.pedroso.citieslist.domain.City>> =
         databasePagerFlowFactory {
@@ -29,7 +29,7 @@ class CitiesRepositoryImpl(
             citiesDao.getStarredCities()
         }
 
-    private fun DatabaseCity.toEntity(): br.pedroso.citieslist.domain.City =
+    private fun br.pedroso.citieslist.database.DatabaseCity.toEntity(): br.pedroso.citieslist.domain.City =
         br.pedroso.citieslist.domain.City(
             name = name,
             countryCode = countryCode,
@@ -50,7 +50,7 @@ class CitiesRepositoryImpl(
     }
 
     private fun br.pedroso.citieslist.domain.City.toDatabaseCity() =
-        DatabaseCity(
+        br.pedroso.citieslist.database.DatabaseCity(
             id,
             name,
             countryCode,
@@ -62,7 +62,7 @@ class CitiesRepositoryImpl(
     private fun databasePagerFlowFactory(
         pageSize: Int = 30,
         initialKey: Int = 0,
-        pagingSourceFactory: () -> PagingSource<Int, DatabaseCity>,
+        pagingSourceFactory: () -> PagingSource<Int, br.pedroso.citieslist.database.DatabaseCity>,
     ): Flow<PagingData<br.pedroso.citieslist.domain.City>> {
         return Pager(
             config = PagingConfig(pageSize),

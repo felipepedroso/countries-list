@@ -1,10 +1,7 @@
-package br.pedroso.citieslist.di
+package br.pedroso.citieslist.database
 
 import android.content.Context
 import androidx.room.Room
-import br.pedroso.citieslist.database.AppDatabase
-import br.pedroso.citieslist.database.CitiesDao
-import br.pedroso.citieslist.database.DatabaseInitializerCallback
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

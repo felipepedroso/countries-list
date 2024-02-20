@@ -12,7 +12,7 @@ import dagger.hilt.android.components.ViewModelComponent
 @InstallIn(ViewModelComponent::class)
 object RepositoryModule {
     @Provides
-    fun provideCitiesRepository(citiesDao: CitiesDao): CitiesRepository {
+    fun provideCitiesRepository(citiesDao: br.pedroso.citieslist.database.CitiesDao): CitiesRepository {
         return CitiesRepositoryImpl(citiesDao)
     }
 }

@@ -49,6 +49,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":database"))
     implementation(project(":datasource"))
     implementation(project(":domain"))
     implementation(project(":designsystem"))
@@ -85,11 +86,6 @@ dependencies {
     debugImplementation(libs.compose.ui.tooling)
     implementation(libs.compose.ui.tooling.preview)
 
-    implementation(libs.androidx.room.runtime)
-    annotationProcessor(libs.androidx.room.compiler)
-    ksp(libs.androidx.room.compiler)
-    implementation(libs.androidx.room.paging)
-    implementation(libs.androidx.room.ktx)
 
     implementation(libs.androidx.work.runtime.ktx)
     androidTestImplementation(libs.androidx.work.testing)
