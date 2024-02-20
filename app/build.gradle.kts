@@ -42,7 +42,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.compose.kotlin.compiler.extension.get()
+        kotlinCompilerExtensionVersion = libs.versions.compose.kotlinCompilerExtension.get()
     }
     namespace = AndroidConfiguration.applicationId
 }
@@ -50,6 +50,7 @@ android {
 dependencies {
     implementation(project(":domain"))
     implementation(project(":designsystem"))
+    implementation(project(":features:citiessearch"))
     implementation(project(":features:citymap"))
     implementation(project(":features:starredcities"))
     implementation(project(":repository"))

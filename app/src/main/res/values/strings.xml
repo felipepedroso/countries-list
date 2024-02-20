@@ -1,20 +1,5 @@
 <resources>
     <string name="app_name">Cities List</string>
-
-    <string name="empty_list">No cities were found with this query.</string>
-    <string name="generic_error">Failed to load the cities list. Please try again later.</string>
-    <string name="retry">Retry</string>
     <string name="cities">Cities</string>
-
-
-    <string name="search_placeholder">Type the city name here.</string>
-    <string name="error_title">Error</string>
-    <string name="go_back">Go back</string>
     <string name="starred">Starred</string>
-    <plurals name="query_result">
-        <item quantity="one">%d city found:</item>
-        <item quantity="other">%d cities found:</item>
-    </plurals>
-
-
 </resources>

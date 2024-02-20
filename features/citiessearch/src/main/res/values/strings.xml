@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="retry">Retry</string>
+    <string name="search_placeholder">Type the city name here.</string>
+    <string name="empty_list">No cities were found with this query.</string>
+    <string name="generic_error">Failed to load the cities list. Please try again later.</string>
+    <plurals name="query_result">
+        <item quantity="one">%d city found:</item>
+        <item quantity="other">%d cities found:</item>
+    </plurals>
+</resources>

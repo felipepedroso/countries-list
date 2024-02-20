@@ -60,8 +60,6 @@ fun CitiesListApp(
             }
 
             Column(Modifier.fillMaxSize()) {
-//                TopAppBar(title = { Text(text = stringResource(id = R.string.app_name)) })
-
                 NavHost(
                     modifier =
                     Modifier
@@ -70,7 +68,7 @@ fun CitiesListApp(
                     startDestination = CitiesSearch.route,
                 ) {
                     composable(CitiesSearch) {
-                        CitiesSearchScreen(
+                        br.pedroso.citieslist.features.citiessearch.CitiesSearchScreen(
                             viewModel = hiltViewModel(),
                             openCityOnMap = { city ->
                                 navController.navigate(Map.createNavigationRoute(city))

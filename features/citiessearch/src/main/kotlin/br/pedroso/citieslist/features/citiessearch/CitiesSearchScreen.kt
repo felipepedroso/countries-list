@@ -26,23 +26,24 @@ import androidx.paging.LoadStates
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import br.pedroso.citieslist.R
-import br.pedroso.citieslist.features.citiessearch.CitiesSearchUiEvent.ClickedOnClearQuery
-import br.pedroso.citieslist.features.citiessearch.CitiesSearchUiEvent.ClickedOnRetry
-import br.pedroso.citieslist.features.citiessearch.CitiesSearchUiEvent.SearchQueryChanged
-import br.pedroso.citieslist.features.citiessearch.CitiesSearchViewModelEvent.NavigateToMapScreen
 import br.pedroso.citieslist.designsystem.components.ErrorState
 import br.pedroso.citieslist.designsystem.components.PaginatedCitiesList
 import br.pedroso.citieslist.designsystem.theme.CitiesListTheme
 import br.pedroso.citieslist.designsystem.utils.createPreviewCities
+import br.pedroso.citieslist.domain.City
+import br.pedroso.citieslist.features.citiessearch.CitiesSearchUiEvent.ClickedOnClearQuery
+import br.pedroso.citieslist.features.citiessearch.CitiesSearchUiEvent.ClickedOnRetry
+import br.pedroso.citieslist.features.citiessearch.CitiesSearchUiEvent.SearchQueryChanged
+import br.pedroso.citieslist.features.citiessearch.CitiesSearchViewModelEvent.NavigateToMapScreen
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collectLatest
+import br.pedroso.citieslist.designsystem.R as DesignSystemR
 
 @Composable
 fun CitiesSearchScreen(
     viewModel: CitiesSearchViewModel,
     modifier: Modifier = Modifier,
-    openCityOnMap: (city: br.pedroso.citieslist.domain.City) -> Unit = {},
+    openCityOnMap: (city: City) -> Unit = {},
 ) {
     val lazyPagingItems = viewModel.paginatedCities.collectAsLazyPagingItems()
 
@@ -68,7 +69,7 @@ fun CitiesSearchScreen(
 @Composable
 fun CitiesSearchScreenUi(
     query: String,
-    lazyPagingItems: LazyPagingItems<br.pedroso.citieslist.domain.City>,
+    lazyPagingItems: LazyPagingItems<City>,
     modifier: Modifier = Modifier,
     onViewEvent: (viewEvent: CitiesSearchUiEvent) -> Unit = {},
 ) {
@@ -86,7 +87,7 @@ fun CitiesSearchScreenUi(
             if (!isLoading && query.isNotEmpty()) {
                 IconButton(onClick = { onViewEvent(ClickedOnClearQuery) }) {
                     Icon(
-                        painter = painterResource(id = R.drawable.ic_close),
+                        painter = painterResource(id = DesignSystemR.drawable.ic_close),
                         contentDescription = null,
                     )
                 }
@@ -94,7 +95,7 @@ fun CitiesSearchScreenUi(
         },
         leadingIcon = {
             Icon(
-                painter = painterResource(id = R.drawable.ic_search),
+                painter = painterResource(id = DesignSystemR.drawable.ic_search),
                 contentDescription = null,
             )
         },
@@ -171,8 +172,9 @@ private fun CitiesSearchScreenPreview(
 
 private const val PREVIEW_QUERY = "City"
 
-private class CitiesSearchScreenPagingDataProvider : PreviewParameterProvider<PagingData<br.pedroso.citieslist.domain.City>> {
-    override val values: Sequence<PagingData<br.pedroso.citieslist.domain.City>> =
+private class CitiesSearchScreenPagingDataProvider :
+    PreviewParameterProvider<PagingData<City>> {
+    override val values: Sequence<PagingData<City>> =
         sequenceOf(
             PagingData.from(createPreviewCities()),
             // Loading state

@@ -4,6 +4,8 @@ import br.pedroso.citieslist.AndroidConfiguration
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -31,14 +33,23 @@ android {
         kotlinCompilerExtensionVersion = libs.versions.compose.kotlinCompilerExtension.get()
     }
 
-    namespace = "${AndroidConfiguration.applicationId}.designsystem"
+    namespace = "${AndroidConfiguration.applicationId}.features.citiessearch"
 }
 
 dependencies {
     implementation(project(":domain"))
+    implementation(project(":designsystem"))
+    implementation(project(":repository"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.appcompat)
+
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
 
     val composeBom = platform(libs.compose.bom)
     implementation(composeBom)
@@ -50,13 +61,15 @@ dependencies {
     debugImplementation(libs.compose.ui.tooling)
     implementation(libs.compose.ui.tooling.preview)
 
-    implementation(libs.androidx.paging.runtime.ktx)
-
+    implementation(libs.androidx.paging.compose)
     testImplementation(libs.androidx.paging.common.ktx)
     testImplementation(libs.androidx.paging.testing)
 
-    implementation(libs.androidx.paging.compose)
-
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    testImplementation(libs.junit)
+    testImplementation(libs.truth)
+    testImplementation(libs.fixture)
+    testImplementation(libs.kotlinx.coroutines.test)
 }

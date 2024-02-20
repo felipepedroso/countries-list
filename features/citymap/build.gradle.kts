@@ -31,7 +31,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.compose.kotlin.compiler.extension.get()
+        kotlinCompilerExtensionVersion = libs.versions.compose.kotlinCompilerExtension.get()
     }
 
     namespace = "${AndroidConfiguration.applicationId}.features.citymap"
