@@ -4,8 +4,8 @@ import android.content.Context
 import android.util.Log
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import br.pedroso.citieslist.jsondatasource.CitiesJsonDataSource
-import br.pedroso.citieslist.jsondatasource.JsonCity
+import br.pedroso.citieslist.datasource.CitiesJsonDataSource
+import br.pedroso.citieslist.datasource.JsonCity
 
 class SeedCitiesDatabaseWorker(
     context: Context,

@@ -1,8 +1,8 @@
-package br.pedroso.citieslist.di
+package br.pedroso.citieslist.datasource
 
 import android.content.Context
-import br.pedroso.citieslist.jsondatasource.AssetsJsonCitiesJsonDataSource
-import br.pedroso.citieslist.jsondatasource.CitiesJsonDataSource
+import br.pedroso.citieslist.datasource.AssetsCitiesJsonDataSource
+import br.pedroso.citieslist.datasource.CitiesJsonDataSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,6 +16,6 @@ object DataSourceModule {
     fun provideCitiesDataSource(
         @ApplicationContext applicationContext: Context,
     ): CitiesJsonDataSource {
-        return AssetsJsonCitiesJsonDataSource(applicationContext)
+        return AssetsCitiesJsonDataSource(applicationContext)
     }
 }

@@ -49,6 +49,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":datasource"))
     implementation(project(":domain"))
     implementation(project(":designsystem"))
     implementation(libs.androidx.core.ktx)

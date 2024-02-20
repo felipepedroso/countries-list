@@ -1,4 +1,4 @@
-package br.pedroso.citieslist.jsondatasource
+package br.pedroso.citieslist.datasource
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.work.ListenableWorker
 import androidx.work.WorkerFactory
 import androidx.work.WorkerParameters
-import br.pedroso.citieslist.jsondatasource.CitiesJsonDataSource
+import br.pedroso.citieslist.datasource.CitiesJsonDataSource
 import javax.inject.Inject
 
 class SeedCitiesDatabaseWorkerFactory

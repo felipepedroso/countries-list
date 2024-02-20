@@ -1,4 +1,4 @@
-package br.pedroso.citieslist.jsondatasource
+package br.pedroso.citieslist.datasource
 
 import android.content.Context
 import kotlinx.coroutines.CoroutineDispatcher
@@ -6,7 +6,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 
-class AssetsJsonCitiesJsonDataSource(
+internal class AssetsCitiesJsonDataSource(
     private val applicationContext: Context,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
 ) : CitiesJsonDataSource {
