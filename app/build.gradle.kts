@@ -101,7 +101,6 @@ dependencies {
     testImplementation(libs.truth)
     testImplementation(libs.fixture)
     testImplementation(libs.kotlinx.coroutines.test)
-    testImplementation(libs.mockito.kotlin)
 
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

@@ -59,7 +59,7 @@ Additionally, it's necessary to create an API key for Maps SDK for Android and a
 | Kotlin | -  Coroutines<br>- Serialization |
 | Jetpack | - Hilt (Dependency Injection)<br>- AppCompat<br>- Navigation<br>- core-ktx<br>- fragment-ktx<br>- Material<br>- Constraint Layout<br>- RecyclerView
 | Maps | Maps SDK for Android |
-| Tests | - Google Truth (to implement nicer test assertions)<br>- Mockito Kotlin<br>- Coroutines Test<br>- Kotlin Fixture (to avoid creating test objects manually) |
+| Tests | - Google Truth (to implement nicer test assertions)<br>- Coroutines Test<br>- Kotlin Fixture (to avoid creating test objects manually) |
 
 ## License
 
