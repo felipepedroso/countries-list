@@ -49,17 +49,17 @@ private fun StarredCitiesScreenUi(
         headerContent = { itemsCount ->
             Box(
                 modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
             ) {
                 Text(
                     text =
-                    pluralStringResource(
-                        id = R.plurals.starred_cities,
-                        count = itemsCount,
-                        itemsCount,
-                    ),
+                        pluralStringResource(
+                            id = R.plurals.starred_cities,
+                            count = itemsCount,
+                            itemsCount,
+                        ),
                 )
             }
         },

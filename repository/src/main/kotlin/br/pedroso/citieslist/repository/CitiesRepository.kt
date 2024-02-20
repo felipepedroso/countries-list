@@ -11,5 +11,8 @@ interface CitiesRepository {
 
     fun getCityById(cityId: Int): Flow<City>
 
-    suspend fun updateCityStarredState(city: City, newStarredState: Boolean)
+    suspend fun updateCityStarredState(
+        city: City,
+        newStarredState: Boolean,
+    )
 }

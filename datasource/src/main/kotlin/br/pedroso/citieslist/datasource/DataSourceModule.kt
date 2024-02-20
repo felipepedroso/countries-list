@@ -1,8 +1,6 @@
 package br.pedroso.citieslist.datasource
 
 import android.content.Context
-import br.pedroso.citieslist.datasource.AssetsCitiesJsonDataSource
-import br.pedroso.citieslist.datasource.CitiesJsonDataSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

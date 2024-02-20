@@ -25,7 +25,6 @@ import br.pedroso.citieslist.designsystem.theme.CitiesListTheme
 import br.pedroso.citieslist.features.citymap.MapScreenUiState.DisplayCity
 import br.pedroso.citieslist.features.citymap.MapScreenUiState.Error
 import br.pedroso.citieslist.features.citymap.MapScreenUiState.Loading
-import br.pedroso.citieslist.features.citymap.R
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.GoogleMap
@@ -87,13 +86,13 @@ fun MapScreenUi(
                         ) {
                             Icon(
                                 painter =
-                                painterResource(
-                                    if (isBookmarked) {
-                                        R.drawable.ic_star_filled
-                                    } else {
-                                        R.drawable.ic_star_outlined
-                                    },
-                                ),
+                                    painterResource(
+                                        if (isBookmarked) {
+                                            R.drawable.ic_star_filled
+                                        } else {
+                                            R.drawable.ic_star_outlined
+                                        },
+                                    ),
                                 contentDescription = null,
                             )
                         }
@@ -164,13 +163,13 @@ private class MapScreenCityPreviewParameterProvider : PreviewParameterProvider<M
         sequenceOf(
             DisplayCity(
                 city =
-                br.pedroso.citieslist.domain.City(
-                    name = "Bristol",
-                    countryCode = "GB",
-                    coordinates = br.pedroso.citieslist.domain.Coordinates(51.4552, -2.5967),
-                    id = 1,
-                    isStarred = true,
-                ),
+                    br.pedroso.citieslist.domain.City(
+                        name = "Bristol",
+                        countryCode = "GB",
+                        coordinates = br.pedroso.citieslist.domain.Coordinates(51.4552, -2.5967),
+                        id = 1,
+                        isStarred = true,
+                    ),
             ),
             Loading,
             Error(Throwable()),

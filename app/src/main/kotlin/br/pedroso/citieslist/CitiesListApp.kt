@@ -47,10 +47,10 @@ fun CitiesListApp(
     ) { paddingValues ->
         Row(
             modifier =
-            Modifier
-                .fillMaxSize()
-                .padding(paddingValues)
-                .consumeWindowInsets(paddingValues),
+                Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues)
+                    .consumeWindowInsets(paddingValues),
         ) {
             if (showNavigationRail) {
                 CitiesNavigationRail(
@@ -62,8 +62,8 @@ fun CitiesListApp(
             Column(Modifier.fillMaxSize()) {
                 NavHost(
                     modifier =
-                    Modifier
-                        .fillMaxSize(),
+                        Modifier
+                            .fillMaxSize(),
                     navController = navController,
                     startDestination = CitiesSearch.route,
                 ) {

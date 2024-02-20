@@ -42,9 +42,10 @@ class CitiesSearchViewModelTest {
     @Test
     fun `given repository returns an empty list of cities when screen is created then view must display the empty state`() =
         runTest {
-            val viewModel = CitiesSearchViewModel(
-                AlwaysEmptyFakeCitiesRepository()
-            )
+            val viewModel =
+                CitiesSearchViewModel(
+                    AlwaysEmptyFakeCitiesRepository(),
+                )
 
             viewModel.onViewEvent(SearchQueryChanged(fixture()))
 
@@ -56,9 +57,10 @@ class CitiesSearchViewModelTest {
     @Test
     fun `given repository throws an exception when screen is created then view must display the error state`() =
         runTest {
-            val viewModel = CitiesSearchViewModel(
-                AlwaysThrowingExceptionFakeCitiesRepository()
-            )
+            val viewModel =
+                CitiesSearchViewModel(
+                    AlwaysThrowingExceptionFakeCitiesRepository(),
+                )
 
             viewModel.onViewEvent(SearchQueryChanged(fixture()))
 
@@ -72,9 +74,10 @@ class CitiesSearchViewModelTest {
     @Test
     fun `given repository returns a list of cities when screen is created then view must display the same list`() =
         runTest {
-            val viewModel = CitiesSearchViewModel(
-                AlwaysSuccessfulFakeCitiesRepository()
-            )
+            val viewModel =
+                CitiesSearchViewModel(
+                    AlwaysSuccessfulFakeCitiesRepository(),
+                )
 
             viewModel.onViewEvent(SearchQueryChanged(fixture()))
 
@@ -86,9 +89,10 @@ class CitiesSearchViewModelTest {
     @Test
     fun `given repository returns an empty list of cities when the search query changes then view must display the empty state`() =
         runTest {
-            val viewModel = CitiesSearchViewModel(
-                AlwaysEmptyFakeCitiesRepository()
-            )
+            val viewModel =
+                CitiesSearchViewModel(
+                    AlwaysEmptyFakeCitiesRepository(),
+                )
 
             viewModel.onViewEvent(SearchQueryChanged(fixture()))
 
@@ -100,9 +104,10 @@ class CitiesSearchViewModelTest {
     @Test
     fun `given repository throws an exception when the search query changes then view must display the error state`() =
         runTest {
-            val viewModel = CitiesSearchViewModel(
-                AlwaysThrowingExceptionFakeCitiesRepository()
-            )
+            val viewModel =
+                CitiesSearchViewModel(
+                    AlwaysThrowingExceptionFakeCitiesRepository(),
+                )
 
             viewModel.onViewEvent(SearchQueryChanged(fixture()))
 
@@ -116,9 +121,10 @@ class CitiesSearchViewModelTest {
     @Test
     fun `given repository returns a list of cities when the search query changes then view must display the same list`() =
         runTest {
-            val viewModel = CitiesSearchViewModel(
-                AlwaysSuccessfulFakeCitiesRepository()
-            )
+            val viewModel =
+                CitiesSearchViewModel(
+                    AlwaysSuccessfulFakeCitiesRepository(),
+                )
 
             viewModel.onViewEvent(SearchQueryChanged(fixture()))
 
@@ -130,9 +136,10 @@ class CitiesSearchViewModelTest {
     @Test
     fun `when user clicks on city then view must navigate to maps screen`() =
         runTest {
-            val viewModel = CitiesSearchViewModel(
-                AlwaysSuccessfulFakeCitiesRepository()
-            )
+            val viewModel =
+                CitiesSearchViewModel(
+                    AlwaysSuccessfulFakeCitiesRepository(),
+                )
 
             val city: br.pedroso.citieslist.domain.City = fixture()
 
@@ -146,9 +153,10 @@ class CitiesSearchViewModelTest {
     @Test
     fun `given repository returns an empty list of cities when user clicked on retry then view must display the empty state`() =
         runTest {
-            val viewModel = CitiesSearchViewModel(
-                AlwaysEmptyFakeCitiesRepository()
-            )
+            val viewModel =
+                CitiesSearchViewModel(
+                    AlwaysEmptyFakeCitiesRepository(),
+                )
 
             viewModel.onViewEvent(ClickedOnRetry)
 
@@ -160,9 +168,10 @@ class CitiesSearchViewModelTest {
     @Test
     fun `given repository throws an exception when user clicked on retry then view must display the error state`() =
         runTest {
-            val viewModel = CitiesSearchViewModel(
-                AlwaysThrowingExceptionFakeCitiesRepository()
-            )
+            val viewModel =
+                CitiesSearchViewModel(
+                    AlwaysThrowingExceptionFakeCitiesRepository(),
+                )
 
             viewModel.onViewEvent(ClickedOnRetry)
 
@@ -176,9 +185,10 @@ class CitiesSearchViewModelTest {
     @Test
     fun `given repository returns a list of cities when user clicked on retry then view must display the same list`() =
         runTest {
-            val viewModel = CitiesSearchViewModel(
-                AlwaysSuccessfulFakeCitiesRepository()
-            )
+            val viewModel =
+                CitiesSearchViewModel(
+                    AlwaysSuccessfulFakeCitiesRepository(),
+                )
 
             viewModel.onViewEvent(ClickedOnRetry)
 
@@ -190,9 +200,10 @@ class CitiesSearchViewModelTest {
     @Test
     fun `given the query is empty when user clicks on retry then query state must also be empty`() =
         runTest {
-            val viewModel = CitiesSearchViewModel(
-                AlwaysSuccessfulFakeCitiesRepository()
-            )
+            val viewModel =
+                CitiesSearchViewModel(
+                    AlwaysSuccessfulFakeCitiesRepository(),
+                )
 
             viewModel.onViewEvent(ClickedOnRetry)
 
@@ -202,9 +213,10 @@ class CitiesSearchViewModelTest {
     @Test
     fun `given the query is not empty when user clicks on retry then query state must remain the same`() =
         runTest {
-            val viewModel = CitiesSearchViewModel(
-                AlwaysSuccessfulFakeCitiesRepository()
-            )
+            val viewModel =
+                CitiesSearchViewModel(
+                    AlwaysSuccessfulFakeCitiesRepository(),
+                )
 
             val query: String = fixture()
 
@@ -218,9 +230,10 @@ class CitiesSearchViewModelTest {
     @Test
     fun `when user types a new query then query state must be updated`() =
         runTest {
-            val viewModel = CitiesSearchViewModel(
-                AlwaysSuccessfulFakeCitiesRepository()
-            )
+            val viewModel =
+                CitiesSearchViewModel(
+                    AlwaysSuccessfulFakeCitiesRepository(),
+                )
 
             val newQuery: String = fixture()
 
@@ -232,9 +245,10 @@ class CitiesSearchViewModelTest {
     @Test
     fun `given the query is not empty when user clicks on the clear query button then query state must be empty`() =
         runTest {
-            val viewModel = CitiesSearchViewModel(
-                AlwaysSuccessfulFakeCitiesRepository()
-            )
+            val viewModel =
+                CitiesSearchViewModel(
+                    AlwaysSuccessfulFakeCitiesRepository(),
+                )
 
             val newQuery: String = fixture()
 

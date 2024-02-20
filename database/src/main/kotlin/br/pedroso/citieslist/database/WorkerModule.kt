@@ -13,7 +13,9 @@ import javax.inject.Singleton
 object WorkerModule {
     @Singleton
     @Provides
-    fun provideWorkerConfiguration(seedCitiesDatabaseWorkerFactory: br.pedroso.citieslist.database.SeedCitiesDatabaseWorkerFactory): Configuration {
+    fun provideWorkerConfiguration(
+        seedCitiesDatabaseWorkerFactory: br.pedroso.citieslist.database.SeedCitiesDatabaseWorkerFactory,
+    ): Configuration {
         return Configuration.Builder()
             .setMinimumLoggingLevel(android.util.Log.DEBUG)
             .setWorkerFactory(seedCitiesDatabaseWorkerFactory)

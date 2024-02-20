@@ -47,11 +47,11 @@ fun CityItem(
                 )
                 Text(
                     text =
-                    stringResource(
-                        id = R.string.coordinates_label,
-                        city.coordinates.latitude,
-                        city.coordinates.longitude,
-                    ),
+                        stringResource(
+                            id = R.string.coordinates_label,
+                            city.coordinates.latitude,
+                            city.coordinates.longitude,
+                        ),
                     style = MaterialTheme.typography.bodyMedium,
                 )
             }
@@ -73,13 +73,13 @@ private fun CityItemPreview() {
     CitiesListTheme {
         CityItem(
             city =
-            City(
-                name = "Test",
-                countryCode = "BR",
-                coordinates = Coordinates(0.0, 0.0),
-                id = 1,
-                isStarred = true,
-            ),
+                City(
+                    name = "Test",
+                    countryCode = "BR",
+                    coordinates = Coordinates(0.0, 0.0),
+                    id = 1,
+                    isStarred = true,
+                ),
             modifier = Modifier.fillMaxWidth(),
         )
     }

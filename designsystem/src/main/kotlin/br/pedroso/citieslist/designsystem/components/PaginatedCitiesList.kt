@@ -105,9 +105,9 @@ fun PaginatedCitiesListPreview(
             headerContent = {
                 Box(
                     modifier =
-                    Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp),
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp),
                 ) {
                     Text(text = "$it cities available:")
                 }
@@ -115,9 +115,9 @@ fun PaginatedCitiesListPreview(
             errorStateContent = {
                 Box(
                     modifier =
-                    Modifier
-                        .fillMaxSize()
-                        .padding(16.dp),
+                        Modifier
+                            .fillMaxSize()
+                            .padding(16.dp),
                     contentAlignment = Alignment.Center,
                 ) {
                     Text(text = "This is an error state.")
@@ -126,9 +126,9 @@ fun PaginatedCitiesListPreview(
             emptyStateContent = {
                 Box(
                     modifier =
-                    Modifier
-                        .fillMaxSize()
-                        .padding(16.dp),
+                        Modifier
+                            .fillMaxSize()
+                            .padding(16.dp),
                     contentAlignment = Alignment.Center,
                 ) {
                     Text(text = "This is an empty state.")

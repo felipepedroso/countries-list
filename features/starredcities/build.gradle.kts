@@ -65,7 +65,6 @@ dependencies {
     testImplementation(libs.androidx.paging.common.ktx)
     testImplementation(libs.androidx.paging.testing)
 
-
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 }
