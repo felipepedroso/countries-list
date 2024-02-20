@@ -7,7 +7,6 @@ import androidx.paging.cachedIn
 import br.pedroso.citieslist.features.starredcities.StarredCitiesUiEvent.ClickedOnCity
 import br.pedroso.citieslist.features.starredcities.StarredCitiesUiEvent.ClickedOnRetry
 import br.pedroso.citieslist.features.starredcities.StarredCitiesViewModelEvent.NavigateToMapScreen
-import br.pedroso.citieslist.repository.CitiesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow

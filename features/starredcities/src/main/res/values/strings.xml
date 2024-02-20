@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="starred_cities">
+        <item quantity="one">%d starred city:</item>
+        <item quantity="other">%d starred cities:</item>
+    </plurals>
+</resources>

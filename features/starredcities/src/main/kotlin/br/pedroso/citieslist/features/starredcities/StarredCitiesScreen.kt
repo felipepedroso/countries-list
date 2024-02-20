@@ -12,11 +12,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import br.pedroso.citieslist.R
 import br.pedroso.citieslist.features.starredcities.StarredCitiesUiEvent.ClickedOnCity
 import br.pedroso.citieslist.features.starredcities.StarredCitiesViewModelEvent.NavigateToMapScreen
-import br.pedroso.citieslist.designsystem.components.PaginatedCitiesList
-import br.pedroso.citieslist.designsystem.theme.CitiesListTheme
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable
