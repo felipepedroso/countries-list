@@ -48,6 +48,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":databaseinitialization"))
     implementation(project(":domain"))
     implementation(project(":designsystem"))
     implementation(project(":features:citiessearch"))
@@ -68,6 +69,8 @@ dependencies {
 
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
+    ksp(libs.hilt.extensionsCompiler)
+    implementation(libs.hilt.work)
 
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)

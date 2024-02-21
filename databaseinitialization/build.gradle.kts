@@ -25,10 +25,12 @@ android {
         jvmTarget = JavaVersion.VERSION_17.toString()
     }
 
-    namespace = "${AndroidConfiguration.applicationId}.database"
+    namespace = "${AndroidConfiguration.applicationId}.databaseinitialization"
 }
 
 dependencies {
+    implementation(project(":database"))
+    implementation(project(":datasource"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.hilt.android)
@@ -36,9 +38,6 @@ dependencies {
     ksp(libs.hilt.extensionsCompiler)
     implementation(libs.hilt.work)
     implementation(libs.androidx.room.runtime)
-    annotationProcessor(libs.androidx.room.compiler)
-    ksp(libs.androidx.room.compiler)
-    implementation(libs.androidx.room.paging)
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.work.runtime.ktx)
     androidTestImplementation(libs.androidx.work.testing)

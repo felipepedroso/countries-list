@@ -2,6 +2,7 @@ package br.pedroso.citieslist.database
 
 import android.content.Context
 import androidx.room.Room
+import androidx.room.RoomDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,7 +17,7 @@ object DatabaseModule {
     @Provides
     fun provideAppDatabase(
         @ApplicationContext applicationContext: Context,
-        databaseInitializerCallback: DatabaseInitializerCallback,
+        databaseInitializationCallback: RoomDatabase.Callback,
     ): AppDatabase {
         val databaseBuilder =
             Room.databaseBuilder(
@@ -26,16 +27,8 @@ object DatabaseModule {
             )
 
         return databaseBuilder
-            .addCallback(databaseInitializerCallback)
+            .addCallback(databaseInitializationCallback)
             .build()
-    }
-
-    @Singleton
-    @Provides
-    fun provideDatabaseInitializerCallback(
-        @ApplicationContext applicationContext: Context,
-    ): DatabaseInitializerCallback {
-        return DatabaseInitializerCallback(applicationContext)
     }
 
     @Provides

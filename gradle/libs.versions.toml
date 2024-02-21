@@ -9,7 +9,7 @@ compose-kotlinCompilerExtension = "1.5.9"
 espresso-core = "3.5.1"
 fixture = "1.1.0"
 hilt-android = "2.50"
-hilt-navigation-compose = "1.1.0"
+hilt-extensions = "1.1.0"
 junit = "4.13.2"
 kotlin = "1.9.22"
 kotlin-coroutines = "1.7.3"
@@ -31,6 +31,7 @@ org-jetbrains-kotlin-jvm = "1.9.22"
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "core-ktx" }
 androidx-activity = { module = "androidx.activity:activity", version.ref = "activity" }
+
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
 compose-material3 = { group = "androidx.compose.material3", name = "material3" }
 compose-material3-window-size = { group = "androidx.compose.material3", name = "material3-window-size-class" }
@@ -38,7 +39,7 @@ compose-ui-util = { group = "androidx.compose.ui", name = "ui-util" }
 compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidx-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso-core" }
-androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hilt-navigation-compose" }
+androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hilt-extensions" }
 androidx-junit = { module = "androidx.test.ext:junit", version.ref = "androidx-junit" }
 androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle" }
 androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycle" }
@@ -57,6 +58,8 @@ androidx-work-testing = { module = "androidx.work:work-testing", version.ref = "
 fixture = { module = "com.appmattus.fixture:fixture", version.ref = "fixture" }
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt-android" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt-android" }
+hilt-work = { module = "androidx.hilt:hilt-work", version.ref = "hilt-extensions" }
+hilt-extensionsCompiler = { module = "androidx.hilt:hilt-compiler", version.ref = "hilt-extensions" }
 junit = { module = "junit:junit", version.ref = "junit" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlin-coroutines" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlin-coroutines" }
