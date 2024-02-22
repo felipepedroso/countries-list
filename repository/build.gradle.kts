@@ -29,8 +29,9 @@ android {
 }
 
 dependencies {
-    implementation(project(":domain"))
     implementation(project(":database"))
+    implementation(project(":databaseinitialization"))
+    implementation(project(":domain"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.hilt.android)

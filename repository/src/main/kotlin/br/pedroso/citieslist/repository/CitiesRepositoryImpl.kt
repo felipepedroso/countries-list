@@ -1,18 +1,23 @@
 package br.pedroso.citieslist.repository
 
+import androidx.paging.LoadState
+import androidx.paging.LoadStates
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.PagingSource
 import androidx.paging.map
 import br.pedroso.citieslist.database.DatabaseCity
+import br.pedroso.citieslist.databaseinitialization.DatabaseInitializationManager
 import br.pedroso.citieslist.domain.City
 import br.pedroso.citieslist.domain.Coordinates
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 
-class CitiesRepositoryImpl(
+internal class CitiesRepositoryImpl(
     private val citiesDao: br.pedroso.citieslist.database.CitiesDao,
+    private val databaseInitializationManager: DatabaseInitializationManager,
 ) : CitiesRepository {
     override fun getCities(searchQuery: String): Flow<PagingData<City>> =
         databasePagerFlowFactory {
@@ -69,6 +74,19 @@ class CitiesRepositoryImpl(
             pagingSourceFactory = pagingSourceFactory,
         ).flow.map { pagingData ->
             pagingData.map { databaseCity -> databaseCity.toEntity() }
+        }.combine(databaseInitializationManager.isInitializingDatabase) { pagingData, isInitializing ->
+            if (isInitializing) {
+                PagingData.empty(
+                    sourceLoadStates =
+                        LoadStates(
+                            refresh = LoadState.Loading,
+                            prepend = LoadState.NotLoading(endOfPaginationReached = true),
+                            append = LoadState.NotLoading(endOfPaginationReached = true),
+                        ),
+                )
+            } else {
+                pagingData
+            }
         }
     }
 }

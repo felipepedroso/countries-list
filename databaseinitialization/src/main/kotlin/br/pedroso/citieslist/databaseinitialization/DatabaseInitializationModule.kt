@@ -2,6 +2,7 @@ package br.pedroso.citieslist.databaseinitialization
 
 import android.content.Context
 import androidx.room.RoomDatabase
+import androidx.work.WorkManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,9 +15,15 @@ import javax.inject.Singleton
 object DatabaseInitializationModule {
     @Singleton
     @Provides
-    fun provideDatabaseInitializationCallback(
+    fun provideDatabaseInitializationCallback(databaseInitializationManager: DatabaseInitializationManager): RoomDatabase.Callback {
+        return DatabaseInitializationCallback(databaseInitializationManager)
+    }
+
+    @Singleton
+    @Provides
+    fun provideWorkManager(
         @ApplicationContext applicationContext: Context,
-    ): RoomDatabase.Callback {
-        return DatabaseInitializationCallback(applicationContext)
+    ): WorkManager {
+        return WorkManager.getInstance(applicationContext)
     }
 }
