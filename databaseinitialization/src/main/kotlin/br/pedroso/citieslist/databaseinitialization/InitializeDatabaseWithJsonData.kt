@@ -6,6 +6,9 @@ import br.pedroso.citieslist.datasource.CitiesJsonDataSource
 import br.pedroso.citieslist.datasource.JsonCity
 import javax.inject.Inject
 
+/**
+ * Initializes the database with the data from the cities.json file.
+ */
 class InitializeDatabaseWithJsonData
     @Inject
     constructor(
@@ -18,7 +21,7 @@ class InitializeDatabaseWithJsonData
         }
     }
 
-private fun JsonCity.toDatabaseCity(): DatabaseCity {
+internal fun JsonCity.toDatabaseCity(): DatabaseCity {
     return DatabaseCity(
         name = name,
         countryCode = country,

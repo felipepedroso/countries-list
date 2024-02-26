@@ -4,6 +4,7 @@ import br.pedroso.citieslist.AndroidConfiguration
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
 }
@@ -25,30 +26,17 @@ android {
         jvmTarget = JavaVersion.VERSION_17.toString()
     }
 
-    namespace = "${AndroidConfiguration.applicationId}.databaseinitialization"
+    namespace = AndroidConfiguration.applicationId
 }
 
 dependencies {
-    implementation(project(":database"))
-    testImplementation(project(":databasetest"))
     implementation(project(":datasource"))
-    testImplementation(project(":datasourcetest"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
+    implementation(libs.kotlinx.serialization.json)
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
-    ksp(libs.hilt.extensionsCompiler)
-    implementation(libs.hilt.work)
-    implementation(libs.androidx.room.runtime)
-    implementation(libs.androidx.room.ktx)
-    implementation(libs.androidx.work.runtime.ktx)
-    androidTestImplementation(libs.androidx.work.testing)
     testImplementation(libs.junit)
-    testImplementation(libs.fixture)
-    testImplementation(libs.truth)
-    testImplementation(libs.kotlinx.coroutines.test)
-    testImplementation(libs.androidx.paging.runtime.ktx)
-    testImplementation(libs.androidx.paging.testing)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 }
