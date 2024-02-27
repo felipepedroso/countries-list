@@ -4,9 +4,6 @@ import br.pedroso.citieslist.AndroidConfiguration
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.ksp)
-    alias(libs.plugins.hilt)
 }
 
 android {
@@ -30,7 +27,5 @@ android {
 }
 
 dependencies {
-    implementation(project(":datasource"))
-    implementation(libs.hilt.android)
-    ksp(libs.hilt.compiler)
+    api(project(":datasource"))
 }

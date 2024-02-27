@@ -37,9 +37,9 @@ android {
 }
 
 dependencies {
-    implementation(project(":domain"))
+    api(project(":domain"))
     implementation(project(":designsystem"))
-    implementation(project(":repository"))
+    api(project(":repository"))
 
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
 

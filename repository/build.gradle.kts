@@ -29,9 +29,9 @@ android {
 }
 
 dependencies {
-    implementation(project(":database"))
-    implementation(project(":databaseinitialization"))
-    implementation(project(":domain"))
+    api(project(":database"))
+    api(project(":databaseinitialization"))
+    api(project(":domain"))
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
     implementation(libs.androidx.paging.runtime.ktx)

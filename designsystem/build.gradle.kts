@@ -35,7 +35,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":domain"))
+    api(project(":domain"))
 
     val composeBom = platform(libs.compose.bom)
     implementation(composeBom)
@@ -47,5 +47,5 @@ dependencies {
 
     testImplementation(libs.androidx.paging.common.ktx)
 
-    implementation(libs.androidx.paging.compose)
+    api(libs.androidx.paging.compose)
 }

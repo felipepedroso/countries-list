@@ -37,9 +37,9 @@ android {
 }
 
 dependencies {
-    implementation(project(":domain"))
+    api(project(":domain"))
     implementation(project(":designsystem"))
-    implementation(project(":repository"))
+    api(project(":repository"))
 
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
 
@@ -54,7 +54,7 @@ dependencies {
     debugImplementation(libs.compose.ui.tooling)
     implementation(libs.compose.ui.tooling.preview)
 
-    implementation(libs.androidx.paging.compose)
+    api(libs.androidx.paging.compose)
     testImplementation(libs.androidx.paging.common.ktx)
     testImplementation(libs.androidx.paging.testing)
 

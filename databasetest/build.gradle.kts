@@ -27,8 +27,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":database"))
-    implementation(libs.androidx.room.runtime)
-    annotationProcessor(libs.androidx.room.compiler)
+    api(project(":database"))
+    runtimeOnly(libs.androidx.room.runtime)
     implementation(libs.androidx.room.paging)
 }

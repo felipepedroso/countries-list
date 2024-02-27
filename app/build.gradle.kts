@@ -48,6 +48,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":database"))
+    implementation(project(":datasource"))
     implementation(project(":databaseinitialization"))
     implementation(project(":domain"))
     implementation(project(":designsystem"))
@@ -63,7 +65,7 @@ dependencies {
     ksp(libs.hilt.compiler)
     ksp(libs.hilt.extensionsCompiler)
     implementation(libs.hilt.work)
-    implementation(libs.kotlinx.coroutines.android)
+    runtimeOnly(libs.kotlinx.coroutines.android)
     implementation(libs.play.services.maps)
 
     val composeBom = platform(libs.compose.bom)
@@ -73,7 +75,4 @@ dependencies {
     implementation(libs.compose.material3.window.size)
     debugImplementation(libs.compose.ui.tooling)
     implementation(libs.compose.ui.tooling.preview)
-
-    testImplementation(libs.androidx.paging.common.ktx)
-    testImplementation(libs.kotlinx.coroutines.test)
 }

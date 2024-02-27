@@ -29,15 +29,15 @@ android {
 }
 
 dependencies {
-    implementation(project(":database"))
+    api(project(":database"))
     testImplementation(project(":databasetest"))
-    implementation(project(":datasource"))
+    api(project(":datasource"))
     testImplementation(project(":datasourcetest"))
-    implementation(libs.hilt.android)
+    api(libs.hilt.android)
     ksp(libs.hilt.compiler)
     ksp(libs.hilt.extensionsCompiler)
-    implementation(libs.hilt.work)
-    implementation(libs.androidx.room.runtime)
+    api(libs.hilt.work)
+    api(libs.androidx.room.runtime)
     implementation(libs.androidx.work.runtime.ktx)
     testImplementation(libs.junit)
     testImplementation(libs.fixture)

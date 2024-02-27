@@ -29,10 +29,10 @@ android {
 }
 
 dependencies {
-    implementation(libs.hilt.android)
+    api(libs.hilt.android)
     ksp(libs.hilt.compiler)
     ksp(libs.hilt.extensionsCompiler)
-    implementation(libs.androidx.room.runtime)
+    api(libs.androidx.room.runtime)
     annotationProcessor(libs.androidx.room.compiler)
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.paging)
