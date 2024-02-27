@@ -11,10 +11,10 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Test
 
 class InitializeDatabaseWithJsonDataTest {
-
-    private val fixture = kotlinFixture {
-        nullabilityStrategy(NeverNullStrategy)
-    }
+    private val fixture =
+        kotlinFixture {
+            nullabilityStrategy(NeverNullStrategy)
+        }
 
     private fun createUseCase(
         citiesDao: CitiesDao,

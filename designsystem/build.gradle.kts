@@ -48,5 +48,4 @@ dependencies {
     testImplementation(libs.androidx.paging.common.ktx)
 
     implementation(libs.androidx.paging.compose)
-
 }
