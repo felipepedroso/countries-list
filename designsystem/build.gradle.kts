@@ -36,27 +36,17 @@ android {
 
 dependencies {
     implementation(project(":domain"))
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.activity)
-    implementation(libs.androidx.appcompat)
 
     val composeBom = platform(libs.compose.bom)
     implementation(composeBom)
     androidTestImplementation(composeBom)
 
     implementation(libs.compose.material3)
-    implementation(libs.compose.material3.window.size)
-    implementation(libs.compose.ui.util)
     debugImplementation(libs.compose.ui.tooling)
     implementation(libs.compose.ui.tooling.preview)
 
-    implementation(libs.androidx.paging.runtime.ktx)
-
     testImplementation(libs.androidx.paging.common.ktx)
-    testImplementation(libs.androidx.paging.testing)
 
     implementation(libs.androidx.paging.compose)
 
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
 }

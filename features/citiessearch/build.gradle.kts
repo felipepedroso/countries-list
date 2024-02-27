@@ -40,13 +40,8 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":designsystem"))
     implementation(project(":repository"))
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.activity)
-    implementation(libs.androidx.appcompat)
 
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.lifecycle.viewmodel.compose)
 
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
@@ -56,17 +51,12 @@ dependencies {
     androidTestImplementation(composeBom)
 
     implementation(libs.compose.material3)
-    implementation(libs.compose.material3.window.size)
-    implementation(libs.compose.ui.util)
     debugImplementation(libs.compose.ui.tooling)
     implementation(libs.compose.ui.tooling.preview)
 
     implementation(libs.androidx.paging.compose)
     testImplementation(libs.androidx.paging.common.ktx)
     testImplementation(libs.androidx.paging.testing)
-
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
 
     testImplementation(libs.junit)
     testImplementation(libs.truth)

@@ -25,20 +25,15 @@ android {
         jvmTarget = JavaVersion.VERSION_17.toString()
     }
 
-    namespace = AndroidConfiguration.applicationId
+    namespace = "${AndroidConfiguration.applicationId}.repository"
 }
 
 dependencies {
     implementation(project(":database"))
     implementation(project(":databaseinitialization"))
     implementation(project(":domain"))
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
     implementation(libs.androidx.paging.runtime.ktx)
     testImplementation(libs.androidx.paging.common.ktx)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
 }

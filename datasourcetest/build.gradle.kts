@@ -26,17 +26,11 @@ android {
         jvmTarget = JavaVersion.VERSION_17.toString()
     }
 
-    namespace = AndroidConfiguration.applicationId
+    namespace = "${AndroidConfiguration.applicationId}.datasourcetest"
 }
 
 dependencies {
     implementation(project(":datasource"))
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.kotlinx.serialization.json)
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
 }

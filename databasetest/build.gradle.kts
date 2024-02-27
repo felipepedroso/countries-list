@@ -23,20 +23,12 @@ android {
         jvmTarget = JavaVersion.VERSION_17.toString()
     }
 
-    namespace = "${AndroidConfiguration.applicationId}.database"
+    namespace = "${AndroidConfiguration.applicationId}.databasetest"
 }
 
 dependencies {
     implementation(project(":database"))
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
     implementation(libs.androidx.room.runtime)
     annotationProcessor(libs.androidx.room.compiler)
     implementation(libs.androidx.room.paging)
-    implementation(libs.androidx.room.ktx)
-    implementation(libs.androidx.work.runtime.ktx)
-    androidTestImplementation(libs.androidx.work.testing)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
 }

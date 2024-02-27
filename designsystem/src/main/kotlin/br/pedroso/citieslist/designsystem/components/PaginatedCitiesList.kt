@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -83,7 +83,7 @@ private fun CitiesList(
                 )
 
                 if (index < lazyPagingItems.itemCount - 1) {
-                    Divider()
+                    HorizontalDivider()
                 }
             }
         }
@@ -105,9 +105,9 @@ fun PaginatedCitiesListPreview(
             headerContent = {
                 Box(
                     modifier =
-                        Modifier
-                            .fillMaxWidth()
-                            .padding(16.dp),
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
                 ) {
                     Text(text = "$it cities available:")
                 }
@@ -115,9 +115,9 @@ fun PaginatedCitiesListPreview(
             errorStateContent = {
                 Box(
                     modifier =
-                        Modifier
-                            .fillMaxSize()
-                            .padding(16.dp),
+                    Modifier
+                        .fillMaxSize()
+                        .padding(16.dp),
                     contentAlignment = Alignment.Center,
                 ) {
                     Text(text = "This is an error state.")
@@ -126,9 +126,9 @@ fun PaginatedCitiesListPreview(
             emptyStateContent = {
                 Box(
                     modifier =
-                        Modifier
-                            .fillMaxSize()
-                            .padding(16.dp),
+                    Modifier
+                        .fillMaxSize()
+                        .padding(16.dp),
                     contentAlignment = Alignment.Center,
                 ) {
                     Text(text = "This is an empty state.")
