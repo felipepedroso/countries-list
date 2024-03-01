@@ -4,6 +4,7 @@ import br.pedroso.citieslist.AndroidConfiguration
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.roborazzi)
 }
 
 android {
@@ -31,6 +32,12 @@ android {
         kotlinCompilerExtensionVersion = libs.versions.compose.kotlinCompilerExtension.get()
     }
 
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+        }
+    }
+
     namespace = "${AndroidConfiguration.applicationId}.designsystem"
 }
 
@@ -45,7 +52,10 @@ dependencies {
     debugImplementation(libs.compose.ui.tooling)
     implementation(libs.compose.ui.tooling.preview)
 
-    testImplementation(libs.androidx.paging.common.ktx)
-
     api(libs.androidx.paging.compose)
+    testImplementation (libs.junit)
+    testImplementation (libs.robolectric)
+    testImplementation(libs.roborazzi)
+    testImplementation(libs.roborazzi.compose)
+    testImplementation(libs.roborazzi.rule)
 }
