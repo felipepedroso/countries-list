@@ -54,6 +54,8 @@ dependencies {
 
     api(libs.androidx.paging.compose)
     testImplementation (libs.junit)
+    testImplementation (libs.compose.ui.test)
+    debugImplementation(libs.compose.ui.testManifest)
     testImplementation (libs.robolectric)
     testImplementation(libs.roborazzi)
     testImplementation(libs.roborazzi.compose)

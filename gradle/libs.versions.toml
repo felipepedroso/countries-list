@@ -39,6 +39,8 @@ compose-material3-window-size = { group = "androidx.compose.material3", name = "
 compose-ui-util = { group = "androidx.compose.ui", name = "ui-util" }
 compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+compose-ui-test = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+compose-ui-testManifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso-core" }
 androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hilt-extensions" }
 androidx-junit = { module = "androidx.test.ext:junit", version.ref = "androidx-junit" }
