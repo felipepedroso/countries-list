@@ -87,5 +87,5 @@ spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 org-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "org-jetbrains-kotlin-jvm" }
 androidLibrary = { id = "com.android.library", version.ref = "androidGradlePlugin" }
 dependencyAnalysis = { id = "com.autonomousapps.dependency-analysis", version = "1.30.0" }
-gradleDoctor = { id = "com.osacky.doctor", version = "0.9.1" }
+gradleDoctor = { id = "com.osacky.doctor", version = "0.9.2" }
 roborazzi = { id = "io.github.takahirom.roborazzi", version.ref = "roborazzi" }
