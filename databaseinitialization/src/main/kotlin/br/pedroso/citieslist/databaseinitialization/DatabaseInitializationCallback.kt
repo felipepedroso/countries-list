@@ -12,7 +12,6 @@ class DatabaseInitializationCallback
         private val databaseInitializationManager: DatabaseInitializationManager,
     ) : RoomDatabase.Callback() {
         override fun onCreate(db: SupportSQLiteDatabase) {
-            super.onCreate(db)
             databaseInitializationManager.startInitializationWorker()
         }
     }

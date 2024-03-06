@@ -29,6 +29,7 @@ spotless = "6.25.0"
 truth = "1.4.2"
 work-runtime-ktx = "2.9.0"
 org-jetbrains-kotlin-jvm = "1.9.22"
+testCoreKtx = "1.5.0"
 [libraries]
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "core-ktx" }
@@ -56,6 +57,7 @@ androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref =
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 androidx-room-paging = { module = "androidx.room:room-paging", version.ref = "room" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+androidx-test-core-ktx = { group = "androidx.test", name = "core-ktx", version.ref = "testCoreKtx" }
 androidx-work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "work-runtime-ktx" }
 androidx-work-testing = { module = "androidx.work:work-testing", version.ref = "work-runtime-ktx" }
 fixture = { module = "com.appmattus.fixture:fixture", version.ref = "fixture" }

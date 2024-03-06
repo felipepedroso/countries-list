@@ -25,12 +25,17 @@ android {
         jvmTarget = JavaVersion.VERSION_17.toString()
     }
 
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+        }
+    }
+
     namespace = "${AndroidConfiguration.applicationId}.databaseinitialization"
 }
 
 dependencies {
     api(project(":database"))
-    testImplementation(project(":databasetest"))
     api(project(":datasource"))
     testImplementation(project(":datasourcetest"))
     api(libs.hilt.android)
@@ -39,7 +44,11 @@ dependencies {
     api(libs.hilt.work)
     api(libs.androidx.room.runtime)
     implementation(libs.androidx.work.runtime.ktx)
+    implementation(libs.androidx.work.testing)
     testImplementation(libs.junit)
+    testImplementation(libs.androidx.test.core.ktx)
+    testImplementation(project(":databasetest"))
+    testImplementation(libs.robolectric)
     testImplementation(libs.fixture)
     testImplementation(libs.truth)
     testImplementation(libs.kotlinx.coroutines.test)

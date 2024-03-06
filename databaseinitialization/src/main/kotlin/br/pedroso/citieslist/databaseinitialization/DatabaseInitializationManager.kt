@@ -8,9 +8,8 @@ import androidx.work.WorkManager
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.conflate
 import kotlinx.coroutines.flow.map
+import java.util.UUID
 import javax.inject.Inject
-
-private const val INITIALIZATION_WORK_NAME = "INITIALIZATION_WORK_NAME"
 
 class DatabaseInitializationManager
     @Inject
@@ -23,9 +22,14 @@ class DatabaseInitializationManager
                 .map(List<WorkInfo>::anyRunning)
                 .conflate()
 
-        internal fun startInitializationWorker() {
+        internal fun startInitializationWorker(): UUID {
             val request = OneTimeWorkRequestBuilder<DatabaseInitializationWorker>().build()
             workManager.enqueueUniqueWork(INITIALIZATION_WORK_NAME, ExistingWorkPolicy.KEEP, request)
+            return request.id
+        }
+
+        companion object {
+            const val INITIALIZATION_WORK_NAME = "INITIALIZATION_WORK_NAME"
         }
     }
 

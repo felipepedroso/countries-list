@@ -1,6 +1,7 @@
 package br.pedroso.citieslist.databaseinitialization
 
 import br.pedroso.citieslist.database.CitiesDao
+import br.pedroso.citieslist.database.test.SuccessfulCitiesDao
 import br.pedroso.citieslist.datasource.CitiesJsonDataSource
 import br.pedroso.citieslist.datasource.JsonCity
 import br.pedroso.citieslist.datasource.test.FakeCitiesJsonDataSource
@@ -11,7 +12,7 @@ import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 
-class InitializeDatabaseWithJsonDataTest {
+class InitializeDatabaseUseCaseTest {
     private val fixture =
         kotlinFixture {
             nullabilityStrategy(NeverNullStrategy)
@@ -20,12 +21,12 @@ class InitializeDatabaseWithJsonDataTest {
     private fun createUseCase(
         citiesDao: CitiesDao,
         citiesJsonDataSource: CitiesJsonDataSource,
-    ) = InitializeDatabaseWithJsonData(citiesDao, citiesJsonDataSource)
+    ) = InitializeDatabaseUseCaseImpl(citiesDao, citiesJsonDataSource)
 
     @Test
     fun `given data source is empty when use case is executed then database must be empty`() =
         runTest {
-            val citiesDao = br.pedroso.citieslist.database.test.SuccessfulCitiesDao()
+            val citiesDao = SuccessfulCitiesDao()
             val citiesJsonDataSource = FakeCitiesJsonDataSource(emptyList())
             val useCase = createUseCase(citiesDao, citiesJsonDataSource)
 
@@ -37,7 +38,7 @@ class InitializeDatabaseWithJsonDataTest {
     @Test
     fun `given data source has cities when use case is executed then database must contain the same cities`() =
         runTest {
-            val citiesDao = br.pedroso.citieslist.database.test.SuccessfulCitiesDao()
+            val citiesDao = SuccessfulCitiesDao()
             val citiesJsonDataSource = FakeCitiesJsonDataSource(fixture<List<JsonCity>>())
             val expectedCities = citiesJsonDataSource.getCities().map(JsonCity::toDatabaseCity)
             val useCase = createUseCase(citiesDao, citiesJsonDataSource)
