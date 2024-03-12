@@ -12,22 +12,24 @@ internal class CitiesRepositoryImpl(
 ) : CitiesRepository {
     override fun getCities(searchQuery: String): Flow<PagingData<City>> {
         return combinePagedCitiesAndDatabaseInitializationFlows(
-            citiesPagingDataFlow = databasePagerFlowFactory {
-                if (searchQuery.isNotEmpty()) {
-                    citiesDao.getCitiesByName(searchQuery)
-                } else {
-                    citiesDao.getAllCities()
-                }
-            },
+            citiesPagingDataFlow =
+                databasePagerFlowFactory {
+                    if (searchQuery.isNotEmpty()) {
+                        citiesDao.getCitiesByName(searchQuery)
+                    } else {
+                        citiesDao.getAllCities()
+                    }
+                },
             databaseInitializationFlow = databaseInitializationManager.isInitializingDatabase,
         )
     }
 
     override fun getStarredCities(): Flow<PagingData<City>> {
         return combinePagedCitiesAndDatabaseInitializationFlows(
-            citiesPagingDataFlow = databasePagerFlowFactory {
-                citiesDao.getStarredCities()
-            },
+            citiesPagingDataFlow =
+                databasePagerFlowFactory {
+                    citiesDao.getStarredCities()
+                },
             databaseInitializationFlow = databaseInitializationManager.isInitializingDatabase,
         )
     }

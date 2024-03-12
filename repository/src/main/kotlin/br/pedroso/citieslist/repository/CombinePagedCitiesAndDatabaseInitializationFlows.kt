@@ -15,11 +15,11 @@ fun combinePagedCitiesAndDatabaseInitializationFlows(
         if (isInitializing) {
             PagingData.empty(
                 sourceLoadStates =
-                LoadStates(
-                    refresh = LoadState.Loading,
-                    prepend = LoadState.NotLoading(endOfPaginationReached = true),
-                    append = LoadState.NotLoading(endOfPaginationReached = true),
-                ),
+                    LoadStates(
+                        refresh = LoadState.Loading,
+                        prepend = LoadState.NotLoading(endOfPaginationReached = true),
+                        append = LoadState.NotLoading(endOfPaginationReached = true),
+                    ),
             )
         } else {
             pagingData
